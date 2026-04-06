@@ -15,7 +15,6 @@
             color: #111;
         }
 
-        /* NAVBAR */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -38,10 +37,8 @@
         }
         .nav-right button:hover { text-decoration: underline; }
 
-        /* LAYOUT */
         .layout { display: flex; min-height: calc(100vh - 56px); }
 
-        /* SIDEBAR */
         .sidebar {
             width: 260px;
             background: #ffffff;
@@ -71,7 +68,6 @@
             color: #fff;
         }
 
-        /* MAIN CONTENT */
         .main {
             flex: 1;
             padding: 24px 32px;
@@ -115,24 +111,25 @@
         <div class="nav-left">Harjas Sidhu</div>
         <div class="nav-right">
             <button onclick="showTopSection('about')">About</button>
-            <button onclick="showTopSection('ftc')">FTC</button>
+            <button onclick="showTopSection('ftc-landing')">FTC</button>
             <button onclick="showTopSection('contact')">Contact</button>
         </div>
     </div>
 
     <div class="layout">
 
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR (FTC) -->
         <div class="sidebar" id="ftcSidebar" style="display:none;">
-            <div class="sidebar-section-title">Overview</div>
+            <div class="sidebar-section-title">FTC</div>
             <button onclick="showSection('ftc-mech-overview', this)">Mechanisms Overview</button>
+            <button onclick="showSection('ftc-seasons-landing', this)">Seasons</button>
 
             <div class="sidebar-section-title">Seasons</div>
-            <button onclick="showSection('ftc-2526-overview', this)">2025–2026 Overview</button>
-            <button onclick="showSection('ftc-2425-overview', this)">2024–2025 Overview</button>
+            <button onclick="showSection('ftc-2526-season', this)">2025–2026 — DECODE</button>
+            <button onclick="showSection('ftc-2425-season', this)">2024–2025 — INTO THE DEEP</button>
 
             <div class="sidebar-section-title">Mechanisms</div>
-            <button onclick="showSection('ftc-mech-shooter', this)">Turreted Shooter</button>
+            <button onclick="showSection('ftc-mech-shooting', this)">Shooting Mechanism</button>
             <button onclick="showSection('ftc-mech-tipper', this)">Tipper Park</button>
             <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
             <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
@@ -152,144 +149,216 @@
                     and program 18‑inch robots to play a brand‑new engineering game every season.
                 </p>
                 <p>
-                    My work centers around building mechanisms that are reliable under stress, easy to maintain, and optimized
-                    through fast prototyping and testing. This portfolio documents the systems I built across multiple FTC seasons.
+                    This portfolio documents the mechanisms I’ve built across multiple FTC seasons, with an emphasis on reliability,
+                    simplicity under stress, and iteration based on real match performance.
                 </p>
             </div>
 
             <!-- FTC LANDING -->
-            <div id="ftc" class="section">
+            <div id="ftc-landing" class="section">
                 <h1>FTC Robotics — Team 20744 “24Karat”</h1>
                 <p>
-                    This section covers my engineering work across two FTC seasons. Each game required different scoring strategies,
-                    so the mechanisms I built were designed to solve specific problems unique to that year.
+                    I am a student engineer on FTC Team 20744 “24Karat.” This section focuses on the mechanisms I built and the
+                    games I competed in, rather than the entire robot. Each season’s game is different, so the engineering
+                    challenges change every year.
                 </p>
             </div>
 
-            <!-- ⭐ MECHANISMS OVERVIEW (STORY VERSION) -->
+            <!-- MECHANISMS OVERVIEW (SHORT STORY VERSION) -->
             <div id="ftc-mech-overview" class="section">
                 <h1>Mechanisms Overview</h1>
                 <p>
-                    I compete in the <strong>FIRST Tech Challenge (FTC)</strong>, where every season introduces a brand‑new game with
-                    new scoring rules and engineering challenges. This page gives a simple story of the mechanisms I built across
-                    the 2024–2025 and 2025–2026 seasons and why they existed.
+                    I compete in the <strong>FIRST Tech Challenge (FTC)</strong>, a global robotics program where teams design,
+                    build, and program 18‑inch robots to play a brand‑new game every season. Each game introduces new scoring
+                    rules, new field elements, and new engineering challenges, so the robot has to be engineered from scratch
+                    every year.
                 </p>
-
-                <h2>2025–2026 — DECODE™</h2>
                 <p>
-                    DECODE revolves around collecting 5‑inch spherical artifacts and shooting them into corner goals. Accuracy and
-                    consistency matter a lot, especially from different angles on the field.
-                </p>
-
-                <h3>Turreted Shooter System</h3>
-                <p>
-                    My main engineering focus this season was developing a turreted shooter — a system that rotates independently
-                    of the drivetrain and fires artifacts accurately from anywhere on the field.
-                </p>
-
-                <h3>Tipper Park Mechanism</h3>
-                <p>
-                    To earn the Base ranking point, robots must fit into a small zone at the end of the match. Full lift systems
-                    were too slow and unreliable, so I built a compact tipping mechanism that folds the robot’s footprint in half.
-                    I ran finite element analysis (FEA) to confirm the kicker geometry was strong while keeping weight low.
-                </p>
-
-                <h2>2024–2025 — INTO THE DEEP™</h2>
-                <p>
-                    INTO THE DEEP required robots to pick up triangular samples, lift them to different heights, and place them
-                    into baskets or onto bars. My work focused on everything that happened after the intake.
-                </p>
-
-                <h3>Linear Extension System</h3>
-                <p>
-                    A servo‑powered horizontal extension riding on a linear slide, geared 1:2.6 using two Axon Max servos. Built to
-                    reach scoring heights on the Submersible and Chamber.
-                </p>
-
-                <h3>Transfer System</h3>
-                <p>
-                    This mechanism went through several versions — passive prototypes, LEGO testing, hybrid designs — before
-                    becoming a lightweight micro‑servo claw that reliably handed off samples for scoring.
-                </p>
-
-                <h3>Claw Geometry</h3>
-                <p>
-                    The claw was shaped to match the inside of the FTC sample. Herringbone gears helped the fingers self‑center
-                    and grip smoothly without slipping.
-                </p>
-
-                <h3>2‑Bar / Virtual 4‑Bar</h3>
-                <p>
-                    A simple linkage powered by an Axon Mini through a 1:1 gear. It moved samples from the intake to scoring
-                    positions, with an extra pitch joint to fine‑tune the drop‑off angle.
+                    This page gives a simple story of the mechanisms I built across the 2024–2025 and 2025–2026 seasons and why
+                    they existed in the context of each game. Detailed technical breakdowns live on each mechanism’s dedicated page.
                 </p>
             </div>
 
-            <!-- 2025–2026 OVERVIEW -->
-            <div id="ftc-2526-overview" class="section">
-                <h1>2025–2026 Season Overview — DECODE™</h1>
+            <!-- SEASONS LANDING -->
+            <div id="ftc-seasons-landing" class="section">
+                <h1>FTC Seasons</h1>
                 <p>
-                    This season centered around fast, accurate shooting and consistent endgame performance. My work focused on
-                    developing the turreted shooter system and the tipping park mechanism.
+                    Every FTC season brings a new engineering challenge. Below are the seasons I’ve competed in and the systems
+                    I focused on.
+                </p>
+
+                <div class="card">
+                    <div class="card-title">2025–2026 — DECODE™</div>
+                    <p>
+                        A shooting‑focused game built around collecting and scoring 5‑inch spherical artifacts into corner goals,
+                        with additional ranking points from navigation and endgame positioning.
+                    </p>
+                    <p><strong>My focus:</strong> Shooting Mechanism (V1–V3), Tipper Park mechanism.</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">2024–2025 — INTO THE DEEP™</div>
+                    <p>
+                        A precision placement game where robots pick up triangular samples and score them into baskets or onto
+                        bars at different heights.
+                    </p>
+                    <p><strong>My focus:</strong> Linear Extension, Transfer System, Claw, 2‑Bar / Virtual 4‑Bar linkage.</p>
+                </div>
+            </div>
+
+            <!-- 2025–2026 SEASON PAGE -->
+            <div id="ftc-2526-season" class="section">
+                <h1>2025–2026 Season — DECODE™</h1>
+                <p>
+                    DECODE is a shooting‑based game where robots collect 5‑inch spherical artifacts and score them into corner
+                    goals. The game rewards accuracy, consistency, and fast cycling, along with reliable endgame positioning.
+                </p>
+
+                <h2>What Robots Had to Do</h2>
+                <ul>
+                    <li>Collect artifacts from the field.</li>
+                    <li>Shoot them accurately into corner goals.</li>
+                    <li>Navigate field zones for additional points.</li>
+                    <li>Complete a Base park at the end of the match.</li>
+                </ul>
+
+                <h2>What I Worked On</h2>
+                <ul>
+                    <li><strong>Shooting Mechanism (V1–V3):</strong> full turreted shooting system for multi‑angle scoring.</li>
+                    <li><strong>Tipper Park Mechanism:</strong> compact tipping solution for consistent Base ranking point.</li>
+                </ul>
+
+                <h2>Team Achievements</h2>
+                <ul>
+                    <li><strong>NEOH League Tournament:</strong> Inspire Award 1, Winning Alliance Captain.</li>
+                    <li><strong>Van Wert Qualifier:</strong> Inspire Award 2, Alliance 3 First Pick.</li>
+                    <li><strong>OH Miami University Qualifier:</strong> Inspire Award 3, Alliance 4 First Pick.</li>
+                </ul>
+            </div>
+
+            <!-- 2024–2025 SEASON PAGE -->
+            <div id="ftc-2425-season" class="section">
+                <h1>2024–2025 Season — INTO THE DEEP™</h1>
+                <p>
+                    INTO THE DEEP is a precision placement game where robots pick up triangular samples and score them into
+                    baskets or onto bars at different heights. My work focused on the mechanisms that moved and scored samples
+                    after the intake.
+                </p>
+
+                <h2>What Robots Had to Do</h2>
+                <ul>
+                    <li>Collect samples from the field.</li>
+                    <li>Lift them to multiple scoring heights.</li>
+                    <li>Place them accurately into baskets or onto bars.</li>
+                    <li>Complete endgame tasks such as climbs or parks.</li>
+                </ul>
+
+                <h2>What I Worked On</h2>
+                <ul>
+                    <li><strong>Linear Extension System:</strong> horizontal extension on a linear slide for scoring reach.</li>
+                    <li><strong>Transfer System:</strong> multiple iterations leading to a lightweight micro‑servo claw.</li>
+                    <li><strong>Claw Geometry:</strong> sample‑matching claw with herringbone gears.</li>
+                    <li><strong>2‑Bar / Virtual 4‑Bar:</strong> linkage for controlled motion to scoring positions.</li>
+                </ul>
+
+                <h2>Team Achievements</h2>
+                <ul>
+                    <li><strong>Ohio Championship (Hobart Arena, Troy, OH):</strong> 7th place (quals), 4‑1‑0 record, 1.60 RP, 95.23 npOPR, 172.20 npAVG, Inspire Award Winner.</li>
+                    <li><strong>OH Miami University Qualifier:</strong> 5th place (quals), 4‑1‑0 record, 1.60 RP, 117.47 npOPR, 155.00 npAVG, Design Award Winner.</li>
+                    <li><strong>OH Kirtland Robotics Qualifier:</strong> 4th place (quals), 5‑1‑0 record, 1.67 RP, 122.23 npOPR, 166.67 npAVG, Connect Award Winner.</li>
+                    <li><strong>NEOH Aurora League Tournament:</strong> 8th place (quals), 3‑2‑0 record, 1.20 RP, 71.69 npOPR, 123.40 npAVG, Inspire Award Winner, Winning Alliance 1st Pick.</li>
+                </ul>
+            </div>
+
+            <!-- MECHANISM: SHOOTING -->
+            <div id="ftc-mech-shooting" class="section">
+                <h1>Shooting Mechanism (V1–V3)</h1>
+                <p>
+                    This mechanism was designed for accurate scoring from multiple field positions in DECODE. The shooter is
+                    mounted on a turret, allowing it to rotate independently of the drivetrain so the robot doesn’t need perfect
+                    alignment to score.
+                </p>
+                <p>
+                    Across V1–V3, I worked on compression tuning, hood geometry, roller alignment, friction reduction, and turret
+                    integration to achieve consistent shot trajectories under load. The goal was a shooter that could score
+                    reliably from different angles and distances while maintaining repeatability over an entire match.
                 </p>
             </div>
 
-            <!-- 2024–2025 OVERVIEW -->
-            <div id="ftc-2425-overview" class="section">
-                <h1>2024–2025 Season Overview — INTO THE DEEP™</h1>
-                <p>
-                    This season required controlled placement of samples into baskets and onto bars. I built the mechanisms that
-                    handled the entire scoring path after the intake.
-                </p>
-            </div>
-
-            <!-- MECHANISM PAGES -->
-            <div id="ftc-mech-shooter" class="section">
-                <h1>Turreted Shooter System</h1>
-                <p>
-                    A rotating shooter designed for accurate scoring from multiple field positions. Work included compression
-                    tuning, hood geometry, roller alignment, friction reduction, and turret integration.
-                </p>
-            </div>
-
+            <!-- MECHANISM: TIPPER PARK -->
             <div id="ftc-mech-tipper" class="section">
                 <h1>Tipper Park Mechanism</h1>
                 <p>
-                    A compact tipping mechanism that folds the robot’s footprint in half to secure the Base ranking point. FEA
-                    was used to validate strength while minimizing weight. Two bearing‑roller supports reduce friction during
-                    deployment.
+                    To earn the Base ranking point in DECODE, robots must fit into a small zone at the end of the match. Full lift
+                    systems were often too slow and unreliable, especially for 18‑inch robots.
+                </p>
+                <p>
+                    I designed a compact tipping mechanism that effectively cuts the robot’s footprint in half while keeping the
+                    mechanical complexity low. To minimize trial‑and‑error, I ran a finite element analysis (FEA) static study on
+                    the kicker geometry to confirm it would be strong enough under load while allowing material to be removed
+                    where stress was low.
+                </p>
+                <p>
+                    Two small bearing‑roller supports at the contact point help reduce friction and guide the robot smoothly into
+                    the tipped position instead of catching or binding.
                 </p>
             </div>
 
+            <!-- MECHANISM: EXTENDO -->
             <div id="ftc-mech-extendo" class="section">
                 <h1>Linear Extension System</h1>
                 <p>
-                    A servo‑powered horizontal extension riding on a linear slide, geared 1:2.6 using two Axon Max servos. Built
-                    for reaching scoring heights on the Submersible and Chamber.
+                    The linear extension system was built for INTO THE DEEP to reach scoring heights on the Submersible and
+                    Chamber. It uses a horizontal servo‑powered linkage that rides on a linear slide.
+                </p>
+                <p>
+                    The extension is geared 1:2.6 using two servo‑boosted Axon Max servos, providing enough torque to extend
+                    reliably under load while keeping the structure relatively lightweight. The design focused on smooth travel,
+                    controlled reach, and minimizing sag during extension.
                 </p>
             </div>
 
+            <!-- MECHANISM: TRANSFER -->
             <div id="ftc-mech-transfer" class="section">
                 <h1>Transfer System</h1>
                 <p>
-                    Evolved through multiple prototypes — passive, LEGO, hybrid — before becoming a lightweight micro‑servo claw
-                    that reliably handed off samples for scoring.
+                    The transfer system for INTO THE DEEP went through several iterations as I worked toward a reliable way to
+                    move samples from the intake to the scoring position.
+                </p>
+                <p>
+                    Early concepts used passive fingers and flares with a micro servo release, followed by LEGO prototypes and
+                    hybrid passive/active designs. These versions helped test ideas but were either too weak or too bulky.
+                </p>
+                <p>
+                    The final version was a lightweight micro‑servo‑driven claw mounted at the end of the arm. It was designed to
+                    be as light and compact as possible to reduce inertia while still providing consistent control over samples.
+                    I shared the CAD for this design with other teams.
                 </p>
             </div>
 
+            <!-- MECHANISM: CLAW -->
             <div id="ftc-mech-claw" class="section">
                 <h1>Claw</h1>
                 <p>
-                    Designed to match the internal geometry of the FTC sample. Uses herringbone gears for smooth, self‑centering
-                    gripping with reduced slipping.
+                    The claw was designed to match the internal geometry of the FTC sample, giving it a large surface contact area
+                    and a firm, consistent grip.
+                </p>
+                <p>
+                    Each finger uses a herringbone gear, which is self‑centering and allows multiple teeth to contact at once.
+                    This reduces the chances of slipping or stripping and keeps the motion smooth during opening and closing.
                 </p>
             </div>
 
+            <!-- MECHANISM: 2-BAR / V4B -->
             <div id="ftc-mech-v4b" class="section">
                 <h1>2‑Bar / Virtual 4‑Bar Mechanism</h1>
                 <p>
-                    A simple linkage powered by an Axon Mini through a 1:1 gear. Moves samples from the intake to scoring
-                    positions with an additional pitch joint for angle control.
+                    This mechanism moved samples from the intake to scoring positions in INTO THE DEEP. It is a simple 2‑bar
+                    linkage powered by an Axon Mini through a 1:1 aluminum gear.
+                </p>
+                <p>
+                    An additional degree of freedom, which I refer to as pitch, allows the end of the arm to pivot and optimize
+                    the drop‑off position. The goal was a fast, predictable motion path with low mechanical complexity.
                 </p>
             </div>
 
@@ -310,9 +379,9 @@
             clearActiveSections();
             document.getElementById(id).classList.add('active');
             const sidebar = document.getElementById('ftcSidebar');
-            if (id === 'ftc' || id.startsWith('ftc-')) {
+            if (id === 'ftc-landing' || id.startsWith('ftc-')) {
                 sidebar.style.display = 'block';
-                if (id === 'ftc') {
+                if (id === 'ftc-landing') {
                     clearActiveSections();
                     document.getElementById('ftc-mech-overview').classList.add('active');
                     setActiveSidebarButton('ftc-mech-overview');
@@ -332,7 +401,8 @@
         function setActiveSidebarButton(sectionId) {
             document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
             document.querySelectorAll('.sidebar button').forEach(b => {
-                if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(sectionId)) {
+                const onclick = b.getAttribute('onclick') || '';
+                if (onclick.includes(sectionId)) {
                     b.classList.add('active-link');
                 }
             });

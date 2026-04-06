@@ -94,6 +94,35 @@
             margin-bottom: 8px;
         }
 
+        /* Shooting subtabs */
+        .shoot-tab { display: none; margin-top: 20px; }
+        .active-shoot-tab { display: block; }
+        .shoot-tab-btn {
+            background: #eee;
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            margin-right: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .shoot-tab-btn.active-shoot-btn {
+            background: #111;
+            color: #fff;
+        }
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #ddd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
             .sidebar {
@@ -164,7 +193,7 @@
                 </p>
             </div>
 
-            <!-- MECHANISMS OVERVIEW (SHORT STORY VERSION) -->
+            <!-- MECHANISMS OVERVIEW -->
             <div id="ftc-mech-overview" class="section">
                 <h1>Mechanisms Overview</h1>
                 <p>
@@ -224,7 +253,7 @@
 
                 <h2>What I Worked On</h2>
                 <ul>
-                    <li><strong>Shooting Mechanism (V1–V3):</strong> full turreted shooting system for multi‑angle scoring.</li>
+                    <li><strong>Shooting Mechanism (V1–V3):</strong> turreted shooting system for multi‑angle scoring.</li>
                     <li><strong>Tipper Park Mechanism:</strong> compact tipping solution for consistent Base ranking point.</li>
                 </ul>
 
@@ -270,22 +299,71 @@
                 </ul>
             </div>
 
-            <!-- MECHANISM: SHOOTING -->
+            <!-- SHOOTING MECHANISM WITH SUBTABS -->
             <div id="ftc-mech-shooting" class="section">
-                <h1>Shooting Mechanism (V1–V3)</h1>
+                <h1>Shooting Mechanism</h1>
                 <p>
-                    This mechanism was designed for accurate scoring from multiple field positions in DECODE. The shooter is
-                    mounted on a turret, allowing it to rotate independently of the drivetrain so the robot doesn’t need perfect
-                    alignment to score.
+                    The shooting mechanism was the core scoring system for DECODE. It is mounted on a turret, allowing the robot
+                    to rotate independently of the drivetrain and score from multiple field angles without needing perfect alignment.
                 </p>
                 <p>
-                    Across V1–V3, I worked on compression tuning, hood geometry, roller alignment, friction reduction, and turret
-                    integration to achieve consistent shot trajectories under load. The goal was a shooter that could score
-                    reliably from different angles and distances while maintaining repeatability over an entire match.
+                    Across three major versions (V1, V2, V3), I iterated on compression, hood geometry, roller alignment, friction
+                    reduction, and turret integration to achieve consistent, repeatable shots under load.
                 </p>
+
+                <div style="margin-top: 20px;">
+                    <button onclick="showShootTab('shoot-v1', this)" class="shoot-tab-btn active-shoot-btn">V1</button>
+                    <button onclick="showShootTab('shoot-v2', this)" class="shoot-tab-btn">V2</button>
+                    <button onclick="showShootTab('shoot-v3', this)" class="shoot-tab-btn">V3</button>
+                </div>
+
+                <div id="shoot-v1" class="shoot-tab active-shoot-tab">
+                    <h2>Version 1</h2>
+                    <p>
+                        V1 was the initial prototype used to validate basic shooting geometry. The focus was on:
+                    </p>
+                    <ul>
+                        <li>Baseline compression testing</li>
+                        <li>Initial hood angle experiments</li>
+                        <li>Roller spacing and alignment</li>
+                        <li>Understanding artifact deformation under load</li>
+                    </ul>
+                    <p><strong>Images will go here:</strong></p>
+                    <div class="image-placeholder">[shooterv1.png]</div>
+                </div>
+
+                <div id="shoot-v2" class="shoot-tab">
+                    <h2>Version 2</h2>
+                    <p>
+                        V2 introduced major improvements based on V1 testing. This version focused on:
+                    </p>
+                    <ul>
+                        <li>Reducing friction across the entire shot path</li>
+                        <li>Refining hood curvature for smoother release</li>
+                        <li>Better roller synchronization</li>
+                        <li>More stable turret mounting</li>
+                    </ul>
+                    <p><strong>Images will go here:</strong></p>
+                    <div class="image-placeholder">[shooterv2.png]</div>
+                </div>
+
+                <div id="shoot-v3" class="shoot-tab">
+                    <h2>Version 3</h2>
+                    <p>
+                        V3 was the final competition‑ready shooter. This version focused on:
+                    </p>
+                    <ul>
+                        <li>Consistent shot trajectories under full match load</li>
+                        <li>Optimized compression profile</li>
+                        <li>Improved hood stiffness</li>
+                        <li>Clean integration with the turret rotation system</li>
+                    </ul>
+                    <p><strong>Images will go here:</strong></p>
+                    <div class="image-placeholder">[shooterv3.png]</div>
+                </div>
             </div>
 
-            <!-- MECHANISM: TIPPER PARK -->
+            <!-- TIPPER PARK -->
             <div id="ftc-mech-tipper" class="section">
                 <h1>Tipper Park Mechanism</h1>
                 <p>
@@ -304,7 +382,7 @@
                 </p>
             </div>
 
-            <!-- MECHANISM: EXTENDO -->
+            <!-- EXTENDO -->
             <div id="ftc-mech-extendo" class="section">
                 <h1>Linear Extension System</h1>
                 <p>
@@ -318,7 +396,7 @@
                 </p>
             </div>
 
-            <!-- MECHANISM: TRANSFER -->
+            <!-- TRANSFER -->
             <div id="ftc-mech-transfer" class="section">
                 <h1>Transfer System</h1>
                 <p>
@@ -336,7 +414,7 @@
                 </p>
             </div>
 
-            <!-- MECHANISM: CLAW -->
+            <!-- CLAW -->
             <div id="ftc-mech-claw" class="section">
                 <h1>Claw</h1>
                 <p>
@@ -349,7 +427,7 @@
                 </p>
             </div>
 
-            <!-- MECHANISM: 2-BAR / V4B -->
+            <!-- 2-BAR / V4B -->
             <div id="ftc-mech-v4b" class="section">
                 <h1>2‑Bar / Virtual 4‑Bar Mechanism</h1>
                 <p>
@@ -406,6 +484,12 @@
                     b.classList.add('active-link');
                 }
             });
+        }
+        function showShootTab(id, btn) {
+            document.querySelectorAll('.shoot-tab').forEach(t => t.classList.remove('active-shoot-tab'));
+            document.getElementById(id).classList.add('active-shoot-tab');
+            document.querySelectorAll('.shoot-tab-btn').forEach(b => b.classList.remove('active-shoot-btn'));
+            if (btn) btn.classList.add('active-shoot-btn');
         }
     </script>
 

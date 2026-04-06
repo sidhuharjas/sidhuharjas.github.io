@@ -4,29 +4,42 @@
     <meta charset="UTF-8">
     <title>Harjas Sidhu Portfolio</title>
 
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* GENERAL PAGE STYLE */
+        :root {
+            --bg: #eef1f5;
+            --text: #111;
+            --card-bg: #ffffff;
+            --accent: #4f46e5;
+            --accent-soft: rgba(79, 70, 229, 0.12);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        body.dark-mode {
+            --bg: #050509;
+            --text: #f5f5f5;
+            --card-bg: rgba(15, 15, 25, 0.9);
+            --accent: #7c3aed;
+            --accent-soft: rgba(124, 58, 237, 0.25);
+            --nav-bg: rgba(10, 10, 18, 0.9);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f9f9f9;
-            color: #333;
-        }
-
-        .section {
-            padding: 80px 40px;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 18px;
-            line-height: 1.6;
+            font-family: "Inter", sans-serif;
+            background: radial-gradient(circle at top, #e0e7ff 0, var(--bg) 40%);
+            color: var(--text);
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         /* NAVBAR */
@@ -34,29 +47,266 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            padding: 16px 60px;
             position: sticky;
             top: 0;
-            background: white;
-            border-bottom: 1px solid #eee;
+            background: var(--nav-bg);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
             z-index: 1000;
+            transition: background 0.4s ease, border-color 0.4s ease;
         }
 
         .nav-left {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 600;
+            letter-spacing: -0.4px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 26px;
         }
 
         .nav-right a {
-            margin-left: 25px;
             text-decoration: none;
-            color: #333;
+            color: var(--text);
             font-size: 16px;
-            transition: 0.2s;
+            position: relative;
+            transition: color 0.25s, transform 0.25s;
+        }
+
+        .nav-right a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5, #ec4899);
+            border-radius: 999px;
+            transition: width 0.25s;
         }
 
         .nav-right a:hover {
-            color: #000;
+            transform: translateY(-1px);
+        }
+
+        .nav-right a:hover::after {
+            width: 100%;
+        }
+
+        /* THEME TOGGLE */
+        .theme-toggle {
+            background: var(--accent-soft);
+            border: 1px solid rgba(0,0,0,0.06);
+            color: var(--text);
+            border-radius: 999px;
+            padding: 6px 12px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-1px) scale(1.03);
+            box-shadow: 0 0 18px rgba(79, 70, 229, 0.35);
+        }
+
+        /* HERO */
+        .hero {
+            max-width: 1000px;
+            margin: 70px auto 40px;
+            padding: 40px 50px;
+            border-radius: 26px;
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.18), transparent 55%),
+                        var(--card-bg);
+            box-shadow: 0 18px 55px rgba(15, 23, 42, 0.18);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            animation: fadeIn 0.7s ease;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            font-size: 13px;
+        }
+
+        body.dark-mode .hero-tag {
+            background: rgba(15, 23, 42, 0.8);
+            border-color: rgba(148, 163, 184, 0.4);
+        }
+
+        .hero-title {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.6px;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(90deg, #4f46e5, #ec4899);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-sub {
+            font-size: 18px;
+            max-width: 650px;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        .hero-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .pill {
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(255,255,255,0.7);
+        }
+
+        body.dark-mode .pill {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(148, 163, 184, 0.5);
+        }
+
+        /* SECTIONS */
+        .section {
+            max-width: 900px;
+            margin: 40px auto 70px;
+            background: var(--card-bg);
+            padding: 40px 50px;
+            border-radius: 22px;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.16);
+            animation: fadeIn 0.7s ease;
+            transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+            border: 1px solid rgba(148, 163, 184, 0.25);
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        /* PROJECT CARDS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+            margin-top: 10px;
+        }
+
+        .project-card {
+            padding: 18px 18px 20px;
+            border-radius: 18px;
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.18), transparent 55%),
+                        rgba(255,255,255,0.9);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .project-card {
+            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.25), transparent 55%),
+                        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.25), transparent 55%),
+                        rgba(15, 23, 42, 0.95);
+            border-color: rgba(148, 163, 184, 0.5);
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: -40%;
+            background: radial-gradient(circle, rgba(244, 114, 182, 0.18), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
+            border-color: rgba(79, 70, 229, 0.8);
+        }
+
+        .project-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .project-tag {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .project-desc {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* CONTACT */
+        .contact-line {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .contact-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ANIMATION */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 14px 20px;
+            }
+            .hero, .section {
+                margin: 30px 16px;
+                padding: 26px 20px;
+            }
         }
     </style>
 </head>
@@ -70,32 +320,101 @@
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
+            <button id="themeToggle" class="theme-toggle">
+                <span id="themeIcon">🌙</span>
+                <span>Theme</span>
+            </button>
         </div>
     </nav>
 
-    <!-- ABOUT SECTION -->
-    <div class="section" id="about">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-tag">
+            <span>🛠️</span>
+            <span>Robotics‑focused student • Class of 2029</span>
+        </div>
+        <div class="hero-title">
+            Hi, I’m <span class="hero-gradient">Harjas Sidhu</span>.
+        </div>
+        <div class="hero-sub">
+            I like building robots that feel solid, reliable, and intentional — from CAD in SolidWorks to real hardware.
+            I’m focused on turning ideas into working systems that actually move, lift, and drive the way they’re supposed to.
+        </div>
+        <div class="hero-row">
+            <div class="pill">Robotics Engineering</div>
+            <div class="pill">SolidWorks & CAD</div>
+            <div class="pill">Troubleshooting & Iteration</div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
         <h2>About Me</h2>
         <p>
-            My name is Harjas Sidhu, and I’m a high school student in the class of 2029 with a growing passion for robotics engineering. 
-            I enjoy designing parts in SolidWorks, building moving robots, and creating systems that feel stable and well‑built. 
-            My strengths include CAD, troubleshooting, mechanical design, and putting together functional systems from the ground up. 
-            I’m currently learning more programming and simulation tools to expand what I can build, and I’m focused on improving my skills 
+            My name is Harjas Sidhu, and I’m a high school student in the class of 2029 with a growing passion for robotics engineering.
+            I enjoy designing parts in SolidWorks, building moving robots, and creating systems that feel stable and well‑built.
+            My strengths include CAD, troubleshooting, mechanical design, and putting together functional systems from the ground up.
+            I’m currently learning more programming and simulation tools to expand what I can build, and I’m focused on improving my skills
             and creating more capable engineering projects over time.
         </p>
-    </div>
+    </section>
 
-    <!-- PROJECTS SECTION -->
-    <div class="section" id="projects">
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
         <h2>Projects</h2>
-        <p>Coming soon.</p>
-    </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-title">Example Drivetrain Concept</div>
+                <div class="project-tag">SolidWorks • Iteration • Stability</div>
+                <div class="project-desc">
+                    A drivetrain layout modeled in SolidWorks to explore wheel spacing, center of mass, and frame rigidity.
+                    Used it to think through how to keep a robot stable and predictable under acceleration.
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-title">Mechanism Exploration</div>
+                <div class="project-tag">Mechanical Design • Reliability</div>
+                <div class="project-desc">
+                    A small mechanism concept focused on smooth motion and repeatability, experimenting with geometry and support
+                    to reduce wobble and flex under load.
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-title">Learning & Simulation</div>
+                <div class="project-tag">Programming • Simulation Tools</div>
+                <div class="project-desc">
+                    Ongoing work learning programming and simulation tools to better predict how designs will behave before
+                    they’re built, so each iteration is more intentional.
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <!-- CONTACT SECTION -->
-    <div class="section" id="contact">
+    <!-- CONTACT -->
+    <section class="section" id="contact">
         <h2>Contact</h2>
-        <p>Email: your-email@example.com</p>
-    </div>
+        <p class="contact-line">
+            Email:
+            <a class="contact-link" href="mailto:your-email@example.com">your-email@example.com</a>
+        </p>
+        <p class="contact-line">
+            GitHub: <span style="opacity:0.8;">(link coming soon)</span>
+        </p>
+    </section>
 
+    <script>
+        const toggle = document.getElementById("themeToggle");
+        const icon = document.getElementById("themeIcon");
+        const body = document.body;
+
+        toggle.addEventListener("click", () => {
+            body.classList.toggle("dark-mode");
+            if (body.classList.contains("dark-mode")) {
+                icon.textContent = "☀️";
+            } else {
+                icon.textContent = "🌙";
+            }
+        });
+    </script>
 </body>
 </html>

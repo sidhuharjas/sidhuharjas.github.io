@@ -4,42 +4,29 @@
     <meta charset="UTF-8">
     <title>Harjas Sidhu Portfolio</title>
 
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg: #eef1f5;
+            --bg: #f5f5f5;
             --text: #111;
             --card-bg: #ffffff;
-            --accent: #4f46e5;
-            --accent-soft: rgba(79, 70, 229, 0.12);
-            --nav-bg: rgba(255, 255, 255, 0.85);
+            --border: #dcdcdc;
         }
 
         body.dark-mode {
-            --bg: #050509;
+            --bg: #0f0f0f;
             --text: #f5f5f5;
-            --card-bg: rgba(15, 15, 25, 0.9);
-            --accent: #7c3aed;
-            --accent-soft: rgba(124, 58, 237, 0.25);
-            --nav-bg: rgba(10, 10, 18, 0.9);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --card-bg: #1a1a1a;
+            --border: #333;
         }
 
         body {
             margin: 0;
             font-family: "Inter", sans-serif;
-            background: radial-gradient(circle at top, #e0e7ff 0, var(--bg) 40%);
+            background: var(--bg);
             color: var(--text);
-            transition: background 0.4s ease, color 0.4s ease;
+            transition: background 0.25s ease, color 0.25s ease;
         }
 
         /* NAVBAR */
@@ -47,216 +34,80 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 60px;
+            padding: 14px 40px;
+            border-bottom: 1px solid var(--border);
+            background: var(--card-bg);
             position: sticky;
             top: 0;
-            background: var(--nav-bg);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            z-index: 1000;
-            transition: background 0.4s ease, border-color 0.4s ease;
+            z-index: 10;
         }
 
         .nav-left {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
-            letter-spacing: -0.4px;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 26px;
         }
 
         .nav-right a {
+            margin-left: 24px;
             text-decoration: none;
             color: var(--text);
-            font-size: 16px;
-            position: relative;
-            transition: color 0.25s, transform 0.25s;
-        }
-
-        .nav-right a::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            bottom: -4px;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #4f46e5, #ec4899);
-            border-radius: 999px;
-            transition: width 0.25s;
-        }
-
-        .nav-right a:hover {
-            transform: translateY(-1px);
-        }
-
-        .nav-right a:hover::after {
-            width: 100%;
+            font-size: 15px;
         }
 
         /* THEME TOGGLE */
         .theme-toggle {
-            background: var(--accent-soft);
-            border: 1px solid rgba(0,0,0,0.06);
-            color: var(--text);
-            border-radius: 999px;
+            margin-left: 24px;
             padding: 6px 12px;
-            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            color: var(--text);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.3s;
-        }
-
-        .theme-toggle:hover {
-            transform: translateY(-1px) scale(1.03);
-            box-shadow: 0 0 18px rgba(79, 70, 229, 0.35);
+            font-size: 14px;
         }
 
         /* HERO */
         .hero {
-            max-width: 1000px;
-            margin: 70px auto 40px;
-            padding: 40px 50px;
-            border-radius: 26px;
-            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 55%),
-                        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.18), transparent 55%),
-                        var(--card-bg);
-            box-shadow: 0 18px 55px rgba(15, 23, 42, 0.18);
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            animation: fadeIn 0.7s ease;
-        }
-
-        .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 4px 12px;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.7);
-            border: 1px solid rgba(148, 163, 184, 0.5);
-            font-size: 13px;
-        }
-
-        body.dark-mode .hero-tag {
-            background: rgba(15, 23, 42, 0.8);
-            border-color: rgba(148, 163, 184, 0.4);
+            max-width: 900px;
+            margin: 60px auto 40px;
+            padding: 20px;
         }
 
         .hero-title {
-            font-size: 40px;
+            font-size: 36px;
             font-weight: 700;
-            letter-spacing: -0.6px;
-        }
-
-        .hero-gradient {
-            background: linear-gradient(90deg, #4f46e5, #ec4899);
-            -webkit-background-clip: text;
-            color: transparent;
+            margin-bottom: 10px;
         }
 
         .hero-sub {
             font-size: 18px;
             max-width: 650px;
-            line-height: 1.7;
-            opacity: 0.9;
-        }
-
-        .hero-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 10px;
-        }
-
-        .pill {
-            padding: 6px 14px;
-            border-radius: 999px;
-            font-size: 13px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            background: rgba(255,255,255,0.7);
-        }
-
-        body.dark-mode .pill {
-            background: rgba(15, 23, 42, 0.9);
-            border-color: rgba(148, 163, 184, 0.5);
+            line-height: 1.6;
+            opacity: 0.85;
         }
 
         /* SECTIONS */
         .section {
             max-width: 900px;
-            margin: 40px auto 70px;
+            margin: 40px auto;
+            padding: 30px;
             background: var(--card-bg);
-            padding: 40px 50px;
-            border-radius: 22px;
-            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.16);
-            animation: fadeIn 0.7s ease;
-            transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-            border: 1px solid rgba(148, 163, 184, 0.25);
+            border: 1px solid var(--border);
+            border-radius: 10px;
         }
 
         h2 {
-            font-size: 28px;
-            margin-bottom: 16px;
-            font-weight: 600;
-        }
-
-        p {
-            font-size: 17px;
-            line-height: 1.7;
+            margin-top: 0;
+            font-size: 24px;
         }
 
         /* PROJECT CARDS */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 22px;
-            margin-top: 10px;
-        }
-
         .project-card {
-            padding: 18px 18px 20px;
-            border-radius: 18px;
-            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 55%),
-                        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.18), transparent 55%),
-                        rgba(255,255,255,0.9);
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
-            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        body.dark-mode .project-card {
-            background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.25), transparent 55%),
-                        radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.25), transparent 55%),
-                        rgba(15, 23, 42, 0.95);
-            border-color: rgba(148, 163, 184, 0.5);
-        }
-
-        .project-card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: radial-gradient(circle, rgba(244, 114, 182, 0.18), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-6px) scale(1.01);
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
-            border-color: rgba(79, 70, 229, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: var(--card-bg);
         }
 
         .project-title {
@@ -267,154 +118,83 @@
 
         .project-tag {
             font-size: 13px;
-            opacity: 0.8;
-            margin-bottom: 10px;
+            opacity: 0.7;
+            margin-bottom: 12px;
+        }
+
+        .project-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin: 14px 0;
         }
 
         .project-desc {
             font-size: 15px;
             line-height: 1.6;
         }
-
-        /* CONTACT */
-        .contact-line {
-            font-size: 16px;
-            margin-bottom: 6px;
-        }
-
-        .contact-link {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .contact-link:hover {
-            text-decoration: underline;
-        }
-
-        /* ANIMATION */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 14px 20px;
-            }
-            .hero, .section {
-                margin: 30px 16px;
-                padding: 26px 20px;
-            }
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-left">Harjas Sidhu</div>
         <div class="nav-right">
             <a href="#about">About</a>
             <a href="#projects">Projects</a>
             <a href="#contact">Contact</a>
-            <button id="themeToggle" class="theme-toggle">
-                <span id="themeIcon">🌙</span>
-                <span>Theme</span>
-            </button>
+            <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
         </div>
     </nav>
 
-    <!-- HERO -->
     <section class="hero">
-        <div class="hero-tag">
-            <span>🛠️</span>
-            <span>Robotics‑focused student • Class of 2029</span>
-        </div>
-        <div class="hero-title">
-            Hi, I’m <span class="hero-gradient">Harjas Sidhu</span>.
-        </div>
+        <div class="hero-title">Hi, I’m Harjas.</div>
         <div class="hero-sub">
-            I like building robots that feel solid, reliable, and intentional — from CAD in SolidWorks to real hardware.
-            I’m focused on turning ideas into working systems that actually move, lift, and drive the way they’re supposed to.
-        </div>
-        <div class="hero-row">
-            <div class="pill">Robotics Engineering</div>
-            <div class="pill">SolidWorks & CAD</div>
-            <div class="pill">Troubleshooting & Iteration</div>
+            I build robotics mechanisms, shooters, drivetrains, and engineering systems with a focus on reliability, iteration, and clean mechanical design.
         </div>
     </section>
 
-    <!-- ABOUT -->
-    <section class="section" id="about">
-        <h2>About Me</h2>
-        <p>
-            My name is Harjas Sidhu, and I’m a high school student in the class of 2029 with a growing passion for robotics engineering.
-            I enjoy designing parts in SolidWorks, building moving robots, and creating systems that feel stable and well‑built.
-            My strengths include CAD, troubleshooting, mechanical design, and putting together functional systems from the ground up.
-            I’m currently learning more programming and simulation tools to expand what I can build, and I’m focused on improving my skills
-            and creating more capable engineering projects over time.
-        </p>
-    </section>
-
-    <!-- PROJECTS -->
     <section class="section" id="projects">
         <h2>Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-title">Example Drivetrain Concept</div>
-                <div class="project-tag">SolidWorks • Iteration • Stability</div>
-                <div class="project-desc">
-                    A drivetrain layout modeled in SolidWorks to explore wheel spacing, center of mass, and frame rigidity.
-                    Used it to think through how to keep a robot stable and predictable under acceleration.
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-title">Mechanism Exploration</div>
-                <div class="project-tag">Mechanical Design • Reliability</div>
-                <div class="project-desc">
-                    A small mechanism concept focused on smooth motion and repeatability, experimenting with geometry and support
-                    to reduce wobble and flex under load.
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-title">Learning & Simulation</div>
-                <div class="project-tag">Programming • Simulation Tools</div>
-                <div class="project-desc">
-                    Ongoing work learning programming and simulation tools to better predict how designs will behave before
-                    they’re built, so each iteration is more intentional.
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-        <h2>Contact</h2>
-        <p class="contact-line">
-            Email:
-            <a class="contact-link" href="mailto:your-email@example.com">your-email@example.com</a>
-        </p>
-        <p class="contact-line">
-            GitHub: <span style="opacity:0.8;">(link coming soon)</span>
-        </p>
+        <!-- Shooter V1 -->
+        <div class="project-card">
+            <div class="project-title">FTC Shooter V1 — Double Flywheel Prototype</div>
+            <div class="project-tag">Flywheel • CAD • Prototyping • Iteration</div>
+
+            <img src="images/shooter_v1.png" class="project-img">
+
+            <p class="project-desc">
+                Shooter V1 was our first double vertical flywheel shooter. It used two independently driven
+                6000 RPM motors and lightweight 4-inch wheels. While it achieved high rotational speed and
+                reduced backspin, it suffered from accuracy issues, slow recovery between shots, and no
+                angle adjustment.
+            </p>
+        </div>
+
+        <!-- Shooter V2 -->
+        <div class="project-card">
+            <div class="project-title">FTC Shooter V2 — Adjustable Hood & Counter‑Roller</div>
+            <div class="project-tag">Hooded Shooter • Counter‑Roller • CAD</div>
+
+            <img src="images/shooter_v2.png" class="project-img">
+
+            <p class="project-desc">
+                Shooter V2 introduced an adjustable hood and counter‑roller system. This version improved
+                shot flexibility and reduced backspin, but friction in the hood joints caused slow rebound
+                times, exposing the need for thrust bearings and belt optimization in V3.
+            </p>
+        </div>
+
     </section>
 
     <script>
         const toggle = document.getElementById("themeToggle");
-        const icon = document.getElementById("themeIcon");
-        const body = document.body;
-
         toggle.addEventListener("click", () => {
-            body.classList.toggle("dark-mode");
-            if (body.classList.contains("dark-mode")) {
-                icon.textContent = "☀️";
-            } else {
-                icon.textContent = "🌙";
-            }
+            document.body.classList.toggle("dark-mode");
         });
     </script>
+
 </body>
 </html>

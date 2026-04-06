@@ -1,33 +1,101 @@
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="nav-left">Harjas Sidhu</div>
-    <div class="nav-right">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Harjas Sidhu Portfolio</title>
+
+    <style>
+        /* GENERAL PAGE STYLE */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        .section {
+            padding: 80px 40px;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            background: white;
+            border-bottom: 1px solid #eee;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .nav-right a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .nav-right a:hover {
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-left">Harjas Sidhu</div>
+        <div class="nav-right">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- ABOUT SECTION -->
+    <div class="section" id="about">
+        <h2>About Me</h2>
+        <p>
+            My name is Harjas Sidhu, and I’m a high school student in the class of 2029 with a growing passion for robotics engineering. 
+            I enjoy designing parts in SolidWorks, building moving robots, and creating systems that feel stable and well‑built. 
+            My strengths include CAD, troubleshooting, mechanical design, and putting together functional systems from the ground up. 
+            I’m currently learning more programming and simulation tools to expand what I can build, and I’m focused on improving my skills 
+            and creating more capable engineering projects over time.
+        </p>
     </div>
-</nav>
 
-<!-- ABOUT SECTION -->
-<div class="section" id="about">
-    <h2>About Me</h2>
-    <p>
-        My name is Harjas Sidhu, and I’m a high school student in the class of 2029 with a growing passion for robotics engineering. 
-        I enjoy designing parts in SolidWorks, building moving robots, and creating systems that feel stable and well‑built. 
-        My strengths include CAD, troubleshooting, mechanical design, and putting together functional systems from the ground up. 
-        I’m currently learning more programming and simulation tools to expand what I can build, and I’m focused on improving my skills 
-        and creating more capable engineering projects over time.
-    </p>
-</div>
+    <!-- PROJECTS SECTION -->
+    <div class="section" id="projects">
+        <h2>Projects</h2>
+        <p>Coming soon.</p>
+    </div>
 
-<!-- PROJECTS SECTION -->
-<div class="section" id="projects">
-    <h2>Projects</h2>
-    <p>Coming soon.</p>
-</div>
+    <!-- CONTACT SECTION -->
+    <div class="section" id="contact">
+        <h2>Contact</h2>
+        <p>Email: your-email@example.com</p>
+    </div>
 
-<!-- CONTACT SECTION -->
-<div class="section" id="contact">
-    <h2>Contact</h2>
-    <p>Email: your-email@example.com</p>
-</div>
+</body>
+</html>

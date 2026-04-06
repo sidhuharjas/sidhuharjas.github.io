@@ -199,7 +199,7 @@
             <button onclick="showSection('ftc-mech-shooting', this)">Shooting Mechanism</button>
             <button onclick="showSection('ftc-mech-tipper', this)">Tipper Park</button>
             <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
-            <button onclick="showSection('ftc-mech-transfer', this)">Transfer System (Claw)</button>
+            <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
             <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar / Virtual 4‑Bar</button>
         </div>
 
@@ -418,21 +418,13 @@
                 </p>
             </div>
 
-            <!--Here it is — **the rest of your full site**, exactly as promised.  
-This continues *exactly* where the previous message cut off, completing the entire HTML file cleanly.
-
----
-
-# ⭐ **FULL FINAL HTML (PART 2 — COMPLETES THE FILE)**  
-Paste this **directly after** the last line you received (`<!-- EXTENDO -->` section).
-
-```html
-            <!-- TRANSFER SYSTEM (includes CLAW) -->
+            <!-- TRANSFER SYSTEM -->
             <div id="ftc-mech-transfer" class="section">
-                <h1>Transfer System (Claw)</h1>
+                <h1>Transfer System</h1>
                 <p>
-                    The transfer system moved samples from the intake to the scoring position in INTO THE DEEP. It went through
-                    three major iterations as I worked toward a design that was light, consistent, and tolerant to real‑match variability.
+                    The transfer system moved samples from the intake to the scoring position in INTO THE DEEP. 
+                    It went through three major iterations as I worked toward a design that was light, consistent, 
+                    and tolerant to real‑match variability. Version 3 is the claw.
                 </p>
 
                 <div style="margin-top: 20px;">
@@ -441,61 +433,69 @@ Paste this **directly after** the last line you received (`<!-- EXTENDO -->` sec
                     <button onclick="showTransferTab('transfer-v3', this)" class="transfer-tab-btn">V3 (Claw)</button>
                 </div>
 
+                <!-- V1 -->
                 <div id="transfer-v1" class="transfer-tab active-transfer-tab">
-                    <h2>Version 1 — Passive Finger Concept</h2>
+                    <h2>Version 1 — Passive Rubber‑Band Compression</h2>
                     <p>
-                        V1 used passive geometry to guide the sample upward. It was extremely lightweight but inconsistent.
+                        V1 used a passive finger geometry with <strong>rubber‑band‑based compression</strong>. 
+                        The rubber bands allowed the system to flex around the sample and guide it upward. 
+                        Compression was <strong>adjustable</strong> by changing band count and mounting points.
                     </p>
 
                     <h3>What Worked</h3>
                     <ul>
                         <li>Very low weight</li>
-                        <li>Simple geometry</li>
-                        <li>No electronics required</li>
+                        <li>Simple, low‑part‑count geometry</li>
+                        <li>Adjustable compression using rubber bands</li>
                     </ul>
 
                     <h3>What Didn’t Work</h3>
                     <ul>
                         <li>Unpredictable sample rotation</li>
-                        <li>Required perfect intake angle</li>
-                        <li>No positive control</li>
+                        <li>Required near‑perfect intake angle</li>
+                        <li>No positive control — sample could slip or bounce</li>
                     </ul>
 
                     <img src="images/transferV1.png" class="mech-img lightbox-img" alt="Transfer V1">
                 </div>
 
+                <!-- V2 -->
                 <div id="transfer-v2" class="transfer-tab">
-                    <h2>Version 2 — Hybrid Passive/Active</h2>
+                    <h2>Version 2 — Hybrid System with Torsion Spring + Micro‑Servo Gate</h2>
                     <p>
-                        V2 added a micro‑servo gate for active stabilization. It improved alignment but introduced weight and flex issues.
+                        V2 introduced a <strong>torsion spring</strong> for more consistent preload and a 
+                        <strong>micro‑servo gate</strong> to stabilize the sample during transfer. 
+                        Compression remained <strong>adjustable</strong> by changing torsion spring preload.
                     </p>
 
                     <h3>What Improved</h3>
                     <ul>
-                        <li>More consistent alignment</li>
-                        <li>Servo gate prevented bounce‑outs</li>
-                        <li>Better tolerance to imperfect angles</li>
+                        <li>More consistent alignment due to torsion spring preload</li>
+                        <li>Micro‑servo gate reduced bounce‑outs</li>
+                        <li>Better tolerance to imperfect intake angles</li>
                     </ul>
 
                     <h3>Remaining Problems</h3>
                     <ul>
                         <li>Too heavy at the end of the arm</li>
-                        <li>Servo horn flex</li>
-                        <li>Snag points</li>
+                        <li>Servo horn flex under load</li>
+                        <li>
+                            Snag points — exposed edges could catch on the sample’s triangular corners, 
+                            causing jams during fast cycles
+                        </li>
                     </ul>
 
                     <img src="images/transferv2.jpeg" class="mech-img lightbox-img" alt="Transfer V2">
                 </div>
 
+                <!-- V3 -->
                 <div id="transfer-v3" class="transfer-tab">
                     <h2>Version 3 — Lightweight Axon Mini Claw</h2>
                     <p>
-                        V3 was the final competition‑ready version. It used a compact Axon Mini–powered claw that provided
-                        positive control over the sample with minimal weight and fast actuation.
-                    </p>
-                    <p>
-                        The claw geometry was matched to the FTC sample, giving a large contact area and a stable grip. The
-                        mechanism focused on smooth motion, low backlash, and predictable handoff into the scoring position.
+                        V3 replaced the passive system with a compact <strong>Axon Mini–powered claw</strong>. 
+                        The claw geometry was matched to the FTC sample, giving a large contact area and a stable grip. 
+                        This version provided <strong>positive control</strong> at all times and eliminated the 
+                        inconsistencies of V1 and V2.
                     </p>
 
                     <h3>What Made It Better</h3>
@@ -503,7 +503,7 @@ Paste this **directly after** the last line you received (`<!-- EXTENDO -->` sec
                         <li>Extremely lightweight</li>
                         <li>Positive control at all times</li>
                         <li>Smooth, predictable handoff</li>
-                        <li>No snag points</li>
+                        <li>No snag points — fully enclosed geometry</li>
                         <li>Fast actuation with the Axon Mini</li>
                     </ul>
 

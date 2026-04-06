@@ -94,6 +94,35 @@
             margin-bottom: 8px;
         }
 
+        /* Image sizing */
+        .mech-img {
+            max-width: 520px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 14px auto;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .field-img {
+            max-width: 900px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 16px auto;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .sample-img {
+            max-width: 420px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 12px auto;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
         .shoot-tab, .transfer-tab { display: none; margin-top: 20px; }
         .active-shoot-tab, .active-transfer-tab { display: block; }
 
@@ -111,6 +140,28 @@
             background: #111;
             color: #fff;
         }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        .lightbox-image {
+            max-width: 900px;
+            width: 90%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .lightbox-overlay:hover { cursor: zoom-out; }
 
         @media (max-width: 900px) {
             .layout { flex-direction: column; }
@@ -148,8 +199,7 @@
             <button onclick="showSection('ftc-mech-shooting', this)">Shooting Mechanism</button>
             <button onclick="showSection('ftc-mech-tipper', this)">Tipper Park</button>
             <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
-            <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
-            <button onclick="showSection('ftc-mech-claw', this)">Claw</button>
+            <button onclick="showSection('ftc-mech-transfer', this)">Transfer System (Claw)</button>
             <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar / Virtual 4‑Bar</button>
         </div>
 
@@ -214,7 +264,6 @@
                         with additional ranking points from navigation and endgame positioning.
                     </p>
                     <p><strong>My focus:</strong> Shooting Mechanism (V1–V3), Tipper Park mechanism.</p>
-                    <img src="images/decode_feild.jpg" style="width:100%; border-radius:10px; margin-top:10px;">
                 </div>
 
                 <div class="card">
@@ -223,8 +272,7 @@
                         A precision placement game where robots pick up triangular samples and score them into baskets or onto
                         bars at different heights.
                     </p>
-                    <p><strong>My focus:</strong> Linear Extension, Transfer System, Claw, 2‑Bar / Virtual 4‑Bar linkage.</p>
-                    <img src="images/into-the-deep-field.webp" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <p><strong>My focus:</strong> Linear Extension, Transfer System (Claw), 2‑Bar / Virtual 4‑Bar linkage.</p>
                 </div>
             </div>
 
@@ -249,6 +297,9 @@
                     <li><strong>Shooting Mechanism (V1–V3):</strong> turreted shooting system for multi‑angle scoring.</li>
                     <li><strong>Tipper Park Mechanism:</strong> compact tipping solution for consistent Base ranking point.</li>
                 </ul>
+
+                <h2>Field Layout</h2>
+                <img src="images/decode_feild.jpg" class="field-img lightbox-img" alt="DECODE field">
             </div>
 
             <!-- 2024–2025 SEASON -->
@@ -271,10 +322,19 @@
                 <h2>What I Worked On</h2>
                 <ul>
                     <li><strong>Linear Extension System:</strong> horizontal extension on a linear slide for scoring reach.</li>
-                    <li><strong>Transfer System:</strong> multiple iterations leading to a lightweight Axon Mini–powered claw.</li>
-                    <li><strong>Claw Geometry:</strong> sample‑matching claw with herringbone gears.</li>
+                    <li><strong>Transfer System (Claw):</strong> multiple iterations leading to a lightweight Axon Mini–powered claw.</li>
                     <li><strong>2‑Bar / Virtual 4‑Bar:</strong> linkage for controlled motion to scoring positions.</li>
                 </ul>
+
+                <h2>Field Layout</h2>
+                <img src="images/into-the-deep-field.webp" class="field-img lightbox-img" alt="INTO THE DEEP field">
+
+                <h2>FTC Sample</h2>
+                <p>
+                    The mechanisms in this season were designed around reliably gripping and moving the FTC sample. The geometry
+                    of the claw and transfer system was tuned to match this part.
+                </p>
+                <img src="images/am-5401_blue.webp" class="sample-img lightbox-img" alt="FTC sample / component">
             </div>
 
             <!-- SHOOTING MECHANISM -->
@@ -301,7 +361,7 @@
                         V1 was the initial prototype used to validate basic shooting geometry. It focused on compression testing,
                         hood angle experiments, and roller spacing.
                     </p>
-                    <img src="images/shooterv1.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="images/shooterv1.png" class="mech-img lightbox-img" alt="Shooter V1">
                 </div>
 
                 <div id="shoot-v2" class="shoot-tab">
@@ -310,7 +370,7 @@
                         V2 refined the hood curvature, reduced friction, and improved roller synchronization. This version was
                         significantly more consistent than V1.
                     </p>
-                    <img src="images/shooterv2.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="images/shooterv2.png" class="mech-img lightbox-img" alt="Shooter V2">
                 </div>
 
                 <div id="shoot-v3" class="shoot-tab">
@@ -321,12 +381,12 @@
                     </p>
 
                     <h3>Video</h3>
-                    <video autoplay loop muted playsinline style="width:100%; border-radius:10px; margin-top:10px;">
+                    <video autoplay loop muted playsinline style="max-width:520px;width:100%;border-radius:10px;display:block;margin:14px auto;">
                         <source src="images/giphy.mp4" type="video/mp4">
                     </video>
 
                     <h3>Image</h3>
-                    <img src="images/IMG_1166.jpg" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="images/IMG_1166.jpg" class="mech-img lightbox-img" alt="Shooter V3">
                 </div>
             </div>
 
@@ -334,15 +394,15 @@
             <div id="ftc-mech-tipper" class="section">
                 <h1>Tipper Park Mechanism</h1>
                 <p>
-                    This mechanism folds the robot to achieve the Base RP. I validated the kicker geometry using FEA and tested
-                    the final design on-field.
+                    This mechanism folds the robot to achieve the Base RP in DECODE. I validated the kicker geometry using FEA
+                    and then tested the final design on-field.
                 </p>
 
                 <h3>FEA Study</h3>
-                <img src="images/FEA_Tipper.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                <img src="images/FEA_Tipper.png" class="mech-img lightbox-img" alt="Tipper FEA">
 
                 <h3>Final Mechanism</h3>
-                <img src="images/Park.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                <img src="images/Park.png" class="mech-img lightbox-img" alt="Tipper Park mechanism">
             </div>
 
             <!-- EXTENDO -->
@@ -356,21 +416,29 @@
                     The extension is geared 1:2.6 using two servo‑boosted Axon Max servos, providing enough torque to extend
                     reliably under load while keeping the structure relatively lightweight.
                 </p>
-                <img src="images/am-5401_blue.webp" style="width:60%; border-radius:10px; margin-top:10px;">
             </div>
 
-            <!-- TRANSFER SYSTEM -->
+            <!--Here it is — **the rest of your full site**, exactly as promised.  
+This continues *exactly* where the previous message cut off, completing the entire HTML file cleanly.
+
+---
+
+# ⭐ **FULL FINAL HTML (PART 2 — COMPLETES THE FILE)**  
+Paste this **directly after** the last line you received (`<!-- EXTENDO -->` section).
+
+```html
+            <!-- TRANSFER SYSTEM (includes CLAW) -->
             <div id="ftc-mech-transfer" class="section">
-                <h1>Transfer System</h1>
+                <h1>Transfer System (Claw)</h1>
                 <p>
-                    The transfer system moved samples from the intake to the scoring position. It went through three major
-                    iterations as I worked toward a design that was light, consistent, and tolerant to real‑match variability.
+                    The transfer system moved samples from the intake to the scoring position in INTO THE DEEP. It went through
+                    three major iterations as I worked toward a design that was light, consistent, and tolerant to real‑match variability.
                 </p>
 
                 <div style="margin-top: 20px;">
                     <button onclick="showTransferTab('transfer-v1', this)" class="transfer-tab-btn active-transfer-btn">V1</button>
                     <button onclick="showTransferTab('transfer-v2', this)" class="transfer-tab-btn">V2</button>
-                    <button onclick="showTransferTab('transfer-v3', this)" class="transfer-tab-btn">V3</button>
+                    <button onclick="showTransferTab('transfer-v3', this)" class="transfer-tab-btn">V3 (Claw)</button>
                 </div>
 
                 <div id="transfer-v1" class="transfer-tab active-transfer-tab">
@@ -393,7 +461,7 @@
                         <li>No positive control</li>
                     </ul>
 
-                    <img src="images/transferV1.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="images/transferV1.png" class="mech-img lightbox-img" alt="Transfer V1">
                 </div>
 
                 <div id="transfer-v2" class="transfer-tab">
@@ -416,7 +484,7 @@
                         <li>Snag points</li>
                     </ul>
 
-                    <img src="images/transferv2.jpeg" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="images/transferv2.jpeg" class="mech-img lightbox-img" alt="Transfer V2">
                 </div>
 
                 <div id="transfer-v3" class="transfer-tab">
@@ -424,6 +492,10 @@
                     <p>
                         V3 was the final competition‑ready version. It used a compact Axon Mini–powered claw that provided
                         positive control over the sample with minimal weight and fast actuation.
+                    </p>
+                    <p>
+                        The claw geometry was matched to the FTC sample, giving a large contact area and a stable grip. The
+                        mechanism focused on smooth motion, low backlash, and predictable handoff into the scoring position.
                     </p>
 
                     <h3>What Made It Better</h3>
@@ -435,21 +507,8 @@
                         <li>Fast actuation with the Axon Mini</li>
                     </ul>
 
-                    <img src="images/TransferV3.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="images/TransferV3.png" class="mech-img lightbox-img" alt="Transfer V3 Claw">
                 </div>
-            </div>
-
-            <!-- CLAW -->
-            <div id="ftc-mech-claw" class="section">
-                <h1>Claw</h1>
-                <p>
-                    The claw was designed to match the internal geometry of the FTC sample, giving it a large surface contact area
-                    and a firm, consistent grip.
-                </p>
-                <p>
-                    Each finger uses a herringbone gear, which is self‑centering and allows multiple teeth to contact at once.
-                    This reduces the chances of slipping or stripping and keeps the motion smooth during opening and closing.
-                </p>
             </div>
 
             <!-- V4B -->
@@ -463,6 +522,11 @@
                     An additional degree of freedom, which I refer to as pitch, allows the end of the arm to pivot and optimize
                     the drop‑off position. The goal was a fast, predictable motion path with low mechanical complexity.
                 </p>
+
+                <h3>Final Mechanism Video</h3>
+                <video autoplay loop muted playsinline style="max-width:520px;width:100%;border-radius:10px;display:block;margin:14px auto;">
+                    <source src="images/v4bar.mp4" type="video/mp4">
+                </video>
             </div>
 
             <!-- CONTACT -->
@@ -472,6 +536,11 @@
             </div>
 
         </div>
+    </div>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div id="lightboxOverlay" class="lightbox-overlay">
+        <img id="lightboxImage" class="lightbox-image" src="" alt="Enlarged view">
     </div>
 
     <script>
@@ -522,6 +591,20 @@
             document.querySelectorAll('.transfer-tab-btn').forEach(b => b.classList.remove('active-transfer-btn'));
             if (btn) btn.classList.add('active-transfer-btn');
         }
+
+        // Lightbox
+        const overlay = document.getElementById('lightboxOverlay');
+        const overlayImg = document.getElementById('lightboxImage');
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('lightbox-img')) {
+                overlayImg.src = e.target.src;
+                overlay.classList.add('active');
+            } else if (e.target === overlay || e.target === overlayImg) {
+                overlay.classList.remove('active');
+                overlayImg.src = '';
+            }
+        });
     </script>
 
 </body>

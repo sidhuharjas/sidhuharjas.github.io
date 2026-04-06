@@ -94,7 +94,6 @@
             margin-bottom: 8px;
         }
 
-        /* Image sizing */
         .mech-img {
             max-width: 520px;
             width: 100%;
@@ -141,7 +140,6 @@
             color: #fff;
         }
 
-        /* Lightbox */
         .lightbox-overlay {
             position: fixed;
             inset: 0;
@@ -205,7 +203,6 @@
 
         <div class="main">
 
-            <!-- ABOUT -->
             <div id="about" class="section active">
                 <h1>About Me</h1>
                 <p>
@@ -224,7 +221,6 @@
                 </p>
             </div>
 
-            <!-- FTC LANDING -->
             <div id="ftc-landing" class="section">
                 <h1>FTC Robotics — Team 20744 “24Karat”</h1>
                 <p>
@@ -234,7 +230,6 @@
                 </p>
             </div>
 
-            <!-- MECHANISMS OVERVIEW -->
             <div id="ftc-mech-overview" class="section">
                 <h1>Mechanisms Overview</h1>
                 <p>
@@ -249,7 +244,6 @@
                 </p>
             </div>
 
-            <!-- SEASONS LANDING -->
             <div id="ftc-seasons-landing" class="section">
                 <h1>FTC Seasons</h1>
                 <p>
@@ -272,11 +266,10 @@
                         A precision placement game where robots pick up triangular samples and score them into baskets or onto
                         bars at different heights.
                     </p>
-                    <p><strong>My focus:</strong> Linear Extension, Transfer System (Claw), 2‑Bar / Virtual 4‑Bar linkage.</p>
+                    <p><strong>My focus:</strong> Linear Extension, Transfer System, 2‑Bar / Virtual 4‑Bar linkage.</p>
                 </div>
             </div>
 
-            <!-- 2025–2026 SEASON -->
             <div id="ftc-2526-season" class="section">
                 <h1>2025–2026 Season — DECODE™</h1>
                 <p>
@@ -302,7 +295,6 @@
                 <img src="images/decode_feild.jpg" class="field-img lightbox-img" alt="DECODE field">
             </div>
 
-            <!-- 2024–2025 SEASON -->
             <div id="ftc-2425-season" class="section">
                 <h1>2024–2025 Season — INTO THE DEEP™</h1>
                 <p>
@@ -322,7 +314,7 @@
                 <h2>What I Worked On</h2>
                 <ul>
                     <li><strong>Linear Extension System:</strong> horizontal extension on a linear slide for scoring reach.</li>
-                    <li><strong>Transfer System (Claw):</strong> multiple iterations leading to a lightweight Axon Mini–powered claw.</li>
+                    <li><strong>Transfer System:</strong> three‑stage evolution ending in a lightweight Axon Mini claw.</li>
                     <li><strong>2‑Bar / Virtual 4‑Bar:</strong> linkage for controlled motion to scoring positions.</li>
                 </ul>
 
@@ -337,7 +329,6 @@
                 <img src="images/am-5401_blue.webp" class="sample-img lightbox-img" alt="FTC sample / component">
             </div>
 
-            <!-- SHOOTING MECHANISM -->
             <div id="ftc-mech-shooting" class="section">
                 <h1>Shooting Mechanism</h1>
                 <p>
@@ -389,36 +380,7 @@
                     <img src="images/IMG_1166.jpg" class="mech-img lightbox-img" alt="Shooter V3">
                 </div>
             </div>
-
-            <!-- TIPPER PARK -->
-            <div id="ftc-mech-tipper" class="section">
-                <h1>Tipper Park Mechanism</h1>
-                <p>
-                    This mechanism folds the robot to achieve the Base RP in DECODE. I validated the kicker geometry using FEA
-                    and then tested the final design on-field.
-                </p>
-
-                <h3>FEA Study</h3>
-                <img src="images/FEA_Tipper.png" class="mech-img lightbox-img" alt="Tipper FEA">
-
-                <h3>Final Mechanism</h3>
-                <img src="images/Park.png" class="mech-img lightbox-img" alt="Tipper Park mechanism">
-            </div>
-
-            <!-- EXTENDO -->
-            <div id="ftc-mech-extendo" class="section">
-                <h1>Linear Extension System</h1>
-                <p>
-                    The linear extension system was built for INTO THE DEEP to reach scoring heights on the Submersible and
-                    Chamber. It uses a horizontal servo‑powered linkage that rides on a linear slide.
-                </p>
-                <p>
-                    The extension is geared 1:2.6 using two servo‑boosted Axon Max servos, providing enough torque to extend
-                    reliably under load while keeping the structure relatively lightweight.
-                </p>
-            </div>
-
-            <!-- TRANSFER SYSTEM -->
+                        <!-- TRANSFER SYSTEM -->
             <div id="ftc-mech-transfer" class="section">
                 <h1>Transfer System</h1>
                 <p>
@@ -461,7 +423,7 @@
 
                 <!-- V2 -->
                 <div id="transfer-v2" class="transfer-tab">
-                    <h2>Version 2 — Hybrid System with Torsion Spring + Micro‑Servo Gate</h2>
+                    <h2>Version 2 — Torsion Spring + Micro‑Servo Gate</h2>
                     <p>
                         V2 introduced a <strong>torsion spring</strong> for more consistent preload and a 
                         <strong>micro‑servo gate</strong> to stabilize the sample during transfer. 
@@ -509,6 +471,41 @@
 
                     <img src="images/TransferV3.png" class="mech-img lightbox-img" alt="Transfer V3 Claw">
                 </div>
+            </div>
+
+            <!-- TIPPER PARK -->
+            <div id="ftc-mech-tipper" class="section">
+                <h1>Tipper Park Mechanism</h1>
+                <p>
+                    The Tipper Park mechanism was designed for the DECODE endgame to reliably earn the Base ranking point. 
+                    The system folds the robot backward into a parked configuration using a compact, servo‑driven linkage.
+                </p>
+
+                <p>
+                    The mechanism is powered by <strong>two Axon Max servos</strong> working in parallel. 
+                    Using dual servos provides significantly higher effective torque, reduces the load on each output shaft, 
+                    and ensures the robot can consistently tip even under battery sag or when the robot is slightly misaligned. 
+                    This redundancy also improves reliability during long events where single‑servo systems tend to overheat or stall.
+                </p>
+
+                <h3>FEA Study</h3>
+                <p>
+                    Before manufacturing, I ran a finite element analysis (FEA) on the kicker plate to validate that the 
+                    geometry could withstand the peak loads generated during tipping. This allowed me to remove unnecessary 
+                    material while keeping the part stiff enough to avoid flex‑induced misalignment. The FEA confirmed that 
+                    the highest stresses occurred near the pivot interface, so I reinforced that region while trimming weight 
+                    from low‑stress areas.
+                </p>
+                <img src="images/FEA_Tipper.png" class="mech-img lightbox-img" alt="Tipper FEA">
+
+                <h3>Final Mechanism</h3>
+                <p>
+                    The final design uses a reinforced pivot, MF4ZZ bearings for smooth rotation, and a compact linkage path 
+                    that keeps the mechanism lightweight and consistent. The dual‑Axon‑Max drive provides smooth, controlled 
+                    motion and prevents the robot from slamming into the ground during the tip. The result is a reliable, 
+                    competition‑ready park mechanism that performs consistently across an entire event.
+                </p>
+                <img src="images/Park.png" class="mech-img lightbox-img" alt="Tipper Park mechanism">
             </div>
 
             <!-- V4B -->
@@ -592,7 +589,6 @@
             if (btn) btn.classList.add('active-transfer-btn');
         }
 
-        // Lightbox
         const overlay = document.getElementById('lightboxOverlay');
         const overlayImg = document.getElementById('lightboxImage');
 
@@ -609,3 +605,4 @@
 
 </body>
 </html>
+            

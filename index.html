@@ -2,44 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Harjas Sidhu Portfolio</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Harjas Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg: #f5f5f5;
-            --text: #111;
-            --card-bg: #ffffff;
-            --border: #dcdcdc;
-        }
-
-        body.dark-mode {
-            --bg: #0f0f0f;
-            --text: #f5f5f5;
-            --card-bg: #1a1a1a;
-            --border: #333;
-        }
-
         body {
             margin: 0;
-            font-family: "Inter", sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            transition: background 0.25s ease, color 0.25s ease;
+            font-family: Inter, sans-serif;
+            background: #f5f5f5;
+            color: #111;
         }
 
         /* NAVBAR */
         .navbar {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            padding: 14px 40px;
-            border-bottom: 1px solid var(--border);
-            background: var(--card-bg);
+            padding: 16px 40px;
+            background: white;
+            border-bottom: 1px solid #ddd;
             position: sticky;
             top: 0;
-            z-index: 10;
         }
 
         .nav-left {
@@ -47,153 +29,143 @@
             font-weight: 600;
         }
 
-        .nav-right a {
-            margin-left: 24px;
-            text-decoration: none;
-            color: var(--text);
+        .nav-right button {
+            margin-left: 20px;
+            background: none;
+            border: none;
             font-size: 15px;
-        }
-
-        /* THEME TOGGLE */
-        .theme-toggle {
-            margin-left: 24px;
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background: var(--card-bg);
-            color: var(--text);
             cursor: pointer;
-            font-size: 14px;
-        }
-
-        /* HERO */
-        .hero {
-            max-width: 900px;
-            margin: 60px auto 40px;
-            padding: 20px;
-        }
-
-        .hero-title {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .hero-sub {
-            font-size: 18px;
-            max-width: 650px;
-            line-height: 1.6;
-            opacity: 0.85;
         }
 
         /* SECTIONS */
         .section {
+            display: none;
             max-width: 900px;
             margin: 40px auto;
-            padding: 30px;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            padding: 20px;
         }
 
-        h2 {
-            margin-top: 0;
-            font-size: 24px;
+        .active {
+            display: block;
+        }
+
+        /* SUBTABS */
+        .subtabs {
+            margin-top: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .subtabs button {
+            background: none;
+            border: 1px solid #ccc;
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         /* PROJECT CARDS */
         .project-card {
-            border: 1px solid var(--border);
+            background: white;
+            border: 1px solid #ddd;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 20px;
-            background: var(--card-bg);
+            margin-top: 20px;
         }
 
         .project-title {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .project-tag {
-            font-size: 13px;
-            opacity: 0.7;
-            margin-bottom: 12px;
         }
 
         .project-img {
             width: 100%;
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            border-radius: 10px;
+            border: 1px solid #ccc;
             margin: 14px 0;
-        }
-
-        .project-desc {
-            font-size: 15px;
-            line-height: 1.6;
         }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar">
+    <!-- NAVBAR -->
+    <div class="navbar">
         <div class="nav-left">Harjas Sidhu</div>
         <div class="nav-right">
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
-            <button id="themeToggle" class="theme-toggle">Toggle Theme</button>
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('ftc')">FTC</button>
+            <button onclick="showSection('contact')">Contact</button>
         </div>
-    </nav>
+    </div>
 
-    <section class="hero">
-        <div class="hero-title">Hi, I’m Harjas.</div>
-        <div class="hero-sub">
-            I build robotics mechanisms, shooters, drivetrains, and engineering systems with a focus on reliability, iteration, and clean mechanical design.
-        </div>
-    </section>
+    <!-- HOME -->
+    <div id="home" class="section active">
+        <h1>Welcome</h1>
+        <p>This is my engineering + robotics portfolio.</p>
+    </div>
 
-    <section class="section" id="projects">
-        <h2>Projects</h2>
+    <!-- FTC SECTION -->
+    <div id="ftc" class="section">
+        <h1>FTC Robotics</h1>
 
-        <!-- Shooter V1 -->
-        <div class="project-card">
-            <div class="project-title">FTC Shooter V1 — Double Flywheel Prototype</div>
-            <div class="project-tag">Flywheel • CAD • Prototyping • Iteration</div>
-
-            <img src="images/shooter_v1.png" class="project-img">
-
-            <p class="project-desc">
-                Shooter V1 was our first double vertical flywheel shooter. It used two independently driven
-                6000 RPM motors and lightweight 4-inch wheels. While it achieved high rotational speed and
-                reduced backspin, it suffered from accuracy issues, slow recovery between shots, and no
-                angle adjustment.
-            </p>
+        <div class="subtabs">
+            <button onclick="showSub('shooter')">Shooter</button>
+            <button onclick="showSub('drivetrain')">Drivetrain</button>
+            <button onclick="showSub('extendo')">Extendo</button>
         </div>
 
-        <!-- Shooter V2 -->
-        <div class="project-card">
-            <div class="project-title">FTC Shooter V2 — Adjustable Hood & Counter‑Roller</div>
-            <div class="project-tag">Hooded Shooter • Counter‑Roller • CAD</div>
+        <!-- SHOOTER SUBTAB -->
+        <div id="shooter" class="subsection" style="display:none;">
 
-            <img src="images/shooter_v2.png" class="project-img">
+            <div class="project-card">
+                <div class="project-title">Shooter V1 — Double Flywheel</div>
+                <img src="images/shooterv1.png" class="project-img">
+                <p>
+                    V1 was our first double flywheel shooter. High speed, low consistency, no angle adjustment.
+                </p>
+            </div>
 
-            <p class="project-desc">
-                Shooter V2 introduced an adjustable hood and counter‑roller system. This version improved
-                shot flexibility and reduced backspin, but friction in the hood joints caused slow rebound
-                times, exposing the need for thrust bearings and belt optimization in V3.
-            </p>
+            <div class="project-card">
+                <div class="project-title">Shooter V2 — Adjustable Hood + Counter Roller</div>
+                <img src="images/shooterv2.png" class="project-img">
+                <p>
+                    V2 added an adjustable hood and counter roller. Better flexibility, but friction slowed recovery.
+                </p>
+            </div>
+
         </div>
 
-    </section>
+        <!-- EMPTY PLACEHOLDERS FOR FUTURE -->
+        <div id="drivetrain" class="subsection" style="display:none;">
+            <p>Drivetrain content coming soon.</p>
+        </div>
+
+        <div id="extendo" class="subsection" style="display:none;">
+            <p>Extendo content coming soon.</p>
+        </div>
+
+    </div>
+
+    <!-- CONTACT -->
+    <div id="contact" class="section">
+        <h1>Contact</h1>
+        <p>Email me at: your-email@example.com</p>
+    </div>
 
     <script>
-        const toggle = document.getElementById("themeToggle");
-        toggle.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-        });
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+
+            // hide subtabs when switching sections
+            document.querySelectorAll('.subsection').forEach(s => s.style.display = "none");
+        }
+
+        function showSub(id) {
+            document.querySelectorAll('.subsection').forEach(s => s.style.display = "none");
+            document.getElementById(id).style.display = "block";
+        }
     </script>
 
 </body>

@@ -79,10 +79,16 @@
         }
 
         .project-img {
-            width: 100%;
+            width: 45%; /* WAY smaller */
             border-radius: 10px;
             border: 1px solid #ccc;
             margin: 14px 0;
+            display: block;
+        }
+
+        .project-desc {
+            line-height: 1.6;
+            font-size: 15px;
         }
     </style>
 </head>
@@ -93,16 +99,26 @@
     <div class="navbar">
         <div class="nav-left">Harjas Sidhu</div>
         <div class="nav-right">
-            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('about')">About Me</button>
             <button onclick="showSection('ftc')">FTC</button>
             <button onclick="showSection('contact')">Contact</button>
         </div>
     </div>
 
-    <!-- HOME -->
-    <div id="home" class="section active">
-        <h1>Welcome</h1>
-        <p>This is my engineering + robotics portfolio.</p>
+    <!-- ABOUT ME -->
+    <div id="about" class="section active">
+        <h1>About Me</h1>
+        <p class="project-desc">
+            I’m a robotics engineer focused on competition-grade mechanism design, CAD, and iterative
+            prototyping. I specialize in shooters, drivetrains, and precision-controlled systems with
+            an emphasis on reliability, clean mechanical design, and telemetry-driven improvement.
+        </p>
+
+        <p class="project-desc">
+            My work includes flywheel shooters, adjustable hood systems, counter-roller compression
+            tuning, drivetrain optimization, and 3D-printed mechanical components. I build systems
+            that are not just functional — but consistent, predictable, and competition-ready.
+        </p>
     </div>
 
     <!-- FTC SECTION -->
@@ -110,7 +126,7 @@
         <h1>FTC Robotics</h1>
 
         <div class="subtabs">
-            <button onclick="showSub('shooter')">Shooter</button>
+            <button onclick="showSub('shooter')">Shooter System</button>
             <button onclick="showSub('drivetrain')">Drivetrain</button>
             <button onclick="showSub('extendo')">Extendo</button>
         </div>
@@ -118,25 +134,72 @@
         <!-- SHOOTER SUBTAB -->
         <div id="shooter" class="subsection" style="display:none;">
 
+            <h2>FTC Turreted Shooter System (V1–V3)</h2>
+            <p class="project-desc">
+                This shooter system went through three major iterations, each addressing mechanical
+                inconsistencies, friction losses, compression tuning, and turret integration. The
+                evolution focused on improving accuracy, recovery time, and shot repeatability.
+            </p>
+
+            <!-- V1 -->
             <div class="project-card">
                 <div class="project-title">Shooter V1 — Double Flywheel</div>
                 <img src="images/shooterv1.png" class="project-img">
-                <p>
-                    V1 was our first double flywheel shooter. High speed, low consistency, no angle adjustment.
+                <p class="project-desc">
+                    V1 was a vertical double-flywheel shooter using dual 6000 RPM motors. It achieved
+                    high rotational speed and low backspin, but suffered from:
                 </p>
+                <ul class="project-desc">
+                    <li>Inconsistent compression → inconsistent trajectories</li>
+                    <li>No angle adjustment → limited scoring positions</li>
+                    <li>High friction in wheel alignment</li>
+                    <li>Heavy frame → not turret-friendly</li>
+                </ul>
             </div>
 
+            <!-- V2 -->
             <div class="project-card">
                 <div class="project-title">Shooter V2 — Adjustable Hood + Counter Roller</div>
                 <img src="images/shooterv2.png" class="project-img">
-                <p>
-                    V2 added an adjustable hood and counter roller. Better flexibility, but friction slowed recovery.
+                <p class="project-desc">
+                    V2 introduced an adjustable hood and counter-roller system. Improvements included:
                 </p>
+                <ul class="project-desc">
+                    <li>Adjustable hood → dynamic shot angles</li>
+                    <li>Counter-roller → reduced backspin + smoother feeding</li>
+                    <li>Better compression tuning</li>
+                </ul>
+                <p class="project-desc">
+                    Issues discovered:
+                </p>
+                <ul class="project-desc">
+                    <li>Hood pivot friction → slow rebound</li>
+                    <li>Compression drift at high RPM</li>
+                    <li>Belt tension inconsistencies</li>
+                </ul>
+            </div>
+
+            <!-- V3 -->
+            <div class="project-card">
+                <div class="project-title">Shooter V3 — Final Turret-Ready System</div>
+                <p class="project-desc">
+                    (Upload V3 image and I’ll insert it here.)
+                </p>
+                <p class="project-desc">
+                    V3 solved the remaining issues:
+                </p>
+                <ul class="project-desc">
+                    <li>Thrust bearings added → smooth hood rotation</li>
+                    <li>Optimized compression curve → consistent shots</li>
+                    <li>Reduced inertia losses → faster recovery time</li>
+                    <li>Turret mounting pattern integrated</li>
+                    <li>Friction minimized through new roller geometry</li>
+                </ul>
             </div>
 
         </div>
 
-        <!-- EMPTY PLACEHOLDERS FOR FUTURE -->
+        <!-- OTHER SUBTABS -->
         <div id="drivetrain" class="subsection" style="display:none;">
             <p>Drivetrain content coming soon.</p>
         </div>
@@ -157,8 +220,6 @@
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-
-            // hide subtabs when switching sections
             document.querySelectorAll('.subsection').forEach(s => s.style.display = "none");
         }
 

@@ -7,10 +7,7 @@
     <meta name="robots" content="noindex">
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; }
         body {
             margin: 0;
             font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -18,7 +15,7 @@
             color: #111;
         }
 
-        /* TOP NAVBAR */
+        /* NAVBAR */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -30,12 +27,7 @@
             top: 0;
             z-index: 10;
         }
-
-        .nav-left {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
+        .nav-left { font-size: 20px; font-weight: 600; }
         .nav-right button {
             margin-left: 18px;
             background: none;
@@ -44,16 +36,10 @@
             cursor: pointer;
             padding: 6px 10px;
         }
-
-        .nav-right button:hover {
-            text-decoration: underline;
-        }
+        .nav-right button:hover { text-decoration: underline; }
 
         /* LAYOUT */
-        .layout {
-            display: flex;
-            min-height: calc(100vh - 56px);
-        }
+        .layout { display: flex; min-height: calc(100vh - 56px); }
 
         /* SIDEBAR */
         .sidebar {
@@ -62,7 +48,6 @@
             border-right: 1px solid #ddd;
             padding: 18px 16px;
         }
-
         .sidebar-section-title {
             font-size: 13px;
             font-weight: 600;
@@ -70,7 +55,6 @@
             color: #666;
             margin: 16px 8px 6px;
         }
-
         .sidebar button {
             width: 100%;
             text-align: left;
@@ -81,11 +65,7 @@
             cursor: pointer;
             border-radius: 6px;
         }
-
-        .sidebar button:hover {
-            background: #f0f0f0;
-        }
-
+        .sidebar button:hover { background: #f0f0f0; }
         .sidebar button.active-link {
             background: #111;
             color: #fff;
@@ -97,39 +77,13 @@
             padding: 24px 32px;
             max-width: 980px;
         }
+        .section { display: none; }
+        .section.active { display: block; }
 
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        h1 {
-            margin-top: 0;
-            font-size: 26px;
-        }
-
-        h2 {
-            font-size: 20px;
-            margin-top: 24px;
-        }
-
-        h3 {
-            font-size: 17px;
-            margin-top: 18px;
-        }
-
-        p {
-            line-height: 1.6;
-            font-size: 15px;
-        }
-
-        ul {
-            font-size: 15px;
-            line-height: 1.6;
-        }
+        h1 { margin-top: 0; font-size: 26px; }
+        h2 { font-size: 20px; margin-top: 24px; }
+        h3 { font-size: 17px; margin-top: 18px; }
+        p, ul { line-height: 1.6; font-size: 15px; }
 
         .card {
             background: #ffffff;
@@ -138,57 +92,25 @@
             padding: 18px 18px 14px;
             margin-top: 16px;
         }
-
         .card-title {
             font-size: 17px;
             font-weight: 600;
             margin-bottom: 8px;
         }
 
-        .project-img {
-            width: 40%;
-            max-width: 260px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            margin: 10px 0 12px;
-            display: block;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin-top: 12px;
-            font-size: 14px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px 10px;
-            text-align: left;
-        }
-
-        th {
-            background: #f0f0f0;
-        }
-
         @media (max-width: 900px) {
-            .layout {
-                flex-direction: column;
-            }
+            .layout { flex-direction: column; }
             .sidebar {
                 width: 100%;
                 border-right: none;
                 border-bottom: 1px solid #ddd;
-            }
-            .project-img {
-                width: 60%;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- TOP NAV -->
+    <!-- NAVBAR -->
     <div class="navbar">
         <div class="nav-left">Harjas Sidhu</div>
         <div class="nav-right">
@@ -200,24 +122,22 @@
 
     <div class="layout">
 
-        <!-- SIDEBAR (FTC navigation only; hidden on non-FTC views) -->
+        <!-- SIDEBAR -->
         <div class="sidebar" id="ftcSidebar" style="display:none;">
+            <div class="sidebar-section-title">Overview</div>
+            <button onclick="showSection('ftc-mech-overview', this)">Mechanisms Overview</button>
+
             <div class="sidebar-section-title">Seasons</div>
             <button onclick="showSection('ftc-2526-overview', this)">2025–2026 Overview</button>
-            <button onclick="showSection('ftc-2526-achievements', this)">2025–2026 Achievements</button>
             <button onclick="showSection('ftc-2425-overview', this)">2024–2025 Overview</button>
-            <button onclick="showSection('ftc-2425-achievements', this)">2024–2025 Achievements</button>
-
-            <div class="sidebar-section-title">Game Overviews</div>
-            <button onclick="showSection('ftc-game-decode', this)">DECODE™ (25–26)</button>
-            <button onclick="showSection('ftc-game-into-deep', this)">INTO THE DEEP™ (24–25)</button>
 
             <div class="sidebar-section-title">Mechanisms</div>
-            <button onclick="showSection('ftc-mech-shooter', this)">Turreted Shooter (V1–V3)</button>
-            <button onclick="showSection('ftc-mech-park', this)">Park Mechanism</button>
-            <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension System</button>
+            <button onclick="showSection('ftc-mech-shooter', this)">Turreted Shooter</button>
+            <button onclick="showSection('ftc-mech-tipper', this)">Tipper Park</button>
+            <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
             <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
-            <button onclick="showSection('ftc-mech-v4b', this)">Virtual 4‑Bar Mechanism</button>
+            <button onclick="showSection('ftc-mech-claw', this)">Claw</button>
+            <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar / Virtual 4‑Bar</button>
         </div>
 
         <!-- MAIN CONTENT -->
@@ -227,369 +147,156 @@
             <div id="about" class="section active">
                 <h1>About Me</h1>
                 <p>
-                    I’m a student robotics engineer focused on competition-grade mechanism design, CAD, and iterative
-                    prototyping. Most of my work lives inside FTC robots: turreted shooters, linear extension systems,
-                    transfer mechanisms, and linkage-based structures that have to survive real matches.
+                    I’m a student robotics engineer focused on competition‑grade mechanism design, CAD, and iterative prototyping.
+                    I compete in the <strong>FIRST Tech Challenge (FTC)</strong>, a global robotics program where teams design, build,
+                    and program 18‑inch robots to play a brand‑new engineering game every season.
                 </p>
                 <p>
-                    I care about reliability, clean mechanical design, and systems that are predictable under stress.
-                    A lot of my process is: prototype fast, collect data, fix the weak points, and repeat until the
-                    mechanism behaves like a tool, not a gamble. This portfolio is a record of that progression across
-                    multiple FTC seasons.
+                    My work centers around building mechanisms that are reliable under stress, easy to maintain, and optimized
+                    through fast prototyping and testing. This portfolio documents the systems I built across multiple FTC seasons.
                 </p>
             </div>
 
-            <!-- FTC MASTER CONTAINER -->
+            <!-- FTC LANDING -->
             <div id="ftc" class="section">
-                <!-- Default FTC landing content -->
                 <h1>FTC Robotics — Team 20744 “24Karat”</h1>
                 <p>
-                    This section documents my work on FTC Team 20744, across multiple seasons, games, and mechanisms.
-                    Use the navigation on the left to explore season overviews, game breakdowns, and detailed mechanism
-                    write-ups.
+                    This section covers my engineering work across two FTC seasons. Each game required different scoring strategies,
+                    so the mechanisms I built were designed to solve specific problems unique to that year.
                 </p>
             </div>
 
-            <!-- FTC: 2025–2026 OVERVIEW -->
+            <!-- ⭐ MECHANISMS OVERVIEW (STORY VERSION) -->
+            <div id="ftc-mech-overview" class="section">
+                <h1>Mechanisms Overview</h1>
+                <p>
+                    I compete in the <strong>FIRST Tech Challenge (FTC)</strong>, where every season introduces a brand‑new game with
+                    new scoring rules and engineering challenges. This page gives a simple story of the mechanisms I built across
+                    the 2024–2025 and 2025–2026 seasons and why they existed.
+                </p>
+
+                <h2>2025–2026 — DECODE™</h2>
+                <p>
+                    DECODE revolves around collecting 5‑inch spherical artifacts and shooting them into corner goals. Accuracy and
+                    consistency matter a lot, especially from different angles on the field.
+                </p>
+
+                <h3>Turreted Shooter System</h3>
+                <p>
+                    My main engineering focus this season was developing a turreted shooter — a system that rotates independently
+                    of the drivetrain and fires artifacts accurately from anywhere on the field.
+                </p>
+
+                <h3>Tipper Park Mechanism</h3>
+                <p>
+                    To earn the Base ranking point, robots must fit into a small zone at the end of the match. Full lift systems
+                    were too slow and unreliable, so I built a compact tipping mechanism that folds the robot’s footprint in half.
+                    I ran finite element analysis (FEA) to confirm the kicker geometry was strong while keeping weight low.
+                </p>
+
+                <h2>2024–2025 — INTO THE DEEP™</h2>
+                <p>
+                    INTO THE DEEP required robots to pick up triangular samples, lift them to different heights, and place them
+                    into baskets or onto bars. My work focused on everything that happened after the intake.
+                </p>
+
+                <h3>Linear Extension System</h3>
+                <p>
+                    A servo‑powered horizontal extension riding on a linear slide, geared 1:2.6 using two Axon Max servos. Built to
+                    reach scoring heights on the Submersible and Chamber.
+                </p>
+
+                <h3>Transfer System</h3>
+                <p>
+                    This mechanism went through several versions — passive prototypes, LEGO testing, hybrid designs — before
+                    becoming a lightweight micro‑servo claw that reliably handed off samples for scoring.
+                </p>
+
+                <h3>Claw Geometry</h3>
+                <p>
+                    The claw was shaped to match the inside of the FTC sample. Herringbone gears helped the fingers self‑center
+                    and grip smoothly without slipping.
+                </p>
+
+                <h3>2‑Bar / Virtual 4‑Bar</h3>
+                <p>
+                    A simple linkage powered by an Axon Mini through a 1:1 gear. It moved samples from the intake to scoring
+                    positions, with an extra pitch joint to fine‑tune the drop‑off angle.
+                </p>
+            </div>
+
+            <!-- 2025–2026 OVERVIEW -->
             <div id="ftc-2526-overview" class="section">
-                <h1>FTC 2025–2026 Season Overview</h1>
+                <h1>2025–2026 Season Overview — DECODE™</h1>
                 <p>
-                    The 2025–2026 season was a peak competitive year for Team 20744 “24Karat”. Our robot centered around
-                    a fully turreted shooter system (V1–V3), a refined drivetrain, and mechanisms designed for fast,
-                    repeatable scoring in the DECODE™ game.
-                </p>
-                <p>
-                    This season was about precision: consistent shot trajectories, controlled compression, and smooth
-                    integration between the turret, feeder, and base robot. The engineering focus shifted from “make it
-                    work” to “make it reliable under pressure,” and the results showed in both performance and judged
-                    awards.
+                    This season centered around fast, accurate shooting and consistent endgame performance. My work focused on
+                    developing the turreted shooter system and the tipping park mechanism.
                 </p>
             </div>
 
-            <!-- FTC: 2025–2026 ACHIEVEMENTS -->
-            <div id="ftc-2526-achievements" class="section">
-                <h1>FTC 2025–2026 Achievements</h1>
-
-                <div class="card">
-                    <div class="card-title">Major Awards & Advancement</div>
-                    <ul>
-                        <li>Qualified for the FIRST Tech Challenge World Championship in Houston, Texas.</li>
-                        <li>Won the Inspire Award (1st Place), marking a back-to-back Inspire streak.</li>
-                        <li>First team in Ohio to win Inspire twice in a row.</li>
-                        <li>Qualified for the FIRST Governor’s Cup.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Competitive & Engineering Highlights</div>
-                    <ul>
-                        <li>Turreted shooter system (V1–V3) fully developed and field-tested.</li>
-                        <li>Consistent scoring from multiple field positions using a rotating turret.</li>
-                        <li>High mechanical reliability and fast recovery between shots.</li>
-                        <li>Strong judged performance across engineering, documentation, and outreach.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- FTC: 2024–2025 OVERVIEW -->
+            <!-- 2024–2025 OVERVIEW -->
             <div id="ftc-2425-overview" class="section">
-                <h1>FTC 2024–2025 Season Overview</h1>
+                <h1>2024–2025 Season Overview — INTO THE DEEP™</h1>
                 <p>
-                    The 2024–2025 season was the breakthrough year for Team 20744 “24Karat”. This is where the team
-                    established its competitive identity and engineering workflow, competing in the INTO THE DEEP™ game.
-                </p>
-                <p>
-                    The robot focused on extension, transfer, and linkage-based mechanisms to interact with the
-                    Submersible structure and scoring elements. This season laid the groundwork for the more advanced
-                    turreted shooter architecture that followed in 2025–2026.
+                    This season required controlled placement of samples into baskets and onto bars. I built the mechanisms that
+                    handled the entire scoring path after the intake.
                 </p>
             </div>
 
-            <!-- FTC: 2024–2025 ACHIEVEMENTS -->
-            <div id="ftc-2425-achievements" class="section">
-                <h1>FTC 2024–2025 Achievements</h1>
-
-                <div class="card">
-                    <div class="card-title">Major Awards & Advancement</div>
-                    <ul>
-                        <li>Inspire Award — 1st Place at the Ohio State Championship.</li>
-                        <li>Qualified for the FIRST Tech Challenge World Championship in Houston, Texas.</li>
-                        <li>First-ever Worlds qualification for Team 20744.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Competitive & Engineering Milestones</div>
-                    <ul>
-                        <li>First season with a fully competitive robot architecture.</li>
-                        <li>Developed early extension, transfer, and linkage mechanisms.</li>
-                        <li>Established the team’s documentation style and engineering process.</li>
-                        <li>Set the stage for the turreted shooter and advanced systems in 2025–2026.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- GAME OVERVIEW: DECODE -->
-            <div id="ftc-game-decode" class="section">
-                <h1>DECODE™ (2025–2026 Season)</h1>
-                <p>
-                    DECODE is an archaeology-themed FTC game centered around uncovering artifacts, matching Motif
-                    patterns, and managing scoring cycles. Robots collect 5-inch spherical artifacts and shoot them into
-                    alliance-specific corner goals.
-                </p>
-
-                <h2>Game Pieces</h2>
-                <ul>
-                    <li>36 total artifacts.</li>
-                    <li>24 purple, 12 green.</li>
-                    <li>5-inch spheres with holes for indexing and manipulation.</li>
-                </ul>
-
-                <h2>Primary Scoring</h2>
-                <ul>
-                    <li>Robots intake artifacts and shoot them into corner goals.</li>
-                    <li>High-value cycles reward accuracy and fast turnaround.</li>
-                </ul>
-
-                <h2>The Obelisk & Motifs</h2>
-                <ul>
-                    <li>A central Obelisk displays a three-artifact Motif.</li>
-                    <li>Alliances earn bonus points if their Classifier Ramp matches the Motif.</li>
-                    <li>Requires controlled feeding and selective scoring.</li>
-                </ul>
-
-                <h2>Gate Management</h2>
-                <ul>
-                    <li>Once the Classifier Ramp is full, teams actuate a Gate.</li>
-                    <li>The Gate releases artifacts back onto the field.</li>
-                    <li>Critical for maintaining high-value scoring cycles.</li>
-                </ul>
-
-                <h2>Endgame</h2>
-                <ul>
-                    <li>Robots must return to their Base (18×8 inch square).</li>
-                    <li>Points for partial and full parks.</li>
-                    <li>Bonus if both alliance robots fit in the Base.</li>
-                </ul>
-
-                <h2>Key Constraints</h2>
-                <ul>
-                    <li>Strict horizontal expansion limit.</li>
-                    <li>Hardware cap: 8 motors and 10 servos.</li>
-                </ul>
-
-                <h2>Quick Comparison</h2>
-                <table>
-                    <tr>
-                        <th>Feature</th>
-                        <th>DECODE (2025–2026)</th>
-                        <th>INTO THE DEEP (2024–2025)</th>
-                    </tr>
-                    <tr>
-                        <td>Theme</td>
-                        <td>Archaeology / Discovery</td>
-                        <td>Ocean Exploration</td>
-                    </tr>
-                    <tr>
-                        <td>Main Scoring</td>
-                        <td>Shooting spheres into corner goals</td>
-                        <td>Placing prisms in baskets/chambers</td>
-                    </tr>
-                    <tr>
-                        <td>Pattern Scoring</td>
-                        <td>Yes — Motifs from Obelisk</td>
-                        <td>No</td>
-                    </tr>
-                    <tr>
-                        <td>Endgame Task</td>
-                        <td>Parking in Base</td>
-                        <td>Climbing / Hanging (Ascent)</td>
-                    </tr>
-                    <tr>
-                        <td>Expansion</td>
-                        <td>Strict horizontal limits</td>
-                        <td>More flexible</td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- GAME OVERVIEW: INTO THE DEEP -->
-            <div id="ftc-game-into-deep" class="section">
-                <h1>INTO THE DEEP™ (2024–2025 Season)</h1>
-                <p>
-                    INTO THE DEEP is an ocean-exploration-themed FTC game focused on collecting samples, scoring them in
-                    baskets, and performing endgame climbs on the Submersible structure.
-                </p>
-
-                <h2>Game Pieces</h2>
-                <ul>
-                    <li>80 plastic “samples” (triangular prisms).</li>
-                    <li>Samples come in red, blue, and yellow.</li>
-                </ul>
-
-                <h2>Primary Scoring</h2>
-                <ul>
-                    <li><strong>Baskets:</strong> Robots score samples into low or high baskets in the corners.</li>
-                    <li><strong>Specimens:</strong> Human players convert samples into Specimens using clips, and robots
-                        hang them on high or low Chamber rungs.</li>
-                </ul>
-
-                <h2>The Submersible</h2>
-                <ul>
-                    <li>Central structure where most samples are located.</li>
-                    <li>Also used for endgame climbing tasks.</li>
-                    <li>Requires precise navigation and alignment.</li>
-                </ul>
-
-                <h2>Endgame — Ascent</h2>
-                <ul>
-                    <li>Robots climb the Submersible by hanging from one of three levels of rungs.</li>
-                    <li>Higher levels give more points.</li>
-                    <li>Robots must be fully supported by lower rungs before reaching Level 3.</li>
-                </ul>
-
-                <h2>Key Technology</h2>
-                <ul>
-                    <li>Heavy use of AprilTags for navigation and alignment.</li>
-                    <li>Vision-based positioning for consistent scoring and climbing.</li>
-                </ul>
-            </div>
-
-            <!-- MECHANISM: SHOOTER V1–V3 -->
+            <!-- MECHANISM PAGES -->
             <div id="ftc-mech-shooter" class="section">
-                <h1>Turreted Shooter System (V1–V3)</h1>
+                <h1>Turreted Shooter System</h1>
                 <p>
-                    This shooter system went through three major iterations, each addressing mechanical inconsistencies,
-                    friction losses, compression tuning, and turret integration. The goal was to achieve consistent,
-                    repeatable shots from multiple field positions in DECODE.
+                    A rotating shooter designed for accurate scoring from multiple field positions. Work included compression
+                    tuning, hood geometry, roller alignment, friction reduction, and turret integration.
                 </p>
-
-                <div class="card">
-                    <div class="card-title">Shooter V1 — Double Flywheel</div>
-                    <img src="images/shooterv1.png" alt="Shooter V1" class="project-img">
-                    <p>
-                        V1 was a vertical double-flywheel shooter using dual high-RPM motors. It achieved strong exit
-                        velocity but exposed several issues that shaped later designs.
-                    </p>
-                    <ul>
-                        <li>Inconsistent compression → inconsistent trajectories.</li>
-                        <li>No angle adjustment → limited scoring positions.</li>
-                        <li>Higher friction from wheel alignment and structure.</li>
-                        <li>Heavy frame that was not turret-friendly.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Shooter V2 — Adjustable Hood + Counter Roller</div>
-                    <img src="images/shooterv2.png" alt="Shooter V2" class="project-img">
-                    <p>
-                        V2 introduced an adjustable hood and a counter-roller system to improve control over shot angle
-                        and compression.
-                    </p>
-                    <ul>
-                        <li>Adjustable hood enabled dynamic shot angles.</li>
-                        <li>Counter-roller reduced backspin and smoothed feeding.</li>
-                        <li>Improved compression tuning over V1.</li>
-                    </ul>
-                    <p>Issues discovered:</p>
-                    <ul>
-                        <li>Hood pivot friction slowed rebound and adjustment.</li>
-                        <li>Compression drift at high RPM.</li>
-                        <li>Belt tension inconsistencies under load.</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Shooter V3 — Turret-Ready Final System</div>
-                    <p>
-                        (Image placeholder — once the V3 image is ready, it can be added here.)
-                    </p>
-                    <p>
-                        V3 focused on solving the remaining friction and consistency issues while integrating cleanly
-                        with the turret.
-                    </p>
-                    <ul>
-                        <li>Thrust bearings added for smooth hood rotation.</li>
-                        <li>Optimized compression curve for consistent trajectories.</li>
-                        <li>Reduced inertia losses for faster recovery between shots.</li>
-                        <li>Turret mounting pattern integrated into the base structure.</li>
-                        <li>Friction minimized through refined roller geometry and alignment.</li>
-                    </ul>
-                </div>
             </div>
 
-            <!-- MECHANISM: PARK -->
-            <div id="ftc-mech-park" class="section">
-                <h1>Park Mechanism (2025–2026)</h1>
+            <div id="ftc-mech-tipper" class="section">
+                <h1>Tipper Park Mechanism</h1>
                 <p>
-                    The park mechanism was designed to secure reliable endgame points in DECODE by consistently
-                    returning the robot to the Base zone without interfering with the shooter or drivetrain.
+                    A compact tipping mechanism that folds the robot’s footprint in half to secure the Base ranking point. FEA
+                    was used to validate strength while minimizing weight. Two bearing‑roller supports reduce friction during
+                    deployment.
                 </p>
-                <p>
-                    At a high level, the mechanism prioritized low profile, fast actuation, and repeatability under
-                    match pressure. Details can be expanded as the design is finalized and documented.
-                </p>
-                <ul>
-                    <li>Compact geometry to avoid conflicts with the turret and intake.</li>
-                    <li>Fast deployment to maximize scoring time before endgame.</li>
-                    <li>Designed to tolerate minor misalignment while still achieving a valid park.</li>
-                </ul>
             </div>
 
-            <!-- MECHANISM: EXTENSION -->
             <div id="ftc-mech-extendo" class="section">
-                <h1>Linear Extension System (2024–2025)</h1>
+                <h1>Linear Extension System</h1>
                 <p>
-                    The linear extension system was a multi-stage mechanism designed for controlled vertical reach in
-                    INTO THE DEEP. It was used to interact with field elements at varying heights while staying within
-                    extension limits.
+                    A servo‑powered horizontal extension riding on a linear slide, geared 1:2.6 using two Axon Max servos. Built
+                    for reaching scoring heights on the Submersible and Chamber.
                 </p>
-                <ul>
-                    <li>Multi-stage sliding structure with low-friction bearing surfaces.</li>
-                    <li>Belt or string-driven actuation for compact routing.</li>
-                    <li>Designed for consistent extension and retraction under load.</li>
-                    <li>Integrated hard stops and guides to prevent binding.</li>
-                </ul>
             </div>
 
-            <!-- MECHANISM: TRANSFER -->
             <div id="ftc-mech-transfer" class="section">
-                <h1>Transfer System (2024–2025)</h1>
+                <h1>Transfer System</h1>
                 <p>
-                    The transfer system handled the controlled handoff of game pieces from the intake to the scoring
-                    mechanism. It was tuned to reduce jams and maintain orientation of samples.
+                    Evolved through multiple prototypes — passive, LEGO, hybrid — before becoming a lightweight micro‑servo claw
+                    that reliably handed off samples for scoring.
                 </p>
-                <ul>
-                    <li>Smooth geometry to guide samples along a predictable path.</li>
-                    <li>Compression tuned to avoid stalls while preventing misfeeds.</li>
-                    <li>Designed to synchronize with the extension and scoring mechanisms.</li>
-                    <li>Helped the team understand timing and mechanical coordination between subsystems.</li>
-                </ul>
             </div>
 
-            <!-- MECHANISM: VIRTUAL 4-BAR -->
-            <div id="ftc-mech-v4b" class="section">
-                <h1>Virtual 4‑Bar Mechanism (2024–2025)</h1>
+            <div id="ftc-mech-claw" class="section">
+                <h1>Claw</h1>
                 <p>
-                    The virtual 4‑bar mechanism used a combination of pivots and controlled geometry to approximate a
-                    4‑bar motion path without a full traditional linkage. It was used where controlled end-effector
-                    orientation was important but space and complexity were limited.
+                    Designed to match the internal geometry of the FTC sample. Uses herringbone gears for smooth, self‑centering
+                    gripping with reduced slipping.
                 </p>
-                <ul>
-                    <li>Maintained approximate orientation of the end effector through its travel.</li>
-                    <li>Provided a smooth, predictable motion path.</li>
-                    <li>Reduced part count compared to a full 4‑bar linkage.</li>
-                    <li>Served as a learning platform for motion planning and linkage design.</li>
-                </ul>
+            </div>
+
+            <div id="ftc-mech-v4b" class="section">
+                <h1>2‑Bar / Virtual 4‑Bar Mechanism</h1>
+                <p>
+                    A simple linkage powered by an Axon Mini through a 1:1 gear. Moves samples from the intake to scoring
+                    positions with an additional pitch joint for angle control.
+                </p>
             </div>
 
             <!-- CONTACT -->
             <div id="contact" class="section">
                 <h1>Contact</h1>
-                <p>
-                    For questions about my FTC work, mechanisms, or engineering process, you can reach me at:
-                </p>
-                <p><strong>Email:</strong> your-email@example.com</p>
+                <p>Email: your-email@example.com</p>
             </div>
 
         </div>
@@ -599,35 +306,29 @@
         function clearActiveSections() {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
         }
-
         function showTopSection(id) {
             clearActiveSections();
             document.getElementById(id).classList.add('active');
-
             const sidebar = document.getElementById('ftcSidebar');
             if (id === 'ftc' || id.startsWith('ftc-')) {
                 sidebar.style.display = 'block';
-                // If just "ftc" clicked, default to 2025–2026 overview
                 if (id === 'ftc') {
                     clearActiveSections();
-                    document.getElementById('ftc-2526-overview').classList.add('active');
-                    setActiveSidebarButton('ftc-2526-overview');
+                    document.getElementById('ftc-mech-overview').classList.add('active');
+                    setActiveSidebarButton('ftc-mech-overview');
                 }
             } else {
                 sidebar.style.display = 'none';
                 document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
             }
         }
-
         function showSection(id, btn) {
             clearActiveSections();
             document.getElementById(id).classList.add('active');
             document.getElementById('ftcSidebar').style.display = 'block';
-
             document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
             if (btn) btn.classList.add('active-link');
         }
-
         function setActiveSidebarButton(sectionId) {
             document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
             document.querySelectorAll('.sidebar button').forEach(b => {
@@ -636,10 +337,6 @@
                 }
             });
         }
-
-        // Default: show About, hide sidebar
-        document.getElementById('about').classList.add('active');
-        document.getElementById('ftcSidebar').style.display = 'none';
     </script>
 
 </body>

@@ -94,10 +94,10 @@
             margin-bottom: 8px;
         }
 
-        /* Shooting subtabs */
-        .shoot-tab { display: none; margin-top: 20px; }
-        .active-shoot-tab { display: block; }
-        .shoot-tab-btn {
+        .shoot-tab, .transfer-tab { display: none; margin-top: 20px; }
+        .active-shoot-tab, .active-transfer-tab { display: block; }
+
+        .shoot-tab-btn, .transfer-tab-btn {
             background: #eee;
             border: 1px solid #ccc;
             padding: 6px 12px;
@@ -106,21 +106,10 @@
             cursor: pointer;
             font-size: 14px;
         }
-        .shoot-tab-btn.active-shoot-btn {
+        .shoot-tab-btn.active-shoot-btn,
+        .transfer-tab-btn.active-transfer-btn {
             background: #111;
             color: #fff;
-        }
-        .image-placeholder {
-            width: 100%;
-            height: 200px;
-            background: #ddd;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
-            margin-top: 10px;
-            font-size: 14px;
         }
 
         @media (max-width: 900px) {
@@ -135,7 +124,6 @@
 </head>
 <body>
 
-    <!-- NAVBAR -->
     <div class="navbar">
         <div class="nav-left">Harjas Sidhu</div>
         <div class="nav-right">
@@ -147,7 +135,6 @@
 
     <div class="layout">
 
-        <!-- SIDEBAR (FTC) -->
         <div class="sidebar" id="ftcSidebar" style="display:none;">
             <div class="sidebar-section-title">FTC</div>
             <button onclick="showSection('ftc-mech-overview', this)">Mechanisms Overview</button>
@@ -166,10 +153,8 @@
             <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar / Virtual 4‑Bar</button>
         </div>
 
-        <!-- MAIN CONTENT -->
         <div class="main">
 
-            <!-- ABOUT -->
             <div id="about" class="section active">
                 <h1>About Me</h1>
                 <p>
@@ -183,7 +168,6 @@
                 </p>
             </div>
 
-            <!-- FTC LANDING -->
             <div id="ftc-landing" class="section">
                 <h1>FTC Robotics — Team 20744 “24Karat”</h1>
                 <p>
@@ -193,7 +177,6 @@
                 </p>
             </div>
 
-            <!-- MECHANISMS OVERVIEW -->
             <div id="ftc-mech-overview" class="section">
                 <h1>Mechanisms Overview</h1>
                 <p>
@@ -207,7 +190,7 @@
                     they existed in the context of each game. Detailed technical breakdowns live on each mechanism’s dedicated page.
                 </p>
             </div>
-                        <!-- SEASONS LANDING -->
+
             <div id="ftc-seasons-landing" class="section">
                 <h1>FTC Seasons</h1>
                 <p>
@@ -222,6 +205,7 @@
                         with additional ranking points from navigation and endgame positioning.
                     </p>
                     <p><strong>My focus:</strong> Shooting Mechanism (V1–V3), Tipper Park mechanism.</p>
+                    <img src="decode_feild.jpg" style="width:100%; border-radius:10px; margin-top:10px;">
                 </div>
 
                 <div class="card">
@@ -231,10 +215,10 @@
                         bars at different heights.
                     </p>
                     <p><strong>My focus:</strong> Linear Extension, Transfer System, Claw, 2‑Bar / Virtual 4‑Bar linkage.</p>
+                    <img src="into-the-deep-field.webp" style="width:100%; border-radius:10px; margin-top:10px;">
                 </div>
             </div>
 
-            <!-- 2025–2026 SEASON PAGE -->
             <div id="ftc-2526-season" class="section">
                 <h1>2025–2026 Season — DECODE™</h1>
                 <p>
@@ -255,16 +239,8 @@
                     <li><strong>Shooting Mechanism (V1–V3):</strong> turreted shooting system for multi‑angle scoring.</li>
                     <li><strong>Tipper Park Mechanism:</strong> compact tipping solution for consistent Base ranking point.</li>
                 </ul>
-
-                <h2>Team Achievements</h2>
-                <ul>
-                    <li><strong>NEOH League Tournament:</strong> Inspire Award 1, Winning Alliance Captain.</li>
-                    <li><strong>Van Wert Qualifier:</strong> Inspire Award 2, Alliance 3 First Pick.</li>
-                    <li><strong>OH Miami University Qualifier:</strong> Inspire Award 3, Alliance 4 First Pick.</li>
-                </ul>
             </div>
 
-            <!-- 2024–2025 SEASON PAGE -->
             <div id="ftc-2425-season" class="section">
                 <h1>2024–2025 Season — INTO THE DEEP™</h1>
                 <p>
@@ -288,17 +264,9 @@
                     <li><strong>Claw Geometry:</strong> sample‑matching claw with herringbone gears.</li>
                     <li><strong>2‑Bar / Virtual 4‑Bar:</strong> linkage for controlled motion to scoring positions.</li>
                 </ul>
-
-                <h2>Team Achievements</h2>
-                <ul>
-                    <li><strong>Ohio Championship (Hobart Arena, Troy, OH):</strong> 7th place (quals), 4‑1‑0 record, 1.60 RP, 95.23 npOPR, 172.20 npAVG, Inspire Award Winner.</li>
-                    <li><strong>OH Miami University Qualifier:</strong> 5th place (quals), 4‑1‑0 record, 1.60 RP, 117.47 npOPR, 155.00 npAVG, Design Award Winner.</li>
-                    <li><strong>OH Kirtland Robotics Qualifier:</strong> 4th place (quals), 5‑1‑0 record, 1.67 RP, 122.23 npOPR, 166.67 npAVG, Connect Award Winner.</li>
-                    <li><strong>NEOH Aurora League Tournament:</strong> 8th place (quals), 3‑2‑0 record, 1.20 RP, 71.69 npOPR, 123.40 npAVG, Inspire Award Winner, Winning Alliance 1st Pick.</li>
-                </ul>
             </div>
 
-            <!-- SHOOTING MECHANISM WITH SUBTABS -->
+            <!-- SHOOTING MECHANISM -->
             <div id="ftc-mech-shooting" class="section">
                 <h1>Shooting Mechanism</h1>
                 <p>
@@ -319,49 +287,35 @@
                 <div id="shoot-v1" class="shoot-tab active-shoot-tab">
                     <h2>Version 1</h2>
                     <p>
-                        V1 was the initial prototype used to validate basic shooting geometry. The focus was on:
+                        V1 was the initial prototype used to validate basic shooting geometry. It focused on compression testing,
+                        hood angle experiments, and roller spacing.
                     </p>
-                    <ul>
-                        <li>Baseline compression testing</li>
-                        <li>Initial hood angle experiments</li>
-                        <li>Roller spacing and alignment</li>
-                        <li>Understanding artifact deformation under load</li>
-                    </ul>
-
-                    <h3>Images</h3>
-                    <img src="images/shooterv1.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="shooterv1.png" style="width:100%; border-radius:10px; margin-top:10px;">
                 </div>
 
                 <div id="shoot-v2" class="shoot-tab">
                     <h2>Version 2</h2>
                     <p>
-                        V2 introduced major improvements based on V1 testing. This version focused on:
+                        V2 refined the hood curvature, reduced friction, and improved roller synchronization. This version was
+                        significantly more consistent than V1.
                     </p>
-                    <ul>
-                        <li>Reducing friction across the entire shot path</li>
-                        <li>Refining hood curvature for smoother release</li>
-                        <li>Better roller synchronization</li>
-                        <li>More stable turret mounting</li>
-                    </ul>
-
-                    <h3>Images</h3>
-                    <img src="images/shooterv2.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <img src="shooterv2.png" style="width:100%; border-radius:10px; margin-top:10px;">
                 </div>
 
                 <div id="shoot-v3" class="shoot-tab">
                     <h2>Version 3</h2>
                     <p>
-                        V3 was the final competition‑ready shooter. This version focused on:
+                        V3 was the final competition‑ready shooter. It featured optimized compression, a stiffened hood, and
+                        clean turret integration for consistent scoring under load.
                     </p>
-                    <ul>
-                        <li>Consistent shot trajectories under full match load</li>
-                        <li>Optimized compression profile</li>
-                        <li>Improved hood stiffness</li>
-                        <li>Clean integration with the turret rotation system</li>
-                    </ul>
 
-                    <h3>Images</h3>
-                    <img src="images/IMG_1166.jpg" style="width:100%; border-radius:10px; margin-top:10px;">
+                    <h3>Video</h3>
+                    <video autoplay loop muted playsinline style="width:100%; border-radius:10px; margin-top:10px;">
+                        <source src="giphy.mp4" type="video/mp4">
+                    </video>
+
+                    <h3>Image</h3>
+                    <img src="IMG_1166.jpg" style="width:100%; border-radius:10px; margin-top:10px;">
                 </div>
             </div>
 
@@ -369,19 +323,15 @@
             <div id="ftc-mech-tipper" class="section">
                 <h1>Tipper Park Mechanism</h1>
                 <p>
-                    To earn the Base ranking point in DECODE, robots must fit into a small zone at the end of the match. Full lift
-                    systems were often too slow and unreliable, especially for 18‑inch robots.
+                    This mechanism folds the robot to achieve the Base RP. I validated the kicker geometry using FEA and tested
+                    the final design on-field.
                 </p>
-                <p>
-                    I designed a compact tipping mechanism that effectively cuts the robot’s footprint in half while keeping the
-                    mechanical complexity low. To minimize trial‑and‑error, I ran a finite element analysis (FEA) static study on
-                    the kicker geometry to confirm it would be strong enough under load while allowing material to be removed
-                    where stress was low.
-                </p>
-                <p>
-                    Two small bearing‑roller supports at the contact point help reduce friction and guide the robot smoothly into
-                    the tipped position instead of catching or binding.
-                </p>
+
+                <h3>FEA Study</h3>
+                <img src="FEA_Tipper.png" style="width:100%; border-radius:10px; margin-top:10px;">
+
+                <h3>Final Mechanism</h3>
+                <img src="Park.png" style="width:100%; border-radius:10px; margin-top:10px;">
             </div>
 
             <!-- EXTENDO -->
@@ -393,27 +343,88 @@
                 </p>
                 <p>
                     The extension is geared 1:2.6 using two servo‑boosted Axon Max servos, providing enough torque to extend
-                    reliably under load while keeping the structure relatively lightweight. The design focused on smooth travel,
-                    controlled reach, and minimizing sag during extension.
+                    reliably under load while keeping the structure relatively lightweight.
                 </p>
+                <img src="am-5401_blue.webp" style="width:60%; border-radius:10px; margin-top:10px;">
             </div>
 
-            <!-- TRANSFER -->
+            <!-- TRANSFER SYSTEM -->
             <div id="ftc-mech-transfer" class="section">
                 <h1>Transfer System</h1>
                 <p>
-                    The transfer system for INTO THE DEEP went through several iterations as I worked toward a reliable way to
-                    move samples from the intake to the scoring position.
+                    The transfer system moved samples from the intake to the scoring position. It went through three major
+                    iterations as I worked toward a design that was light, consistent, and tolerant to real‑match variability.
                 </p>
-                <p>
-                    Early concepts used passive fingers and flares with a micro servo release, followed by LEGO prototypes and
-                    hybrid passive/active designs. These versions helped test ideas but were either too weak or too bulky.
-                </p>
-                <p>
-                    The final version was a lightweight micro‑servo‑driven claw mounted at the end of the arm. It was designed to
-                    be as light and compact as possible to reduce inertia while still providing consistent control over samples.
-                    I shared the CAD for this design with other teams.
-                </p>
+
+                <div style="margin-top: 20px;">
+                    <button onclick="showTransferTab('transfer-v1', this)" class="transfer-tab-btn active-transfer-btn">V1</button>
+                    <button onclick="showTransferTab('transfer-v2', this)" class="transfer-tab-btn">V2</button>
+                    <button onclick="showTransferTab('transfer-v3', this)" class="transfer-tab-btn">V3</button>
+                </div>
+
+                <div id="transfer-v1" class="transfer-tab active-transfer-tab">
+                    <h2>Version 1 — Passive Finger Concept</h2>
+                    <p>
+                        V1 used passive geometry to guide the sample upward. It was extremely lightweight but inconsistent.
+                    </p>
+
+                    <h3>What Worked</h3>
+                    <ul>
+                        <li>Very low weight</li>
+                        <li>Simple geometry</li>
+                        <li>No electronics required</li>
+                    </ul>
+
+                    <h3>What Didn’t Work</h3>
+                    <ul>
+                        <li>Unpredictable sample rotation</li>
+                        <li>Required perfect intake angle</li>
+                        <li>No positive control</li>
+                    </ul>
+
+                    <img src="transferV1.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                </div>
+
+                <div id="transfer-v2" class="transfer-tab">
+                    <h2>Version 2 — Hybrid Passive/Active</h2>
+                    <p>
+                        V2 added a micro‑servo gate for active stabilization. It improved alignment but introduced weight and flex issues.
+                    </p>
+
+                    <h3>What Improved</h3>
+                    <ul>
+                        <li>More consistent alignment</li>
+                        <li>Servo gate prevented bounce‑outs</li>
+                        <li>Better tolerance to imperfect angles</li>
+                    </ul>
+
+                    <h3>Remaining Problems</h3>
+                    <ul>
+                        <li>Too heavy at the end of the arm</li>
+                        <li>Servo horn flex</li>
+                        <li>Snag points</li>
+                    </ul>
+
+                    <img src="transferv2.jpeg" style="width:100%; border-radius:10px; margin-top:10px;">
+                </div>
+
+                <div id="transfer-v3" class="transfer-tab">
+                    <h2>Version 3 — Lightweight Micro‑Servo Claw</h2>
+                    <p>
+                        V3 was the final competition‑ready version. It used a compact micro‑servo claw for positive control with minimal weight.
+                    </p>
+
+                    <h3>What Made It Better</h3>
+                    <ul>
+                        <li>Extremely lightweight</li>
+                        <li>Positive control at all times</li>
+                        <li>Smooth, predictable handoff</li>
+                        <li>No snag points</li>
+                        <li>Fast actuation</li>
+                    </ul>
+
+                    <img src="TransferV3.png" style="width:100%; border-radius:10px; margin-top:10px;">
+                </div>
             </div>
 
             <!-- CLAW -->
@@ -429,7 +440,7 @@
                 </p>
             </div>
 
-            <!-- 2-BAR / V4B -->
+            <!-- V4B -->
             <div id="ftc-mech-v4b" class="section">
                 <h1>2‑Bar / Virtual 4‑Bar Mechanism</h1>
                 <p>
@@ -442,7 +453,6 @@
                 </p>
             </div>
 
-            <!-- CONTACT -->
             <div id="contact" class="section">
                 <h1>Contact</h1>
                 <p>Email: your-email@example.com</p>
@@ -492,6 +502,12 @@
             document.getElementById(id).classList.add('active-shoot-tab');
             document.querySelectorAll('.shoot-tab-btn').forEach(b => b.classList.remove('active-shoot-btn'));
             if (btn) btn.classList.add('active-shoot-btn');
+        }
+        function showTransferTab(id, btn) {
+            document.querySelectorAll('.transfer-tab').forEach(t => t.classList.remove('active-transfer-tab'));
+            document.getElementById(id).classList.add('active-transfer-tab');
+            document.querySelectorAll('.transfer-tab-btn').forEach(b => b.classList.remove('active-transfer-btn'));
+            if (btn) btn.classList.add('active-transfer-btn');
         }
     </script>
 

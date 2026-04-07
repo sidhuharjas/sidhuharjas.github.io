@@ -71,7 +71,7 @@
         .main {
             flex: 1;
             padding: 24px 32px;
-            max-width: 980px;
+            max-width: 1000px; /* Slightly widened to accommodate media grids better */
         }
         .section { display: none; }
         .section.active { display: block; }
@@ -94,33 +94,47 @@
             margin-bottom: 8px;
         }
 
-        .mech-img {
-            max-width: 520px;
+        /* --- NEW MEDIA ORGANIZATION STYLES --- */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 20px 0;
+            align-items: start;
+        }
+
+        .media-figure {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .media-figure img, 
+        .media-figure video {
             width: 100%;
+            max-width: 100%;
             height: auto;
             display: block;
-            margin: 14px auto;
             border-radius: 10px;
-            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #eaeaea;
         }
-        .field-img {
-            max-width: 900px;
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 16px auto;
-            border-radius: 10px;
-            cursor: pointer;
+
+        /* Retaining specific max-widths for singular non-grid images if needed */
+        .mech-img { max-width: 520px; margin: 0 auto; cursor: pointer; }
+        .field-img { max-width: 900px; margin: 0 auto; cursor: pointer; }
+        .sample-img { max-width: 420px; margin: 0 auto; cursor: pointer; }
+
+        .media-caption {
+            margin-top: 10px;
+            font-size: 13.5px;
+            color: #555;
+            text-align: center;
+            font-style: italic;
         }
-        .sample-img {
-            max-width: 420px;
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 12px auto;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+
+        /* ------------------------------------- */
 
         .shoot-tab, .transfer-tab { display: none; margin-top: 20px; }
         .active-shoot-tab, .active-transfer-tab { display: block; }
@@ -292,7 +306,10 @@
                 </ul>
 
                 <h2>Field Layout</h2>
-                <img src="images/decode_feild.jpg" class="field-img lightbox-img" alt="DECODE field">
+                <figure class="media-figure">
+                    <img src="images/decode_feild.jpg" class="field-img lightbox-img" alt="DECODE field">
+                    <figcaption class="media-caption">DECODE Field Map</figcaption>
+                </figure>
             </div>
 
             <div id="ftc-2425-season" class="section">
@@ -318,15 +335,16 @@
                     <li><strong>2‑Bar / Virtual 4‑Bar:</strong> linkage for controlled motion to scoring positions.</li>
                 </ul>
 
-                <h2>Field Layout</h2>
-                <img src="images/into-the-deep-field.webp" class="field-img lightbox-img" alt="INTO THE DEEP field">
-
-                <h2>FTC Sample</h2>
-                <p>
-                    The mechanisms in this season were designed around reliably gripping and moving the FTC sample. The geometry
-                    of the claw and transfer system was tuned to match this part.
-                </p>
-                <img src="images/am-5401_blue.webp" class="sample-img lightbox-img" alt="FTC sample / component">
+                <div class="media-grid">
+                    <figure class="media-figure">
+                        <img src="images/into-the-deep-field.webp" class="field-img lightbox-img" alt="INTO THE DEEP field">
+                        <figcaption class="media-caption">INTO THE DEEP Field Layout</figcaption>
+                    </figure>
+                    <figure class="media-figure">
+                        <img src="images/am-5401_blue.webp" class="sample-img lightbox-img" alt="FTC sample / component">
+                        <figcaption class="media-caption">FTC Sample — Used to tune mechanism grips.</figcaption>
+                    </figure>
+                </div>
             </div>
 
             <div id="ftc-mech-shooting" class="section">
@@ -352,7 +370,10 @@
                         V1 was the initial prototype used to validate basic shooting geometry. It focused on compression testing,
                         hood angle experiments, and roller spacing.
                     </p>
-                    <img src="images/shooterv1.png" class="mech-img lightbox-img" alt="Shooter V1">
+                    <figure class="media-figure">
+                        <img src="images/shooterv1.png" class="mech-img lightbox-img" alt="Shooter V1">
+                        <figcaption class="media-caption">V1 Prototype — Validating geometry and compression</figcaption>
+                    </figure>
                 </div>
 
                 <div id="shoot-v2" class="shoot-tab">
@@ -361,7 +382,10 @@
                         V2 refined the hood curvature, reduced friction, and improved roller synchronization. This version was
                         significantly more consistent than V1.
                     </p>
-                    <img src="images/shooterv2.png" class="mech-img lightbox-img" alt="Shooter V2">
+                    <figure class="media-figure">
+                        <img src="images/shooterv2.png" class="mech-img lightbox-img" alt="Shooter V2">
+                        <figcaption class="media-caption">V2 Prototype — Improved hood curvature and sync</figcaption>
+                    </figure>
                 </div>
 
                 <div id="shoot-v3" class="shoot-tab">
@@ -371,16 +395,21 @@
                         clean turret integration for consistent scoring under load.
                     </p>
 
-                    <h3>Video</h3>
-                    <video autoplay loop muted playsinline style="max-width:520px;width:100%;border-radius:10px;display:block;margin:14px auto;">
-                        <source src="images/giphy.mp4" type="video/mp4">
-                    </video>
-
-                    <h3>Image</h3>
-                    <img src="images/IMG_1166.jpg" class="mech-img lightbox-img" alt="Shooter V3">
+                    <div class="media-grid">
+                        <figure class="media-figure">
+                            <video autoplay loop muted playsinline>
+                                <source src="images/giphy.mp4" type="video/mp4">
+                            </video>
+                            <figcaption class="media-caption">V3 in action</figcaption>
+                        </figure>
+                        <figure class="media-figure">
+                            <img src="images/IMG_1166.jpg" class="lightbox-img" alt="Shooter V3">
+                            <figcaption class="media-caption">Final assembly mounted on turret</figcaption>
+                        </figure>
+                    </div>
                 </div>
             </div>
-                        <!-- TRANSFER SYSTEM -->
+
             <div id="ftc-mech-transfer" class="section">
                 <h1>Transfer System</h1>
                 <p>
@@ -395,7 +424,6 @@
                     <button onclick="showTransferTab('transfer-v3', this)" class="transfer-tab-btn">V3 (Claw)</button>
                 </div>
 
-                <!-- V1 -->
                 <div id="transfer-v1" class="transfer-tab active-transfer-tab">
                     <h2>Version 1 — Passive Rubber‑Band Compression</h2>
                     <p>
@@ -403,25 +431,29 @@
                         The rubber bands allowed the system to flex around the sample and guide it upward. 
                         Compression was <strong>adjustable</strong> by changing band count and mounting points.
                     </p>
+                    <div class="media-grid">
+                        <div>
+                            <h3>What Worked</h3>
+                            <ul>
+                                <li>Very low weight</li>
+                                <li>Simple, low‑part‑count geometry</li>
+                                <li>Adjustable compression using rubber bands</li>
+                            </ul>
 
-                    <h3>What Worked</h3>
-                    <ul>
-                        <li>Very low weight</li>
-                        <li>Simple, low‑part‑count geometry</li>
-                        <li>Adjustable compression using rubber bands</li>
-                    </ul>
-
-                    <h3>What Didn’t Work</h3>
-                    <ul>
-                        <li>Unpredictable sample rotation</li>
-                        <li>Required near‑perfect intake angle</li>
-                        <li>No positive control — sample could slip or bounce</li>
-                    </ul>
-
-                    <img src="images/transferV1.png" class="mech-img lightbox-img" alt="Transfer V1">
+                            <h3>What Didn’t Work</h3>
+                            <ul>
+                                <li>Unpredictable sample rotation</li>
+                                <li>Required near‑perfect intake angle</li>
+                                <li>No positive control — sample could slip or bounce</li>
+                            </ul>
+                        </div>
+                        <figure class="media-figure">
+                            <img src="images/transferV1.png" class="lightbox-img" alt="Transfer V1">
+                            <figcaption class="media-caption">V1 — Passive Compression</figcaption>
+                        </figure>
+                    </div>
                 </div>
 
-                <!-- V2 -->
                 <div id="transfer-v2" class="transfer-tab">
                     <h2>Version 2 — Torsion Spring + Micro‑Servo Gate</h2>
                     <p>
@@ -429,28 +461,29 @@
                         <strong>micro‑servo gate</strong> to stabilize the sample during transfer. 
                         Compression remained <strong>adjustable</strong> by changing torsion spring preload.
                     </p>
+                    <div class="media-grid">
+                        <div>
+                            <h3>What Improved</h3>
+                            <ul>
+                                <li>More consistent alignment due to torsion spring preload</li>
+                                <li>Micro‑servo gate reduced bounce‑outs</li>
+                                <li>Better tolerance to imperfect intake angles</li>
+                            </ul>
 
-                    <h3>What Improved</h3>
-                    <ul>
-                        <li>More consistent alignment due to torsion spring preload</li>
-                        <li>Micro‑servo gate reduced bounce‑outs</li>
-                        <li>Better tolerance to imperfect intake angles</li>
-                    </ul>
-
-                    <h3>Remaining Problems</h3>
-                    <ul>
-                        <li>Too heavy at the end of the arm</li>
-                        <li>Servo horn flex under load</li>
-                        <li>
-                            Snag points — exposed edges could catch on the sample’s triangular corners, 
-                            causing jams during fast cycles
-                        </li>
-                    </ul>
-
-                    <img src="images/transferv2.jpeg" class="mech-img lightbox-img" alt="Transfer V2">
+                            <h3>Remaining Problems</h3>
+                            <ul>
+                                <li>Too heavy at the end of the arm</li>
+                                <li>Servo horn flex under load</li>
+                                <li>Snag points — exposed edges could catch on the sample’s triangular corners, causing jams</li>
+                            </ul>
+                        </div>
+                        <figure class="media-figure">
+                            <img src="images/transferv2.jpeg" class="lightbox-img" alt="Transfer V2">
+                            <figcaption class="media-caption">V2 — Spring & Servo Gate</figcaption>
+                        </figure>
+                    </div>
                 </div>
 
-                <!-- V3 -->
                 <div id="transfer-v3" class="transfer-tab">
                     <h2>Version 3 — Lightweight Axon Mini Claw</h2>
                     <p>
@@ -460,27 +493,31 @@
                         inconsistencies of V1 and V2.
                     </p>
 
-                    <h3>What Made It Better</h3>
-                    <ul>
-                        <li>Extremely lightweight</li>
-                        <li>Positive control at all times</li>
-                        <li>Smooth, predictable handoff</li>
-                        <li>No snag points — fully enclosed geometry</li>
-                        <li>Fast actuation with the Axon Mini</li>
-                    </ul>
-
-                    <img src="images/TransferV3.png" class="mech-img lightbox-img" alt="Transfer V3 Claw">
+                    <div class="media-grid">
+                        <div>
+                            <h3>What Made It Better</h3>
+                            <ul>
+                                <li>Extremely lightweight</li>
+                                <li>Positive control at all times</li>
+                                <li>Smooth, predictable handoff</li>
+                                <li>No snag points — fully enclosed geometry</li>
+                                <li>Fast actuation with the Axon Mini</li>
+                            </ul>
+                        </div>
+                        <figure class="media-figure">
+                            <img src="images/TransferV3.png" class="lightbox-img" alt="Transfer V3 Claw">
+                            <figcaption class="media-caption">V3 — Compact Claw Assembly</figcaption>
+                        </figure>
+                    </div>
                 </div>
             </div>
 
-            <!-- TIPPER PARK -->
             <div id="ftc-mech-tipper" class="section">
                 <h1>Tipper Park Mechanism</h1>
                 <p>
                     The Tipper Park mechanism was designed for the DECODE endgame to reliably earn the Base ranking point. 
                     The system folds the robot backward into a parked configuration using a compact, servo‑driven linkage.
                 </p>
-
                 <p>
                     The mechanism is powered by <strong>two Axon Max servos</strong> working in parallel. 
                     Using dual servos provides significantly higher effective torque, reduces the load on each output shaft, 
@@ -488,27 +525,18 @@
                     This redundancy also improves reliability during long events where single‑servo systems tend to overheat or stall.
                 </p>
 
-                <h3>FEA Study</h3>
-                <p>
-                    Before manufacturing, I ran a finite element analysis (FEA) on the kicker plate to validate that the 
-                    geometry could withstand the peak loads generated during tipping. This allowed me to remove unnecessary 
-                    material while keeping the part stiff enough to avoid flex‑induced misalignment. The FEA confirmed that 
-                    the highest stresses occurred near the pivot interface, so I reinforced that region while trimming weight 
-                    from low‑stress areas.
-                </p>
-                <img src="images/FEA_Tipper.png" class="mech-img lightbox-img" alt="Tipper FEA">
-
-                <h3>Final Mechanism</h3>
-                <p>
-                    The final design uses a reinforced pivot, MF4ZZ bearings for smooth rotation, and a compact linkage path 
-                    that keeps the mechanism lightweight and consistent. The dual‑Axon‑Max drive provides smooth, controlled 
-                    motion and prevents the robot from slamming into the ground during the tip. The result is a reliable, 
-                    competition‑ready park mechanism that performs consistently across an entire event.
-                </p>
-                <img src="images/Park.png" class="mech-img lightbox-img" alt="Tipper Park mechanism">
+                <div class="media-grid">
+                    <figure class="media-figure">
+                        <img src="images/FEA_Tipper.png" class="lightbox-img" alt="Tipper FEA">
+                        <figcaption class="media-caption">FEA validation of kicker plate loads</figcaption>
+                    </figure>
+                    <figure class="media-figure">
+                        <img src="images/Park.png" class="lightbox-img" alt="Tipper Park mechanism">
+                        <figcaption class="media-caption">Final competition-ready park mechanism</figcaption>
+                    </figure>
+                </div>
             </div>
 
-            <!-- V4B -->
             <div id="ftc-mech-v4b" class="section">
                 <h1>2‑Bar / Virtual 4‑Bar Mechanism</h1>
                 <p>
@@ -520,13 +548,14 @@
                     the drop‑off position. The goal was a fast, predictable motion path with low mechanical complexity.
                 </p>
 
-                <h3>Final Mechanism Video</h3>
-                <video autoplay loop muted playsinline style="max-width:520px;width:100%;border-radius:10px;display:block;margin:14px auto;">
-                    <source src="images/v4bar.mp4" type="video/mp4">
-                </video>
+                <figure class="media-figure" style="max-width: 600px; margin: 24px auto;">
+                    <video autoplay loop muted playsinline>
+                        <source src="images/v4bar.mp4" type="video/mp4">
+                    </video>
+                    <figcaption class="media-caption">2-Bar Linkage demonstrating pitch control</figcaption>
+                </figure>
             </div>
 
-            <!-- CONTACT -->
             <div id="contact" class="section">
                 <h1>Contact</h1>
                 <p>Email: your-email@example.com</p>
@@ -535,7 +564,6 @@
         </div>
     </div>
 
-    <!-- LIGHTBOX OVERLAY -->
     <div id="lightboxOverlay" class="lightbox-overlay">
         <img id="lightboxImage" class="lightbox-image" src="" alt="Enlarged view">
     </div>
@@ -605,4 +633,3 @@
 
 </body>
 </html>
-            

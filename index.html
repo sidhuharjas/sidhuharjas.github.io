@@ -218,6 +218,7 @@ border-bottom: 1px solid #ddd;
 
 <div class="sidebar-section-title">INTO THE DEEP™ (24-25)</div>
 <button onclick="showSection('ftc-2425-season', this)">Season Overview</button>
+<button onclick="showSection('ftc-itd-robot', this)">Full Robot Overview</button>
 <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
 <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
 <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar Deposit Arm</button>
@@ -351,6 +352,32 @@ after the intake.
 <figure class="media-figure">
 <img src="images/am-5401_blue.webp" class="sample-img lightbox-img" alt="FTC sample / component">
 <figcaption class="media-caption">FTC Sample — Used to tune mechanism grips.</figcaption>
+</figure>
+</div>
+</div>
+
+<div id="ftc-itd-robot" class="section">
+<h1>INTO THE DEEP — Full Robot Overview</h1>
+<p>
+Building a highly competitive FTC robot requires a massive team effort. For our INTO THE DEEP robot, <strong>I took the lead in creating and maintaining the V2 robot.</strong> My core responsibility was designing the extension, transfer claw, and deposit arm, while ensuring they integrated flawlessly with the subsystems my teammates built.
+</p>
+<p>
+Below is a high-level overview of the entire machine to provide context on how my mechanisms interact with the rest of the robot. <em>(For deep-dive math and iteration history on the systems I directly designed, see the dedicated mechanism pages in the sidebar).</em>
+</p>
+
+<div class="media-grid">
+<div>
+<h3>Team Subsystems Overview</h3>
+<ul>
+<li><strong>Custom Drivetrain:</strong> Built using four 6061 aluminum plates that were custom cut on an industrial laser cutter to optimize our chassis footprint.</li>
+<li><strong>Vertical Lift:</strong> Because the lift is the longest part of the cycle, we use two synchronized motors geared at 5.7:1 with 3D printed sprockets and chain, doubling our previous lift speed. It utilizes a 3-stage MiSUMI structure and a down-string spring to manage slack when gravity outpaces the spool.</li>
+<li><strong>Virtual 4-Bar Intake:</strong> A top-down, motor-driven intake. To solve geometry limitations that prevented picking up samples directly beneath the arm, we used a chain mounted to a fixed shaft to create a virtual 4-bar. This orientates the intake properly without needing a separate motor.</li>
+<li><strong>Intake Rollers:</strong> Features 3D-printed TPU fingers with hooks offset at 90 degrees to automatically orient the samples vertically for my transfer claw. A bottom roller lined with surgical tubing acts like a vacuum to sweep up the pieces.</li>
+</ul>
+</div>
+<figure class="media-figure">
+<img src="images/full_robot_itd.jpg" class="lightbox-img" alt="INTO THE DEEP Full Robot">
+<figcaption class="media-caption">Fully integrated INTO THE DEEP robot</figcaption>
 </figure>
 </div>
 </div>

@@ -219,7 +219,7 @@ border-bottom: 1px solid #ddd;
 <button onclick="showSection('ftc-mech-tipper', this)">Tipper Park</button>
 <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
 <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
-<button onclick="showSection('ftc-mech-v4b', this)">2‑Bar / Virtual 4‑Bar</button>
+<button onclick="showSection('ftc-mech-v4b', this)">2‑Bar Deposit Arm</button>
 </div>
 
 <div class="main">
@@ -287,7 +287,7 @@ with additional ranking points from navigation and endgame positioning.
 A precision placement game where robots pick up triangular samples and score them into baskets or onto
 bars at different heights.
 </p>
-<p><strong>My focus:</strong> Linear Extension, Transfer System, 2‑Bar / Virtual 4‑Bar linkage.</p>
+<p><strong>My focus:</strong> Linear Extension, Transfer System, 2‑Bar Deposit Arm.</p>
 </div>
 </div>
 
@@ -338,8 +338,8 @@ after the intake.
 <h2>What I Worked On</h2>
 <ul>
 <li><strong>Linear Extension System:</strong> horizontal extension on a linear slide for scoring reach.</li>
-<li><strong>Transfer System:</strong> three‑stage evolution ending in a lightweight Axon Mini claw.</li>
-<li><strong>2‑Bar / Virtual 4‑Bar:</strong> linkage for controlled motion to scoring positions.</li>
+<li><strong>Transfer System:</strong> extensive iteration leading to an active vectoring claw.</li>
+<li><strong>2‑Bar Deposit Arm:</strong> optimized linkage for controlled drop-offs.</li>
 </ul>
 
 <div class="media-grid">
@@ -529,28 +529,27 @@ Compression remained <strong>adjustable</strong> by changing torsion spring prel
 </div>
 
 <div id="transfer-v3" class="transfer-tab">
-<h2>Version 3 — Lightweight Axon Mini Claw</h2>
+<h2>Version 3 — Active Vectoring Claw</h2>
 <p>
-V3 replaced the passive system with a compact <strong>Axon Mini–powered claw</strong>.
-The claw geometry was matched to the FTC sample, giving a large contact area and a stable grip.
-This version provided <strong>positive control</strong> at all times and eliminated the
-inconsistencies of V1 and V2.
+The robot’s transfer system is one of the most important parts of a fast cycle, as it is the most common culprit of lost time and reliability. To ensure a firm and consistent motion from the intake into the deposit, we replaced the passive systems with a compact, <strong>Axon Mini–powered claw</strong>. 
+</p>
+<p>
+Before arriving at this design, we designed, manufactured, and tested <strong>50+ versions</strong> of both passive and active systems. We ultimately determined through rigorous testing that an active motion done by a servo produced the highest performance.
 </p>
 
 <div class="media-grid">
 <div>
-<h3>What Made It Better</h3>
+<h3>Claw Geometry & Mechanics</h3>
 <ul>
-<li>Extremely lightweight</li>
-<li>Positive control at all times</li>
-<li>Smooth, predictable handoff</li>
-<li>No snag points — fully enclosed geometry</li>
-<li>Fast actuation with the Axon Mini</li>
+<li><strong>Funneling Vector Geometry:</strong> The claw utilizes funneling geometry to conform to the shape of the sample and the intake, actively vectoring the pieces into position.</li>
+<li><strong>Maximized Surface Contact:</strong> The internal shape matches the sample perfectly, providing a large amount of surface contact for a stable, positive grip.</li>
+<li><strong>Self-Centering Herringbone Gears:</strong> Each finger of the claw uses a herringbone gear. They are self-centering by nature and allow multiple teeth to contact each other simultaneously, drastically reducing the chances of slipping or stripping.</li>
+<li><strong>Lightweight & Enclosed:</strong> No snag points with fully enclosed geometry, allowing smooth and predictable handoffs.</li>
 </ul>
 </div>
 <figure class="media-figure">
 <img src="images/TransferV3.png" class="lightbox-img" alt="Transfer V3 Claw">
-<figcaption class="media-caption">V3 — Compact Claw Assembly</figcaption>
+<figcaption class="media-caption">V3 — Active Vectoring Claw Assembly</figcaption>
 </figure>
 </div>
 </div>
@@ -593,22 +592,39 @@ To minimize physical testing time and mitigate risk, we ran a static Finite Elem
 </div>
 
 <div id="ftc-mech-v4b" class="section">
-<h1>2‑Bar / Virtual 4‑Bar Mechanism</h1>
+<h1>2‑Bar Deposit Arm</h1>
 <p>
-This mechanism moved samples from the intake to scoring positions in INTO THE DEEP. It is a simple 2‑bar
-linkage powered by an Axon Mini through a 1:1 aluminum gear.
+Our arm is a simple 2-bar mechanism that moves the sample from the intake and brings it to the scoring baskets and bars. At the back, it is powered through a 1:1 aluminum gear connected to an Axon Mini to maximize the speed of the movement.
 </p>
 <p>
-An additional degree of freedom, which I refer to as pitch, allows the end of the arm to pivot and optimize
-the drop‑off position. The goal was a fast, predictable motion path with low mechanical complexity.
+Additionally, we have another degree of freedom that we call <strong>pitch</strong>, which pivots the end of the arm to optimize the drop-off position. The goal was a fast, predictable motion path with low mechanical complexity.
 </p>
 
-<figure class="media-figure" style="max-width: 600px; margin: 24px auto;">
+<div class="media-grid">
+<div>
+<h3>Torque & Payload Calculations</h3>
+<p>To ensure our arm could reliably lift the extension slides and the end effector, we calculated our required torque at a 51 cm extension length:</p>
+<div class="calculation-box">
+<strong>Torque Equation:</strong><br>
+&tau; = r &middot; F &middot; sin(&theta;)<br>
+&tau; = r &middot; m &middot; a &middot; sin(&pi;/3)<br>
+&tau; = 51 cm &middot; X &middot; 0.87<br><br>
+<strong>System Specs:</strong><br>
+2&times; Servo Boosted Axon Max+ servos provide <strong>68 kg&middot;cm</strong> of torque.<br>
+With a <strong>1:2.6 reduction</strong>, we have enough torque to move an end effector weighing up to 4 kg.<br><br>
+<strong>Conclusion:</strong><br>
+Since our design goal was to keep the end effector <strong>under 1 kg</strong>, this massive torque overhead easily accounts for any mechanical inefficiencies from the linear slides and servo linkages.
+</div>
+</div>
+
+<figure class="media-figure">
 <video autoplay loop muted playsinline>
 <source src="images/v4bar.mp4" type="video/mp4">
 </video>
 <figcaption class="media-caption">2-Bar Linkage demonstrating pitch control</figcaption>
 </figure>
+</div>
+
 </div>
 
 <div id="contact" class="section">

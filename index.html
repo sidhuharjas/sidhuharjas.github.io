@@ -500,16 +500,26 @@ It is designed to be fast, stable under load, and smoothly integrated with the t
 
 <div class="media-grid">
 <div>
-<h3>Design & Iteration</h3>
+<h3>Design & Actuation</h3>
 <ul>
-<li><strong>Placeholder Point 1:</strong> Detail about your slides (e.g., MiSUMI, Viper, custom 3D printed).</li>
-<li><strong>Placeholder Point 2:</strong> Detail about your stringing/belt method.</li>
-<li><strong>Placeholder Point 3:</strong> Detail about motor power and speed.</li>
+<li><strong>MiSUMI Linear Slides:</strong> We built the extension on MiSUMI slides because they provide an incredibly reliable and compact foundation, maximizing stiffness while minimizing our horizontal footprint.</li>
+<li><strong>Power Delivery:</strong> The extension is powered by a single <strong>Axon Max servo</strong>. To ensure it has the driving force to push and pull the slides without stalling, we designed a custom herringbone gear reduction.</li>
+<li><strong>Herringbone Gear Profile:</strong> Using herringbone gears ensures self-centering during operation and smooth power transmission without side-load slipping or axial thrust forces.</li>
 </ul>
+
+<div class="calculation-box">
+<strong>Gear Reduction & Torque Multiplication:</strong><br>
+Driving Gear = 16 Teeth<br>
+Driven Gear = 120 Teeth<br><br>
+<strong>Ratio:</strong> 120 / 16 = <strong>7.5:1 Reduction</strong><br><br>
+<strong>Conclusion:</strong><br>
+By gearing the Axon Max down by a factor of 7.5, we multiply our effective torque by 7.5&times;. This massive torque overhead easily overcomes any slide friction and ensures the intake deploys and retracts consistently under competition loads.
+</div>
+
 </div>
 <figure class="media-figure">
 <img src="images/extention.PNG" class="lightbox-img" alt="Linear Extension System">
-<figcaption class="media-caption">Linear Extension fully deployed</figcaption>
+<figcaption class="media-caption">Linear Extension assembly (partially deployed)</figcaption>
 </figure>
 </div>
 </div>

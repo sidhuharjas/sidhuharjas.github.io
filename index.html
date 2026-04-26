@@ -50,8 +50,9 @@ font-size: 13px;
 font-weight: 600;
 text-transform: uppercase;
 color: #666;
-margin: 16px 8px 6px;
+margin: 20px 8px 6px;
 }
+.sidebar-section-title:first-child { margin-top: 8px; }
 .sidebar button {
 width: 100%;
 text-align: left;
@@ -206,17 +207,17 @@ border-bottom: 1px solid #ddd;
 <div class="layout">
 
 <div class="sidebar" id="ftcSidebar" style="display:none;">
-<div class="sidebar-section-title">FTC</div>
+<div class="sidebar-section-title">FTC Overview</div>
 <button onclick="showSection('ftc-mech-overview', this)">Mechanisms Overview</button>
-<button onclick="showSection('ftc-seasons-landing', this)">Seasons</button>
+<button onclick="showSection('ftc-seasons-landing', this)">Seasons Summary</button>
 
-<div class="sidebar-section-title">Seasons</div>
-<button onclick="showSection('ftc-2526-season', this)">2025–2026 — DECODE</button>
-<button onclick="showSection('ftc-2425-season', this)">2024–2025 — INTO THE DEEP</button>
-
-<div class="sidebar-section-title">Mechanisms</div>
+<div class="sidebar-section-title">DECODE™ (25-26)</div>
+<button onclick="showSection('ftc-2526-season', this)">Season Overview</button>
 <button onclick="showSection('ftc-mech-shooting', this)">Shooting Mechanism</button>
 <button onclick="showSection('ftc-mech-tipper', this)">Tipper Park</button>
+
+<div class="sidebar-section-title">INTO THE DEEP™ (24-25)</div>
+<button onclick="showSection('ftc-2425-season', this)">Season Overview</button>
 <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
 <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
 <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar Deposit Arm</button>
@@ -454,6 +455,65 @@ Only ~7% of stored energy is transferred per shot. This minimizes wheel speed dr
 </div>
 </div>
 
+<div id="ftc-mech-tipper" class="section">
+<h1>Tipper Park Mechanism</h1>
+<p>
+Following our game strategy of securing all ranking points by ourselves, the Base ranking point was the next priority. Through analyzing other matches, we saw that most teams with a full lift were not able to fully lift up in time for the full double park. Additionally, it is nearly impossible for full lift mechanisms to account for 18” robot constraints.
+</p>
+<p>
+For these reasons, we opted for a small tipping park mechanism that cuts the robot's footprint in half while keeping mechanical complexity to a minimum. 
+</p>
+<p>
+The mechanism is powered by <strong>two Axon Max servos</strong> working in parallel.
+Using dual servos provides significantly higher effective torque, reduces the load on each output shaft,
+and ensures the robot can consistently tip even under battery sag or when the robot is slightly misaligned.
+This redundancy also improves reliability during long events where single‑servo systems tend to overheat or stall.
+</p>
+
+<div class="media-grid">
+<div>
+<h3>Finite Element Analysis (FEA)</h3>
+<p>
+To minimize physical testing time and mitigate risk, we ran a static Finite Element Analysis (FEA) study on the kicker plate. This ensured the component would be sufficiently strong under the robot's weight, while allowing us to optimize and minimize mass through a strategic taper in areas with lower stress loads.
+</p>
+</div>
+</div>
+
+<div class="media-grid">
+<figure class="media-figure">
+<img src="images/FEA_Tipper.png" class="lightbox-img" alt="Tipper FEA">
+<figcaption class="media-caption">FEA validation of kicker plate loads to optimize the taper</figcaption>
+</figure>
+<figure class="media-figure">
+<img src="images/Park.png" class="lightbox-img" alt="Tipper Park mechanism">
+<figcaption class="media-caption">Final competition-ready park mechanism</figcaption>
+</figure>
+</div>
+</div>
+
+<div id="ftc-mech-extendo" class="section">
+<h1>Linear Extension</h1>
+<p>
+The linear extension system provides the horizontal reach necessary to score samples in the INTO THE DEEP game. 
+It is designed to be fast, stable under load, and smoothly integrated with the transfer and intake mechanisms.
+</p>
+
+<div class="media-grid">
+<div>
+<h3>Design & Iteration</h3>
+<ul>
+<li><strong>Placeholder Point 1:</strong> Detail about your slides (e.g., MiSUMI, Viper, custom 3D printed).</li>
+<li><strong>Placeholder Point 2:</strong> Detail about your stringing/belt method.</li>
+<li><strong>Placeholder Point 3:</strong> Detail about motor power and speed.</li>
+</ul>
+</div>
+<figure class="media-figure">
+<img src="images/extention.PNG" class="lightbox-img" alt="Linear Extension System">
+<figcaption class="media-caption">Linear Extension fully deployed</figcaption>
+</figure>
+</div>
+</div>
+
 <div id="ftc-mech-transfer" class="section">
 <h1>Transfer System</h1>
 <p>
@@ -552,42 +612,6 @@ Before arriving at this design, we designed, manufactured, and tested <strong>50
 <figcaption class="media-caption">V3 — Active Vectoring Claw Assembly</figcaption>
 </figure>
 </div>
-</div>
-</div>
-
-<div id="ftc-mech-tipper" class="section">
-<h1>Tipper Park Mechanism</h1>
-<p>
-Following our game strategy of securing all ranking points by ourselves, the Base ranking point was the next priority. Through analyzing other matches, we saw that most teams with a full lift were not able to fully lift up in time for the full double park. Additionally, it is nearly impossible for full lift mechanisms to account for 18” robot constraints.
-</p>
-<p>
-For these reasons, we opted for a small tipping park mechanism that cuts the robot's footprint in half while keeping mechanical complexity to a minimum. 
-</p>
-<p>
-The mechanism is powered by <strong>two Axon Max servos</strong> working in parallel.
-Using dual servos provides significantly higher effective torque, reduces the load on each output shaft,
-and ensures the robot can consistently tip even under battery sag or when the robot is slightly misaligned.
-This redundancy also improves reliability during long events where single‑servo systems tend to overheat or stall.
-</p>
-
-<div class="media-grid">
-<div>
-<h3>Finite Element Analysis (FEA)</h3>
-<p>
-To minimize physical testing time and mitigate risk, we ran a static Finite Element Analysis (FEA) study on the kicker plate. This ensured the component would be sufficiently strong under the robot's weight, while allowing us to optimize and minimize mass through a strategic taper in areas with lower stress loads.
-</p>
-</div>
-</div>
-
-<div class="media-grid">
-<figure class="media-figure">
-<img src="images/FEA_Tipper.png" class="lightbox-img" alt="Tipper FEA">
-<figcaption class="media-caption">FEA validation of kicker plate loads to optimize the taper</figcaption>
-</figure>
-<figure class="media-figure">
-<img src="images/Park.png" class="lightbox-img" alt="Tipper Park mechanism">
-<figcaption class="media-caption">Final competition-ready park mechanism</figcaption>
-</figure>
 </div>
 </div>
 

@@ -134,10 +134,10 @@ text-align: center;
 font-style: italic;
 }
 
-.shoot-tab, .transfer-tab { display: none; margin-top: 20px; }
-.active-shoot-tab, .active-transfer-tab { display: block; }
+.shoot-tab, .transfer-tab, .lift-tab { display: none; margin-top: 20px; }
+.active-shoot-tab, .active-transfer-tab, .active-lift-tab { display: block; }
 
-.shoot-tab-btn, .transfer-tab-btn {
+.shoot-tab-btn, .transfer-tab-btn, .lift-tab-btn {
 background: #eee;
 border: 1px solid #ccc;
 padding: 6px 12px;
@@ -147,7 +147,8 @@ cursor: pointer;
 font-size: 14px;
 }
 .shoot-tab-btn.active-shoot-btn,
-.transfer-tab-btn.active-transfer-btn {
+.transfer-tab-btn.active-transfer-btn,
+.lift-tab-btn.active-lift-btn {
 background: #111;
 color: #fff;
 }
@@ -219,6 +220,7 @@ border-bottom: 1px solid #ddd;
 <div class="sidebar-section-title">INTO THE DEEP™ (24-25)</div>
 <button onclick="showSection('ftc-2425-season', this)">Season Overview</button>
 <button onclick="showSection('ftc-itd-robot', this)">Full Robot Overview</button>
+<button onclick="showSection('ftc-mech-lift', this)">Vertical Lift</button>
 <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
 <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
 <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar Deposit Arm</button>
@@ -289,7 +291,7 @@ with additional ranking points from navigation and endgame positioning.
 A precision placement game where robots pick up triangular samples and score them into baskets or onto
 bars at different heights.
 </p>
-<p><strong>My focus:</strong> Linear Extension, Transfer System, 2‑Bar Deposit Arm.</p>
+<p><strong>My focus:</strong> Vertical Lift, Linear Extension, Transfer System, 2‑Bar Deposit Arm.</p>
 </div>
 </div>
 
@@ -339,6 +341,7 @@ after the intake.
 
 <h2>What I Worked On</h2>
 <ul>
+<li><strong>Vertical Lift:</strong> dual-motor architecture and counterspring tuning.</li>
 <li><strong>Linear Extension System:</strong> horizontal extension on a linear slide for scoring reach.</li>
 <li><strong>Transfer System:</strong> extensive iteration leading to an active vectoring claw.</li>
 <li><strong>2‑Bar Deposit Arm:</strong> optimized linkage for controlled drop-offs.</li>
@@ -359,7 +362,7 @@ after the intake.
 <div id="ftc-itd-robot" class="section">
 <h1>INTO THE DEEP — Full Robot Overview</h1>
 <p>
-Building a highly competitive FTC robot requires a massive team effort. For our INTO THE DEEP robot, <strong>I took the lead in creating and maintaining the V2 robot.</strong> My core responsibility was designing the extension, transfer claw, and deposit arm, while ensuring they integrated flawlessly with the subsystems my teammates built.
+Building a highly competitive FTC robot requires a massive team effort. For our INTO THE DEEP robot, <strong>I took the lead in creating and maintaining the V2 robot.</strong> My core responsibility was designing the extension, lift integration, transfer claw, and deposit arm, while ensuring they integrated flawlessly with the subsystems my teammates built.
 </p>
 <p>
 Below is a high-level overview of the entire machine to provide context on how my mechanisms interact with the rest of the robot. <em>(For deep-dive math and iteration history on the systems I directly designed, see the dedicated mechanism pages in the sidebar).</em>
@@ -376,9 +379,82 @@ Below is a high-level overview of the entire machine to provide context on how m
 </ul>
 </div>
 <figure class="media-figure">
-<img src="images/full_robot_itd.jpg" class="lightbox-img" alt="INTO THE DEEP Full Robot">
+<img src="images/reebok.png" class="lightbox-img" alt="INTO THE DEEP Full Robot">
 <figcaption class="media-caption">Fully integrated INTO THE DEEP robot</figcaption>
 </figure>
+</div>
+</div>
+
+<div id="ftc-mech-lift" class="section">
+<h1>Vertical Lift & Load Management</h1>
+<p>
+Our vertical lift is responsible for the longest physical movement in our scoring cycle and sees the highest volume of repetitions during a match. To hit our aggressive cycle-time targets, I helped overhaul our lift architecture and load management system.
+</p>
+
+<div style="margin-top: 20px;">
+<button onclick="showLiftTab('lift-architecture', this)" class="lift-tab-btn active-lift-btn">Lift Architecture</button>
+<button onclick="showLiftTab('lift-springs', this)" class="lift-tab-btn">Counterspringing</button>
+</div>
+
+<div id="lift-architecture" class="lift-tab active-lift-tab">
+<h2>Dual-Motor MiSUMI Setup</h2>
+<p>
+We originally used a single motor, but we found it was bottlenecking our overall cycle speed. We decided to move to a dual-motor setup, which—in combination with a change in the motor ratio—allowed us to completely double the speed of the lift.
+</p>
+<div class="media-grid">
+<div>
+<h3>Mechanics & Reliability</h3>
+<ul>
+<li><strong>Actuation:</strong> Powered by two synchronized motors geared at 5.7:1, using custom 3D-printed sprockets and chain to ensure perfectly matched power delivery.</li>
+<li><strong>Structure:</strong> Built on a 3-stage MiSUMI slide structure, chosen for its rigidity and smooth travel under high lateral loads.</li>
+<li><strong>Down-string Tensioning:</strong> The key to the spool's reliability is a counter-spring system on the down-string. Because gravity assists the lift on the way down, the spool often struggles to reel in fast enough, creating dangerous slack. The spring dynamically adapts to this slack, keeping the string tensioned and preventing derailments.</li>
+</ul>
+</div>
+
+<figure class="media-figure">
+<div style="width:100%; height:250px; background:#eef2f5; display:flex; align-items:center; justify-content:center; border-radius:10px; border: 1px dashed #ccc;">
+<span style="color:#888; font-size:14px;">[Insert Lift Image Here]</span>
+</div>
+<figcaption class="media-caption">3-Stage dual-motor MiSUMI Lift System</figcaption>
+</figure>
+</div>
+</div>
+
+<div id="lift-springs" class="lift-tab">
+<h2>Counterspringing</h2>
+<p>
+Doubling the speed of the lift introduced a new problem: high current draw and increased stall risk. To minimize the load on our dual 5.7:1 motors, I implemented a mechanical counterspringing system.
+</p>
+<div class="media-grid">
+<div>
+<h3>Gravity Neutralization</h3>
+<p>
+By attaching constant-force springs to the moving stages of the MiSUMI slides, we effectively neutralize the gravity load of the lift. This drastically improves the system's efficiency.
+</p>
+<ul>
+<li><strong>Reduced Motor Strain:</strong> The motors no longer have to lift the dead weight of the slides and the end effector; they only need to overcome system inertia and friction.</li>
+<li><strong>Battery Efficiency:</strong> Lower current draw prevents battery voltage sag during rapid cycling.</li>
+<li><strong>Faster Acceleration:</strong> Without fighting gravity, the motors reach their peak RPM much faster on the upward stroke.</li>
+</ul>
+
+<div class="calculation-box">
+<strong>Counterspringing Physics:</strong><br>
+The goal is to make the net vertical force required to hold the lift steady near zero:<br>
+&Sigma;F<sub>y</sub> = (m &middot; g) - F<sub>springs</sub> &approx; 0<br><br>
+Where:<br>
+m &middot; g = Total weight of all moving lift stages + end effector<br>
+F<sub>springs</sub> = Combined pull force of the constant force springs<br><br>
+By zeroing out the gravity penalty, 100% of the motor's torque can be dedicated to acceleration (F = m &middot; a).
+</div>
+</div>
+
+<figure class="media-figure">
+<div style="width:100%; height:300px; background:#eef2f5; display:flex; align-items:center; justify-content:center; border-radius:10px; border: 1px dashed #ccc;">
+<span style="color:#888; font-size:14px; text-align: center;">[Insert Close-Up Image of <br>Constant Force Springs Here]</span>
+</div>
+<figcaption class="media-caption">Constant force spring mounts on the lift stages</figcaption>
+</figure>
+</div>
 </div>
 </div>
 
@@ -747,6 +823,12 @@ document.querySelectorAll('.transfer-tab').forEach(t => t.classList.remove('acti
 document.getElementById(id).classList.add('active-transfer-tab');
 document.querySelectorAll('.transfer-tab-btn').forEach(b => b.classList.remove('active-transfer-btn'));
 if (btn) btn.classList.add('active-transfer-btn');
+}
+function showLiftTab(id, btn) {
+document.querySelectorAll('.lift-tab').forEach(t => t.classList.remove('active-lift-tab'));
+document.getElementById(id).classList.add('active-lift-tab');
+document.querySelectorAll('.lift-tab-btn').forEach(b => b.classList.remove('active-lift-btn'));
+if (btn) btn.classList.add('active-lift-btn');
 }
 
 const overlay = document.getElementById('lightboxOverlay');

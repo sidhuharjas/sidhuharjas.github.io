@@ -83,6 +83,9 @@ h3 { font-size: 17px; margin-top: 18px; }
 p, ul { line-height: 1.6; font-size: 15px; }
 li { margin-bottom: 6px; }
 
+a { color: #111; text-decoration: underline; transition: opacity 0.2s; }
+a:hover { opacity: 0.6; }
+
 .card {
 background: #ffffff;
 border-radius: 10px;
@@ -231,75 +234,82 @@ border-bottom: 1px solid #ddd;
 <div id="about" class="section active">
 <h1>About Me</h1>
 <p>
-I’m a student robotics engineer focused on building reliable, competition‑grade mechanisms and developing
-clean, repeatable engineering workflows. My work spans FTC robotics, CAD design, control systems,
-mechanism iteration, and performance tuning.
+I'm a robotics engineer focused on building mechanisms that are reliable, fast, and competition-grade. 
+My work spans FTC robotics, mechanical design, control systems, and rapid iteration under real-world constraints.
 </p>
 <p>
-I enjoy taking ideas from rough prototypes to polished, competition‑ready systems using a mix of CAD,
-simulation, testing, and data‑driven refinement. Whether it’s designing a shooter, optimizing a linkage,
-or building a full subsystem from scratch, I focus on simplicity, reliability, and engineering clarity.
+Every season in FTC is different: a new game, new rules, new field. That means designing, building, and competing with a completely new robot every year. 
+I thrive in that environment. I take problems—mechanical failures, design constraints, performance targets—and solve them through careful engineering, testing, and iteration.
 </p>
 <p>
-This portfolio documents the mechanisms, systems, and engineering decisions behind the robots I’ve built
-across multiple seasons and personal projects.
+My focus is on the details that matter: precision gear ratios, friction loss analysis, load calculations, and systems that work in the chaos of competition. 
+Whether it's a shooter that hits the same spot every time, a transfer system that never jams, or a deposit arm optimized for speed, 
+I build mechanisms that perform when it counts.
+</p>
+<p>
+This portfolio documents the mechanisms, engineering decisions, and design iterations behind the systems I've built. 
+Each page includes calculations, CAD context, and the reasoning behind design choices.
 </p>
 </div>
 
 <div id="ftc-landing" class="section">
 <h1>FTC Robotics — Team 20744 “24Karat”</h1>
 <p>
-I am a student engineer on FTC Team 20744 “24Karat.” This section focuses on the mechanisms I built and the
-games I competed in, rather than the entire robot. Each season’s game is different, so the engineering
-challenges change every year.
+I am a core engineer on FTC Team 20744 "24Karat," where I design and build competition-grade mechanisms that win matches. 
+Every year brings a brand-new game, which means every year we design, build, and deploy a completely new robot from scratch.
+</p>
+<p>
+This section documents the mechanisms I designed, iterated on, and deployed—from concept through competition. 
+You'll find detailed technical breakdowns, engineering decisions, failure analysis, and the design solutions that worked under pressure.
 </p>
 </div>
 
 <div id="ftc-mech-overview" class="section">
 <h1>Mechanisms Overview</h1>
 <p>
-I compete in the <strong>FIRST Tech Challenge (FTC)</strong>, a global robotics program where teams design,
-build, and program 18‑inch robots to play a brand‑new game every season. Each game introduces new scoring
-rules, new field elements, and new engineering challenges, so the robot has to be engineered from scratch
-every year.
+The <strong>FIRST Tech Challenge (FTC)</strong> is a global competition where teams design 18-inch robots to compete in a new game every season. 
+Unlike longer engineering projects, FTC demands rapid iteration: a new game reveal, 6–8 weeks of design and build, then competition season. 
+There's no room for "we'll get it right next year." It has to work now.
 </p>
 <p>
-This page gives a simple story of the mechanisms I built across the 2024–2025 and 2025–2026 seasons and why
-they existed in the context of each game. Detailed technical breakdowns live on each mechanism’s dedicated page.
+This overview walks through the mechanisms I designed and built across the 2024–2025 and 2025–2026 seasons. 
+You'll see the problems we faced, the solutions we chose, and why those solutions mattered. Each mechanism has a dedicated deep-dive page with calculations, CAD, and iteration history.
 </p>
 </div>
 
 <div id="ftc-seasons-landing" class="section">
 <h1>FTC Seasons</h1>
 <p>
-Every FTC season brings a new engineering challenge. Below are the seasons I’ve competed in and the systems
-I focused on.
+Every season brings a completely new game. New scoring rules. New field. New robot design. Below are the seasons I competed in and the mechanisms I built.
 </p>
 
 <div class="card">
 <div class="card-title">2025–2026 — DECODE™</div>
 <p>
-A shooting‑focused game built around collecting and scoring 5‑inch spherical artifacts into corner goals,
-with additional ranking points from navigation and endgame positioning.
+A shooting-focused game where robots collect 5-inch spheres and score them into corner goals. 
+The game is won by teams that can shoot consistently, quickly, and under pressure.
 </p>
-<p><strong>My focus:</strong> Shooting Mechanism (V1–V3), Tipper Park mechanism.</p>
+<p><strong>What I designed:</strong> Shooting Mechanism (V1–V3 iterations), Tipper Park endgame mechanism.</p>
 </div>
 
 <div class="card">
 <div class="card-title">2024–2025 — INTO THE DEEP™</div>
 <p>
-A precision placement game where robots pick up triangular samples and score them into baskets or onto
-bars at different heights.
+A precision placement game where robots score triangular samples into baskets and onto bars at multiple heights. 
+Speed, precision, and reliability all matter equally.
 </p>
-<p><strong>My focus:</strong> Vertical Lift, Linear Extension, Transfer System, 2‑Bar Deposit Arm.</p>
+<p><strong>What I designed:</strong> Vertical Lift, Linear Extension, Transfer Claw (3 iterations), 2-Bar Deposit Arm.</p>
 </div>
 </div>
 
 <div id="ftc-2526-season" class="section">
 <h1>2025–2026 Season — DECODE™</h1>
 <p>
-DECODE is a shooting‑based game where robots collect 5‑inch spherical artifacts and score them into corner
-goals. The game rewards accuracy, consistency, and fast cycling, along with reliable endgame positioning.
+DECODE™ is a shooting-based game where robots collect 5-inch spherical artifacts and score them into corner goals.
+The game demands three things: 
+<strong>consistency</strong> (every shot must go the same place), 
+<strong>speed</strong> (cycle time matters), and 
+<strong>reliability</strong> (one jam costs you matches).
 </p>
 
 <h2>What Robots Had to Do</h2>
@@ -326,9 +336,11 @@ goals. The game rewards accuracy, consistency, and fast cycling, along with reli
 <div id="ftc-2425-season" class="section">
 <h1>2024–2025 Season — INTO THE DEEP™</h1>
 <p>
-INTO THE DEEP is a precision placement game where robots pick up triangular samples and score them into
-baskets or onto bars at different heights. My work focused on the mechanisms that moved and scored samples
-after the intake.
+INTO THE DEEP™ is a precision placement game. Robots pick up triangular samples and score them into baskets or onto bars at multiple heights. 
+The challenge: every movement must be fast, smooth, and precise. A jerky arm causes drops. Misaligned claws cause jams. Poor cycle time loses close matches.
+</p>
+<p>
+My work focused on the mechanisms that controlled the samples after pickup: the lift, extension, transfer, and deposit systems.
 </p>
 
 <h2>What Robots Had to Do</h2>
@@ -362,13 +374,15 @@ after the intake.
 <div id="ftc-itd-robot" class="section">
 <h1>INTO THE DEEP — Full Robot Overview</h1>
 <p>
-Building a highly competitive FTC robot requires a massive team effort. For our INTO THE DEEP robot, <strong>I took the lead in creating and maintaining the V2 robot.</strong> My core responsibility was designing the extension, lift integration, transfer claw, and deposit arm, while ensuring they integrated flawlessly with the subsystems my teammates built.
+Building a competitive FTC robot is a team effort. For our INTO THE DEEP competition robot, <strong>I led the design and manufacturing of the V2 platform,</strong> 
+responsible for the extension system, lift architecture, transfer claw, and deposit arm. 
+My goal was simple: design these subsystems so they worked seamlessly with my teammates' drivetrain, intake, and control systems.
 </p>
 <p>
-Below is a high-level overview of the entire machine to provide context on how my mechanisms interact with the rest of the robot. <em>(For deep-dive math and iteration history on the systems I directly designed, see the dedicated mechanism pages in the sidebar).</em>
+Below is a breakdown of the full system to show how my mechanisms fit into the bigger picture. 
+<em>For detailed calculations, CAD decisions, and iteration history, see each mechanism's dedicated page.</em>
 </p>
 
-<div class="media-grid">
 <div>
 <h3>Team Subsystems Overview</h3>
 <ul>
@@ -377,11 +391,6 @@ Below is a high-level overview of the entire machine to provide context on how m
 <li><strong>Virtual 4-Bar Intake:</strong> A top-down, motor-driven intake. To solve geometry limitations that prevented picking up samples directly beneath the arm, we used a chain mounted to a fixed shaft to create a virtual 4-bar. This orientates the intake properly without needing a separate motor.</li>
 <li><strong>Intake Rollers:</strong> Features 3D-printed TPU fingers with hooks offset at 90 degrees to automatically orient the samples vertically for my transfer claw. A bottom roller lined with surgical tubing acts like a vacuum to sweep up the pieces.</li>
 </ul>
-</div>
-<figure class="media-figure">
-<img src="images/reebok.png" class="lightbox-img" alt="INTO THE DEEP Full Robot">
-<figcaption class="media-caption">Fully integrated INTO THE DEEP robot</figcaption>
-</figure>
 </div>
 </div>
 
@@ -461,12 +470,12 @@ By zeroing out the gravity penalty, 100% of the motor's torque can be dedicated 
 <div id="ftc-mech-shooting" class="section">
 <h1>Shooting Mechanism</h1>
 <p>
-The shooting mechanism is the core scoring system for DECODE. Mounted on a turret, it allows the robot
-to rotate independently of the drivetrain and score from multiple field angles without needing perfect alignment.
+The shooter is the most critical system in DECODE. It's responsible for scoring—which means it has to be consistent, 
+fast, and reliable. A single jam or miss during a critical match point can cost you the game.
 </p>
 <p>
-Across three major versions (V1, V2, V3), I iterated on flywheel inertia, hood geometry, friction reduction, 
-counter-roller integration, and turret mechanics to achieve consistent, repeatable shots under load.
+My approach: iterate relentlessly. I built three major versions (V1, V2, V3), each time testing flywheel inertia, hood angles, friction losses, 
+counter-roller dynamics, and turret mechanics. Every design decision was validated by testing.
 </p>
 
 <div style="margin-top: 20px;">
@@ -561,16 +570,16 @@ Only ~7% of stored energy is transferred per shot. This minimizes wheel speed dr
 <div id="ftc-mech-tipper" class="section">
 <h1>Tipper Park Mechanism</h1>
 <p>
-Following our game strategy of securing all ranking points by ourselves, the Base ranking point was the next priority. Through analyzing other matches, we saw that most teams with a full lift were not able to fully lift up in time for the full double park. Additionally, it is nearly impossible for full lift mechanisms to account for 18” robot constraints.
+In DECODE, the Base ranking point is free points if you tip the robot at the end of the match. 
+Most teams tried full-lift mechanisms, but they ran out of time or hit the 18-inch height limit. 
+We saw an opportunity: a small, fast tipping mechanism could secure this point reliably while staying simple.
 </p>
 <p>
 For these reasons, we opted for a small tipping park mechanism that cuts the robot's footprint in half while keeping mechanical complexity to a minimum. 
 </p>
 <p>
-The mechanism is powered by <strong>two Axon Max servos</strong> working in parallel.
-Using dual servos provides significantly higher effective torque, reduces the load on each output shaft,
-and ensures the robot can consistently tip even under battery sag or when the robot is slightly misaligned.
-This redundancy also improves reliability during long events where single‑servo systems tend to overheat or stall.
+The design uses two Axon Max servos working in parallel for redundancy, torque multiplication, and reliability under battery sag. 
+Finite Element Analysis (FEA) was used to optimize the kicker plate—strong enough to handle the load, light enough to make a difference.
 </p>
 
 <div class="media-grid">
@@ -630,9 +639,12 @@ By gearing the Axon Max down by a factor of 7.5, we multiply our effective torqu
 <div id="ftc-mech-transfer" class="section">
 <h1>Transfer System</h1>
 <p>
-The transfer system moved samples from the intake to the scoring position in INTO THE DEEP.
-It went through three major iterations as I worked toward a design that was light, consistent,
-and tolerant to real‑match variability. Version 3 is the claw.
+The transfer system is a critical handoff point: it takes samples from the intake and moves them to the deposit arm 
+for scoring. It runs every cycle, hundreds of times per match. If it jams, slips, or misaligns—you lose time and points.
+</p>
+<p>
+I built three major iterations. V1 and V2 were passive systems that eventually hit their limits. V3—the active vectoring claw—
+solved the core problem through active motor control and precision geometry. 50+ prototype versions went into this final design.
 </p>
 
 <div style="margin-top: 20px;">
@@ -766,7 +778,14 @@ Since our design goal was to keep the end effector <strong>under 1 kg</strong>, 
 
 <div id="contact" class="section">
 <h1>Contact</h1>
-<p>Email: your-email@example.com</p>
+<p>
+I'm always interested in robotics projects, engineering challenges, and conversations about design and iteration.
+</p>
+<p>
+<strong>Email:</strong> sidhu.harjas@example.com<br>
+<strong>GitHub:</strong> <a href="https://github.com" target="_blank" style="color: #111; text-decoration: underline;">github.com/sidhuharjas</a><br>
+<strong>LinkedIn:</strong> <a href="https://linkedin.com" target="_blank" style="color: #111; text-decoration: underline;">linkedin.com/in/sidhuharjas</a>
+</p>
 </div>
 
 </div>

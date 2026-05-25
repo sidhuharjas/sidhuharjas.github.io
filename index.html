@@ -6,6 +6,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <meta name="robots" content="noindex">
 
+<script>
+    // If the user hasn't seen the landing page, send them there once.
+    try {
+        const seen = localStorage.getItem('seenLanding_v1');
+        const isLanding = window.location.pathname.endsWith('landing.html');
+        if (!seen && !isLanding) {
+            // small timeout so HTML can load briefly; immediate redirect is fine too
+            window.location.replace('landing.html');
+        }
+    } catch(e) {
+        // ignore storage errors
+    }
+</script>
+
 <style>
 * { box-sizing: border-box; }
 body {

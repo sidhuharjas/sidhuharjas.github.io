@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Welcome — Harjas Sidhu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif; color:#fff; height:100vh; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg,#0f172a 0%, #0b1220 45%, #071026 100%); }
+    .card { width: min(980px, 94%); background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border-radius:14px; padding:36px; box-shadow: 0 10px 40px rgba(2,6,23,0.6); border: 1px solid rgba(255,255,255,0.06); }
+    .brand { display:flex; gap:18px; align-items:center; }
+    .logo { width:64px; height:64px; border-radius:10px; background:linear-gradient(135deg,#10b981,#3b82f6); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:22px; }
+    h1 { margin:0; font-size:26px; }
+    p { margin:10px 0 18px; color: #d2e9ffcc; line-height:1.5; }
+    .actions { display:flex; gap:12px; margin-top:12px; }
+    .btn { padding:10px 16px; border-radius:10px; font-weight:600; cursor:pointer; border: none; }
+    .btn-primary { background:#fff; color:#0b1220; }
+    .btn-ghost { background:transparent; color:#cfe8ff; border:1px solid rgba(255,255,255,0.08); }
+    .muted { font-size:13px; color: #9fb8d8; margin-top:8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="logo">HS</div>
+      <div>
+        <h1>Harjas Sidhu — Robotics & Science Olympiad</h1>
+        <div class="muted">Engineering-focused portfolio: competition robots, control systems, and EV‑C documentation.</div>
+      </div>
+    </div>
+
+    <p>
+      Welcome — this is a concise landing page that introduces the portfolio. Click Enter Portfolio to open the full site with project pages, documentation, and source code. You can choose to remember this choice so you won't see this landing again.
+    </p>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="enterBtn">Enter Portfolio</button>
+      <button class="btn btn-ghost" id="enterNoSave">Enter (don’t remember)</button>
+    </div>
+
+    <p class="muted">Tip: use the sidebar to jump to Science Olympiad → EV C for project documentation, or click "Read the full EV‑C documentation" in the summaries.</p>
+  </div>
+
+<script>
+  document.getElementById('enterBtn').addEventListener('click', function(){
+    try { localStorage.setItem('seenLanding_v1', '1'); } catch(e){}
+    window.location.href = 'index.html';
+  });
+  document.getElementById('enterNoSave').addEventListener('click', function(){
+    window.location.href = 'index.html';
+  });
+</script>
+</body>
+</html>

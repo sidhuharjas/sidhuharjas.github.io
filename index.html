@@ -233,6 +233,7 @@ border-bottom: 1px solid #ddd;
 <div class="nav-right">
 <button onclick="showTopSection('about')">About</button>
 <button onclick="showTopSection('ftc-landing')">FTC</button>
+<button onclick="showTopSection('scioly-landing')">Sci Oly</button>
 <button onclick="showTopSection('contact')">Contact</button>
 </div>
 </div>
@@ -256,6 +257,14 @@ border-bottom: 1px solid #ddd;
 <button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
 <button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
 <button onclick="showSection('ftc-mech-v4b', this)">2‑Bar Deposit Arm</button>
+</div>
+
+<div class="sidebar" id="sciolySidebar" style="display:none;">
+<div class="sidebar-section-title">Science Olympiad</div>
+<button onclick="showSection('scioly-overview', this)">Overview</button>
+<button onclick="showSection('scioly-projects', this)">Projects</button>
+<div class="sidebar-section-title">Seasons & Events</div>
+<button onclick="showSection('scioly-seasons', this)">Seasons Summary</button>
 </div>
 
 <div class="main">
@@ -818,6 +827,29 @@ Since our design goal was to keep the end effector <strong>under 1 kg</strong>, 
 
 </div>
 
+<div id="scioly-landing" class="section">
+<h1>Science Olympiad</h1>
+<p>
+This section will document Science Olympiad events, projects, and season work.
+I competed in multiple events focusing on design, build, and problem solving.
+</p>
+</div>
+
+<div id="scioly-overview" class="section">
+<h1>Sci Oly Overview</h1>
+<p>High-level summary of events, roles, and achievements in Science Olympiad.</p>
+</div>
+
+<div id="scioly-projects" class="section">
+<h1>Projects & Builds</h1>
+<p>Project writeups, designs, and results will appear here.</p>
+</div>
+
+<div id="scioly-seasons" class="section">
+<h1>Seasons & Events</h1>
+<p>Season summaries and event-specific notes.</p>
+</div>
+
 <div id="contact" class="section">
 <h1>Contact</h1>
 <p>
@@ -844,17 +876,28 @@ document.querySelectorAll('.section').forEach(s => s.classList.remove('active'))
 function showTopSection(id) {
 clearActiveSections();
 document.getElementById(id).classList.add('active');
-const sidebar = document.getElementById('ftcSidebar');
+const ftcSidebar = document.getElementById('ftcSidebar');
+const sciolySidebar = document.getElementById('sciolySidebar');
 if (id === 'ftc-landing' || id.startsWith('ftc-')) {
-sidebar.style.display = 'block';
-if (id === 'ftc-landing') {
-clearActiveSections();
-document.getElementById('ftc-mech-overview').classList.add('active');
-setActiveSidebarButton('ftc-mech-overview');
-}
+    if (ftcSidebar) ftcSidebar.style.display = 'block';
+    if (sciolySidebar) sciolySidebar.style.display = 'none';
+    if (id === 'ftc-landing') {
+        clearActiveSections();
+        document.getElementById('ftc-mech-overview').classList.add('active');
+        setActiveSidebarButton('ftc-mech-overview');
+    }
+} else if (id === 'scioly-landing' || id.startsWith('scioly-')) {
+    if (sciolySidebar) sciolySidebar.style.display = 'block';
+    if (ftcSidebar) ftcSidebar.style.display = 'none';
+    if (id === 'scioly-landing') {
+        clearActiveSections();
+        document.getElementById('scioly-overview').classList.add('active');
+        setActiveSidebarButton('scioly-overview');
+    }
 } else {
-sidebar.style.display = 'none';
-document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
+    if (ftcSidebar) ftcSidebar.style.display = 'none';
+    if (sciolySidebar) sciolySidebar.style.display = 'none';
+    document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
 }
 }
 function showSection(id, btn) {

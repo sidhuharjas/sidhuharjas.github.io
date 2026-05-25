@@ -855,10 +855,10 @@ I competed in multiple events focusing on design, build, and problem solving.
 <div id="scioly-v2" class="shoot-tab active-shoot-tab">
     <h2>EV‑C Autonomous Control System (v2, 2026)</h2>
     <p><strong>Portfolio Summary — Electric Vehicle C Autonomous Control System (2026, v2)</strong><br>
-    Odometry‑Driven S‑Curve Navigation with IMU Fusion, Time‑Targeting, and Dynamic Stability Control.</p>
+    Odometry‑Driven S‑Curve Navigation with inertial sensor fusion, time‑targeting, and dynamic stability control.</p>
 
     <p>
-    I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve anchored to forward odometry. The v2 control stack integrates wheel‑encoder odometry, IMU‑based heading fusion, lateral‑position control, adaptive power scheduling, and time‑targeting to achieve competitive performance.
+    I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve anchored to forward odometry. The v2 control stack integrates wheel‑encoder odometry, heading fusion using an inertial sensor (a device that measures rotation rate), lateral‑position control, adaptive power scheduling, and time‑targeting to achieve competitive performance.
     </p>
 
     <h3>Competition Results</h3>
@@ -866,19 +866,22 @@ I competed in multiple events focusing on design, build, and problem solving.
 
     <h3>Core Capabilities</h3>
     <ul>
-        <li><strong>Hybrid Odometry + IMU Navigation</strong></li>
-        <li><strong>Odometry‑Anchored S‑Curve Navigation</strong></li>
-        <li><strong>Dynamic Power Scheduling</strong></li>
-        <li><strong>Time‑Targeting Control Loop</strong></li>
-        <li><strong>Stability & Drift Management</strong></li>
+        <li><strong>Hybrid odometry and inertial navigation</strong> — the robot estimates forward travel from wheel encoders (which count wheel rotations) and combines that with an inertial sensor that measures rotational rate. The inertial data is smoothed by a low‑pass filter (a smoothing filter that reduces high‑frequency noise) before fusion to improve heading stability.</li>
+        <li><strong>Odometry‑anchored S‑curve navigation</strong> — lateral S‑curve motions are parameterized against forward distance so the maneuver happens at the same physical location regardless of speed.</li>
+        <li><strong>Dynamic power scheduling</strong> — drive power is split into phases: smooth acceleration, steady cruise, predictive deceleration, and a slow creep near the finish to minimize slip and improve stopping accuracy.</li>
+        <li><strong>Time‑targeting controller</strong> — a proportional scheduler adjusts speed to meet a target finish time while preserving distance and heading accuracy; the scheduler uses a proportional gain to compute a safe multiplier that slightly speeds up or slows down the nominal drive power.</li>
+        <li><strong>Stability and drift management</strong> — safeguards such as sensor smoothing, small‑value deadbands for encoder/gyro readings, limited integral action on lateral error, and softened heading corrections near the end of the run prevent oscillation and drift.</li>
     </ul>
 
-    <h3>Representative Math</h3>
+    <h3>Representative math (explained)</h3>
     <div class="calculation-box">
-        Forward distance d = (d_left + d_right) / 2, where d_left/right = encoder_deg × (π × D_wheel / 360).<br>
-        Δθ = (d_right − d_left) / L_wheelbase  (radians) → degrees by × (180/π).<br>
-        heading(s) = A · sin(2πs) · envelope(s); lateral(s) = L_max · sin(π · s^p).<br>
-        timeScale = clamp(1 + Kp · (t_expected / T_target − s), timeScale_min, timeScale_max).
+        <strong>Forward distance:</strong> d = (d_left + d_right) / 2. Each wheel distance is computed from encoder degrees: d_wheel = encoder_deg × (π × wheel_diameter / 360).<br>
+        <br>
+        <strong>Heading update from odometry:</strong> Δθ ≈ (d_right − d_left) / wheelbase (this gives radians). To convert to degrees multiply by 180/π. Wheelbase is the distance between left and right wheels.<br>
+        <br>
+        <strong>S‑curve parameterization:</strong> use a normalized progress variable s ∈ [0,1] where 0=start and 1=finish. Example: heading(s) = A · sin(2π·s) · envelope(s); lateral(s) = L_max · sin(π · s^p). A is heading amplitude, L_max is maximum lateral offset, and p shapes where the lateral peak occurs.<br>
+        <br>
+        <strong>Time‑scaling controller:</strong> compute timeScale = clamp(1 + K_p · (t_elapsed / T_target − s), timeScale_min, timeScale_max). Here K_p is the proportional gain (how strongly schedule errors are corrected), t_elapsed is elapsed time, T_target is the desired run time, and s is odometry‑normalized progress. Clamping keeps the multiplier within safe bounds.
     </div>
 
     <h3>Areas for Improvement</h3>
@@ -887,7 +890,7 @@ I competed in multiple events focusing on design, build, and problem solving.
         <li>Bonus‑can reliability (refine S‑curve + add a short-range sensor to confirm clearance).</li>
         <li>Speed control & braking (velocity observer and tighter decel scheduling).</li>
         <li>Telemetry logging & automated regression.</li>
-        <li>Sensor fusion improvements (complementary/Kalman filter).</li>
+        <li>Sensor fusion improvements — for example implement a complementary filter or a Kalman filter to combine encoder and inertial measurements in a statistically robust way (these are algorithms that optimally blend sensors to reduce noise and drift).</li>
     </ul>
 
     <h3>Media</h3>
@@ -913,9 +916,9 @@ I competed in multiple events focusing on design, build, and problem solving.
 
 <div id="scioly-v1" class="shoot-tab">
     <h2>EV‑C — V1 (Prototype)</h2>
-    <p><em>Car V1</em> was a rapid prototype built the day before regionals. It moved only forward and did not attempt the bonus‑can. It used a relay for motor control due to missing parts and time pressure.</p>
-    <p>V1 used a single encoder + relay to estimate distance and applied rectifying (on/off) corrections to approximate closed‑loop behavior. This relay‑based approach toggled power to correct errors quickly and allowed fast tuning cycles, producing decent regional results despite limited smoothness and no bonus handling.</p>
-    <p>V1 highlights: quick to implement, reliable enough for regionals, limited by lack of proportional motor control and bonus capability.</p>
+    <p><em>Car V1</em> was a rapid prototype built the day before regionals. It drove only forward and did not attempt the bonus‑can. Because parts were limited, the drive power was controlled with an electromechanical relay (a simple on/off switch for the motor) rather than a proportional motor controller.</p>
+    <p>V1 used a single wheel encoder to estimate traveled distance. Control was implemented as rectifying (on/off) corrections: the relay turned the motor fully on or fully off to reduce distance error. This approach is sometimes called bang‑bang control. It was extremely quick to implement and allowed fast tuning loops; in testing and at regionals it produced reasonable results, but it lacked smooth speed control and could not reliably perform the bonus‑can maneuver.</p>
+    <p>V1 highlights: very fast to build and tune, acceptable regional performance, but limited by coarse motor control and no bonus capability.</p>
     </div>
 
 </div>

@@ -841,8 +841,41 @@ I competed in multiple events focusing on design, build, and problem solving.
 </div>
 
 <div id="scioly-projects" class="section">
-<h1>Projects & Builds</h1>
-<p>Project writeups, designs, and results will appear here.</p>
+<h1>Electric Vehicle C — Autonomous Control System (2026)</h1>
+<p><strong>Portfolio Summary — Electric Vehicle C Autonomous Control System (2026)</strong><br>
+Odometry‑Driven S‑Curve Navigation with IMU Fusion, Time‑Targeting, and Dynamic Stability Control.</p>
+
+<p>
+I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve. The system integrates wheel‑encoder odometry, IMU‑based heading fusion, lateral‑position control, and adaptive power scheduling to achieve high‑accuracy distance, heading, and timing performance.
+</p>
+
+<h3>Core Capabilities</h3>
+<ul>
+    <li><strong>Hybrid Odometry + IMU Navigation:</strong> Dual wheel encoders + IMU yaw fusion with low‑pass filtering, real‑time heading correction, and lateral position tracking to centimeter precision.</li>
+    <li><strong>Odometry‑Anchored S‑Curve Navigation:</strong> Parametric S‑curve anchored to forward odometry (sinusoidal heading + shaped lateral offset + return‑to‑center envelope).</li>
+    <li><strong>Dynamic Power Scheduling:</strong> Smooth accel ramp → constant cruise → predictive decel → end‑of‑run creep for sub‑cm stopping.</li>
+    <li><strong>Time‑Targeting Control Loop:</strong> Proportional time scaling to hit finish times within ±0.3–0.6s while preserving distance accuracy.</li>
+    <li><strong>Stability & Drift Management:</strong> Gyro LPF, deadband rejection, lateral integral control with clamping, and end‑phase heading damping.</li>
+</ul>
+
+<h3>Technical Highlights</h3>
+<ul>
+    <li>Full 2D odometry (forward + lateral) with IMU‑encoder fusion for robust heading estimation.</li>
+    <li>Parametric S‑curve with adjustable amplitude, shape exponent, and arc zone anchored to odometry.</li>
+    <li>Adaptive power model including creep mode and safety clamping.</li>
+    <li>Time‑target proportional controller and anti‑oscillation filters.</li>
+    <li>Comprehensive telemetry logging for offline tuning and automated regression checks.</li>
+</ul>
+
+<h3>Outcome</h3>
+<p>Results: repeatable distance accuracy (±3–7 cm), heading stability (±1–2°), reliable bonus‑can navigation, and consistent finish times — production‑grade autonomy for Science Olympiad EV‑C.</p>
+
+<h3>Code & Implementation</h3>
+<p>The primary control code used for tuning and competition is provided below. You can download the Arduino source and tuneable constants directly:</p>
+<p><a href="evc_autonomy.ino" target="_blank">Download EV‑C Autonomous Code (evc_autonomy.ino)</a></p>
+
+<p>If you want, I can also add a dedicated project page with telemetry plots, parameter configs, and a short video demo.</p>
+
 </div>
 
 <div id="scioly-seasons" class="section">

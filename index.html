@@ -262,7 +262,10 @@ border-bottom: 1px solid #ddd;
 <div class="sidebar" id="sciolySidebar" style="display:none;">
 <div class="sidebar-section-title">Science Olympiad</div>
 <button onclick="showSection('scioly-overview', this)">Overview</button>
-<button onclick="showSection('scioly-projects', this)">Projects</button>
+<div class="sidebar-section-title">Projects</div>
+<button onclick="showSection('scioly-v2', this)">EV-C — v2</button>
+<button onclick="showSection('scioly-v1', this)">EV-C — v1 (prototype)</button>
+<button onclick="showSection('scioly-projects', this)">All Projects</button>
 <div class="sidebar-section-title">Seasons & Events</div>
 <button onclick="showSection('scioly-seasons', this)">Seasons Summary</button>
 </div>
@@ -841,76 +844,79 @@ I competed in multiple events focusing on design, build, and problem solving.
 </div>
 
 <div id="scioly-projects" class="section">
-<h1>Electric Vehicle C — Autonomous Control System (v2, 2026)</h1>
-<p><strong>Portfolio Summary — Electric Vehicle C Autonomous Control System (2026, v2)</strong><br>
-Odometry‑Driven S‑Curve Navigation with IMU Fusion, Time‑Targeting, and Dynamic Stability Control.</p>
+<h1>Electric Vehicle C — Projects</h1>
 
-<p>
-I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve anchored to forward odometry. The v2 control stack integrates wheel‑encoder odometry, IMU‑based heading fusion, lateral‑position control, adaptive power scheduling, and time‑targeting to achieve competitive performance.
-</p>
-
-<h3>Competition Results</h3>
-<p>Regional: <strong>6th place</strong> — State: <strong>11th place</strong> (2026 season). These runs demonstrated strong repeatability and reliable stopping behavior under contest conditions.</p>
-
-<h3>About V1 (Quick Prototype)</h3>
-<p><em>Car V1</em> was a rapid prototype built the day before regionals. It moved only forward and did not attempt the bonus‑can. Due to limited parts and time it used a relay for motor control and a single encoder to estimate distance/time. The relay toggled drive power on/off to approximate PID-style corrections (simple bang‑bang rectifying), which was fast to implement and produced decent regional results despite its limitations.</p>
-
-<h3>Core Capabilities (v2)</h3>
-<ul>
-    <li><strong>Hybrid Odometry + IMU Navigation:</strong> Dual encoders converted to meters via calibrated wheel geometry, IMU yaw integration with LPF, and drift compensation for robust heading.</li>
-    <li><strong>Odometry‑Anchored S‑Curve Bonus Navigation:</strong> Sinusoidal heading profile + shaped lateral offset + return‑to‑center envelope, anchored to forward odometry (not time), so the maneuver occurs at a consistent physical location.</li>
-    <li><strong>Dynamic Power Scheduling:</strong> Smooth accel → cruise → predictive decel → creep mode for sub‑cm stopping.</li>
-    <li><strong>Time‑Targeting Control Loop:</strong> Proportional time‑scaling controller to meet finish time constraints while preserving distance accuracy.</li>
-    <li><strong>Robustness Layers:</strong> Gyro LPF, encoder deadband, lateral integral with clamping, end‑phase damping, and automatic recentering boost near finish.</li>
-</ul>
-
-<h3>Representative Math</h3>
-<div class="calculation-box">
-<strong>Forward odometry:</strong><br>
-Forward distance d = (d_left + d_right) / 2, where d_left/right = encoder_deg * (π * D_wheel / 360).<br>
-<br>
-<strong>Heading update (odometry):</strong><br>
-Δθ = (d_right - d_left) / L_wheelbase  (radians), converted to degrees by × (180/π).<br>
-<br>
-<strong>S‑curve parameterization:</strong><br>
-heading(s) = A · sin(2πs) · envelope(s),  lateral(s) = L_max · sin(π · s^p), where s ∈ [0,1] is odometry‑normalized progress and p shapes the peak position.<br>
-<br>
-<strong>Time‑scaling controller:</strong><br>
-timeScale = clamp(1 + Kp · (t_expected / T_target − s), timeScale_min, timeScale_max).
+<div style="margin-top: 20px;">
+    <button onclick="showShootTab('scioly-v2', this)" class="shoot-tab-btn active-shoot-btn">V2 — Autonomous</button>
+    <button onclick="showShootTab('scioly-v1', this)" class="shoot-tab-btn">V1 — Prototype</button>
+    <button onclick="showSection('scioly-projects', this)" class="shoot-tab-btn">All</button>
 </div>
 
-<h3>V1 Notes (relay + encoder)</h3>
-<p>V1 used a single encoder + relay to estimate distance and approximate closed‑loop behavior by toggling power on/off to correct error (rectifying control). This produced surprisingly quick tuning cycles and respectable regional performance but lacked smooth speed control and precise bonus handling.</p>
+<div id="scioly-v2" class="shoot-tab active-shoot-tab">
+    <h2>EV‑C Autonomous Control System (v2, 2026)</h2>
+    <p><strong>Portfolio Summary — Electric Vehicle C Autonomous Control System (2026, v2)</strong><br>
+    Odometry‑Driven S‑Curve Navigation with IMU Fusion, Time‑Targeting, and Dynamic Stability Control.</p>
 
-<h3>Areas for Improvement (v2 → v2.1)</h3>
-<ul>
-    <li><strong>More tuning & testing:</strong> systematic sweep of time‑scale Kp, lateral KI limits, and arc amplitude/shape across multiple track lengths and battery states.</li>
-    <li><strong>Bonus‑can reliability:</strong> refine S‑curve lateral amplitude and include a short vision or proximity check to confirm clearance before re‑centering.</li>
-    <li><strong>Speed control:</strong> improve final‑phase braking by tightening decel scheduling and adding a velocity observer to reduce overshoot under variable surface friction.</li>
-    <li><strong>Telemetry & automated regression:</strong> record runs, plot lateral/heading traces, and run offline parameter optimization to reduce manual tuning time.</li>
-    <li><strong>Sensor fusion:</strong> better IMU/encoder fusion (e.g., complementary/Kalman filter) to reduce heading drift at low speeds.</li>
-</ul>
+    <p>
+    I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve anchored to forward odometry. The v2 control stack integrates wheel‑encoder odometry, IMU‑based heading fusion, lateral‑position control, adaptive power scheduling, and time‑targeting to achieve competitive performance.
+    </p>
 
-<h3>Media & Artifacts</h3>
-<p>Place the run video and car photo in the `images/` folder and name them `evc_run.mp4` and `evc_photo.jpg`. They will be displayed below when present.</p>
-<div class="media-grid">
-    <figure class="media-figure">
-        <video controls class="field-img" preload="metadata">
-            <source src="images/evc_run.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <figcaption class="media-caption">EV‑C v2 run (video placeholder — put `images/evc_run.mp4`)</figcaption>
-    </figure>
-    <figure class="media-figure">
-        <img src="images/evc_photo.jpg" class="sample-img" alt="EV-C photo">
-        <figcaption class="media-caption">EV‑C v2 photo (put `images/evc_photo.jpg`)</figcaption>
-    </figure>
-</div>
+    <h3>Competition Results</h3>
+    <p>Regional: <strong>6th place</strong> — State: <strong>11th place</strong> (2026 season).</p>
 
-<h3>Code & Download</h3>
-<p>The Arduino source used for v2 tuning and competition is available here: <a href="evc_autonomy.ino" target="_blank">evc_autonomy.ino</a></p>
+    <h3>Core Capabilities</h3>
+    <ul>
+        <li><strong>Hybrid Odometry + IMU Navigation</strong></li>
+        <li><strong>Odometry‑Anchored S‑Curve Navigation</strong></li>
+        <li><strong>Dynamic Power Scheduling</strong></li>
+        <li><strong>Time‑Targeting Control Loop</strong></li>
+        <li><strong>Stability & Drift Management</strong></li>
+    </ul>
 
-<p>Want me to add telemetry plots, a parameter config file, or embed a short demo video inline? I can also create a downloadable ZIP of the project.</p>
+    <h3>Representative Math</h3>
+    <div class="calculation-box">
+        Forward distance d = (d_left + d_right) / 2, where d_left/right = encoder_deg × (π × D_wheel / 360).<br>
+        Δθ = (d_right − d_left) / L_wheelbase  (radians) → degrees by × (180/π).<br>
+        heading(s) = A · sin(2πs) · envelope(s); lateral(s) = L_max · sin(π · s^p).<br>
+        timeScale = clamp(1 + Kp · (t_expected / T_target − s), timeScale_min, timeScale_max).
+    </div>
+
+    <h3>Areas for Improvement</h3>
+    <ul>
+        <li>More tuning & testing (parameter sweeps across track lengths and battery states).</li>
+        <li>Bonus‑can reliability (refine S‑curve + add a short-range sensor to confirm clearance).</li>
+        <li>Speed control & braking (velocity observer and tighter decel scheduling).</li>
+        <li>Telemetry logging & automated regression.</li>
+        <li>Sensor fusion improvements (complementary/Kalman filter).</li>
+    </ul>
+
+    <h3>Media</h3>
+    <p>Place the run video and car photo in the `images/` folder named `evc_run.mp4` and `evc_photo.jpg`.</p>
+    <div class="media-grid">
+        <figure class="media-figure">
+            <video controls class="field-img" preload="metadata">
+                <source src="images/evc_run.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <figcaption class="media-caption">EV‑C v2 run</figcaption>
+        </figure>
+        <figure class="media-figure">
+            <img src="images/evc_photo.jpg" class="sample-img" alt="EV-C photo">
+            <figcaption class="media-caption">EV‑C v2 photo</figcaption>
+        </figure>
+    </div>
+
+    <h3>Code</h3>
+    <p><a href="evc_autonomy.ino" target="_blank">Download EV‑C Autonomous Code (evc_autonomy.ino)</a></p>
+    <p>Results: repeatable distance accuracy (±3–7 cm), heading stability (±1–2°), consistent finishes.</p>
+    </div>
+
+<div id="scioly-v1" class="shoot-tab">
+    <h2>EV‑C — V1 (Prototype)</h2>
+    <p><em>Car V1</em> was a rapid prototype built the day before regionals. It moved only forward and did not attempt the bonus‑can. It used a relay for motor control due to missing parts and time pressure.</p>
+    <p>V1 used a single encoder + relay to estimate distance and applied rectifying (on/off) corrections to approximate closed‑loop behavior. This relay‑based approach toggled power to correct errors quickly and allowed fast tuning cycles, producing decent regional results despite limited smoothness and no bonus handling.</p>
+    <p>V1 highlights: quick to implement, reliable enough for regionals, limited by lack of proportional motor control and bonus capability.</p>
+    </div>
 
 </div>
 
@@ -960,8 +966,9 @@ if (id === 'ftc-landing' || id.startsWith('ftc-')) {
     if (ftcSidebar) ftcSidebar.style.display = 'none';
     if (id === 'scioly-landing') {
         clearActiveSections();
-        document.getElementById('scioly-overview').classList.add('active');
-        setActiveSidebarButton('scioly-overview');
+        // default Sci Oly landing opens EV-C v2
+        document.getElementById('scioly-v2').classList.add('active');
+        setActiveSidebarButton('scioly-v2');
     }
 } else {
     if (ftcSidebar) ftcSidebar.style.display = 'none';

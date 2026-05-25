@@ -841,40 +841,76 @@ I competed in multiple events focusing on design, build, and problem solving.
 </div>
 
 <div id="scioly-projects" class="section">
-<h1>Electric Vehicle C — Autonomous Control System (2026)</h1>
-<p><strong>Portfolio Summary — Electric Vehicle C Autonomous Control System (2026)</strong><br>
+<h1>Electric Vehicle C — Autonomous Control System (v2, 2026)</h1>
+<p><strong>Portfolio Summary — Electric Vehicle C Autonomous Control System (2026, v2)</strong><br>
 Odometry‑Driven S‑Curve Navigation with IMU Fusion, Time‑Targeting, and Dynamic Stability Control.</p>
 
 <p>
-I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve. The system integrates wheel‑encoder odometry, IMU‑based heading fusion, lateral‑position control, and adaptive power scheduling to achieve high‑accuracy distance, heading, and timing performance.
+I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve anchored to forward odometry. The v2 control stack integrates wheel‑encoder odometry, IMU‑based heading fusion, lateral‑position control, adaptive power scheduling, and time‑targeting to achieve competitive performance.
 </p>
 
-<h3>Core Capabilities</h3>
+<h3>Competition Results</h3>
+<p>Regional: <strong>6th place</strong> — State: <strong>11th place</strong> (2026 season). These runs demonstrated strong repeatability and reliable stopping behavior under contest conditions.</p>
+
+<h3>About V1 (Quick Prototype)</h3>
+<p><em>Car V1</em> was a rapid prototype built the day before regionals. It moved only forward and did not attempt the bonus‑can. Due to limited parts and time it used a relay for motor control and a single encoder to estimate distance/time. The relay toggled drive power on/off to approximate PID-style corrections (simple bang‑bang rectifying), which was fast to implement and produced decent regional results despite its limitations.</p>
+
+<h3>Core Capabilities (v2)</h3>
 <ul>
-    <li><strong>Hybrid Odometry + IMU Navigation:</strong> Dual wheel encoders + IMU yaw fusion with low‑pass filtering, real‑time heading correction, and lateral position tracking to centimeter precision.</li>
-    <li><strong>Odometry‑Anchored S‑Curve Navigation:</strong> Parametric S‑curve anchored to forward odometry (sinusoidal heading + shaped lateral offset + return‑to‑center envelope).</li>
-    <li><strong>Dynamic Power Scheduling:</strong> Smooth accel ramp → constant cruise → predictive decel → end‑of‑run creep for sub‑cm stopping.</li>
-    <li><strong>Time‑Targeting Control Loop:</strong> Proportional time scaling to hit finish times within ±0.3–0.6s while preserving distance accuracy.</li>
-    <li><strong>Stability & Drift Management:</strong> Gyro LPF, deadband rejection, lateral integral control with clamping, and end‑phase heading damping.</li>
+    <li><strong>Hybrid Odometry + IMU Navigation:</strong> Dual encoders converted to meters via calibrated wheel geometry, IMU yaw integration with LPF, and drift compensation for robust heading.</li>
+    <li><strong>Odometry‑Anchored S‑Curve Bonus Navigation:</strong> Sinusoidal heading profile + shaped lateral offset + return‑to‑center envelope, anchored to forward odometry (not time), so the maneuver occurs at a consistent physical location.</li>
+    <li><strong>Dynamic Power Scheduling:</strong> Smooth accel → cruise → predictive decel → creep mode for sub‑cm stopping.</li>
+    <li><strong>Time‑Targeting Control Loop:</strong> Proportional time‑scaling controller to meet finish time constraints while preserving distance accuracy.</li>
+    <li><strong>Robustness Layers:</strong> Gyro LPF, encoder deadband, lateral integral with clamping, end‑phase damping, and automatic recentering boost near finish.</li>
 </ul>
 
-<h3>Technical Highlights</h3>
+<h3>Representative Math</h3>
+<div class="calculation-box">
+<strong>Forward odometry:</strong><br>
+Forward distance d = (d_left + d_right) / 2, where d_left/right = encoder_deg * (π * D_wheel / 360).<br>
+<br>
+<strong>Heading update (odometry):</strong><br>
+Δθ = (d_right - d_left) / L_wheelbase  (radians), converted to degrees by × (180/π).<br>
+<br>
+<strong>S‑curve parameterization:</strong><br>
+heading(s) = A · sin(2πs) · envelope(s),  lateral(s) = L_max · sin(π · s^p), where s ∈ [0,1] is odometry‑normalized progress and p shapes the peak position.<br>
+<br>
+<strong>Time‑scaling controller:</strong><br>
+timeScale = clamp(1 + Kp · (t_expected / T_target − s), timeScale_min, timeScale_max).
+</div>
+
+<h3>V1 Notes (relay + encoder)</h3>
+<p>V1 used a single encoder + relay to estimate distance and approximate closed‑loop behavior by toggling power on/off to correct error (rectifying control). This produced surprisingly quick tuning cycles and respectable regional performance but lacked smooth speed control and precise bonus handling.</p>
+
+<h3>Areas for Improvement (v2 → v2.1)</h3>
 <ul>
-    <li>Full 2D odometry (forward + lateral) with IMU‑encoder fusion for robust heading estimation.</li>
-    <li>Parametric S‑curve with adjustable amplitude, shape exponent, and arc zone anchored to odometry.</li>
-    <li>Adaptive power model including creep mode and safety clamping.</li>
-    <li>Time‑target proportional controller and anti‑oscillation filters.</li>
-    <li>Comprehensive telemetry logging for offline tuning and automated regression checks.</li>
+    <li><strong>More tuning & testing:</strong> systematic sweep of time‑scale Kp, lateral KI limits, and arc amplitude/shape across multiple track lengths and battery states.</li>
+    <li><strong>Bonus‑can reliability:</strong> refine S‑curve lateral amplitude and include a short vision or proximity check to confirm clearance before re‑centering.</li>
+    <li><strong>Speed control:</strong> improve final‑phase braking by tightening decel scheduling and adding a velocity observer to reduce overshoot under variable surface friction.</li>
+    <li><strong>Telemetry & automated regression:</strong> record runs, plot lateral/heading traces, and run offline parameter optimization to reduce manual tuning time.</li>
+    <li><strong>Sensor fusion:</strong> better IMU/encoder fusion (e.g., complementary/Kalman filter) to reduce heading drift at low speeds.</li>
 </ul>
 
-<h3>Outcome</h3>
-<p>Results: repeatable distance accuracy (±3–7 cm), heading stability (±1–2°), reliable bonus‑can navigation, and consistent finish times — production‑grade autonomy for Science Olympiad EV‑C.</p>
+<h3>Media & Artifacts</h3>
+<p>Place the run video and car photo in the `images/` folder and name them `evc_run.mp4` and `evc_photo.jpg`. They will be displayed below when present.</p>
+<div class="media-grid">
+    <figure class="media-figure">
+        <video controls class="field-img" preload="metadata">
+            <source src="images/evc_run.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <figcaption class="media-caption">EV‑C v2 run (video placeholder — put `images/evc_run.mp4`)</figcaption>
+    </figure>
+    <figure class="media-figure">
+        <img src="images/evc_photo.jpg" class="sample-img" alt="EV-C photo">
+        <figcaption class="media-caption">EV‑C v2 photo (put `images/evc_photo.jpg`)</figcaption>
+    </figure>
+</div>
 
-<h3>Code & Implementation</h3>
-<p>The primary control code used for tuning and competition is provided below. You can download the Arduino source and tuneable constants directly:</p>
-<p><a href="evc_autonomy.ino" target="_blank">Download EV‑C Autonomous Code (evc_autonomy.ino)</a></p>
+<h3>Code & Download</h3>
+<p>The Arduino source used for v2 tuning and competition is available here: <a href="evc_autonomy.ino" target="_blank">evc_autonomy.ino</a></p>
 
-<p>If you want, I can also add a dedicated project page with telemetry plots, parameter configs, and a short video demo.</p>
+<p>Want me to add telemetry plots, a parameter config file, or embed a short demo video inline? I can also create a downloadable ZIP of the project.</p>
 
 </div>
 
@@ -936,9 +972,21 @@ if (id === 'ftc-landing' || id.startsWith('ftc-')) {
 function showSection(id, btn) {
 clearActiveSections();
 document.getElementById(id).classList.add('active');
-document.getElementById('ftcSidebar').style.display = 'block';
-document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
-if (btn) btn.classList.add('active-link');
+    // Show the correct sidebar based on section id prefix
+    const ftcSidebar = document.getElementById('ftcSidebar');
+    const sciolySidebar = document.getElementById('sciolySidebar');
+    if (id.startsWith('ftc-')) {
+        if (ftcSidebar) ftcSidebar.style.display = 'block';
+        if (sciolySidebar) sciolySidebar.style.display = 'none';
+    } else if (id.startsWith('scioly-')) {
+        if (sciolySidebar) sciolySidebar.style.display = 'block';
+        if (ftcSidebar) ftcSidebar.style.display = 'none';
+    } else {
+        if (ftcSidebar) ftcSidebar.style.display = 'none';
+        if (sciolySidebar) sciolySidebar.style.display = 'none';
+    }
+    document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
+    if (btn) btn.classList.add('active-link');
 }
 function setActiveSidebarButton(sectionId) {
 document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));

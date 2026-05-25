@@ -233,7 +233,7 @@ border-bottom: 1px solid #ddd;
 <div class="nav-right">
 <button onclick="showTopSection('about')">About</button>
 <button onclick="showTopSection('ftc-landing')">FTC</button>
-<button onclick="showTopSection('scioly-landing')">EV C 2025-2026</button>
+<button onclick="showTopSection('scioly-landing')">Sci Oly</button>
 <button onclick="showTopSection('contact')">Contact</button>
 </div>
 </div>
@@ -262,12 +262,8 @@ border-bottom: 1px solid #ddd;
 <div class="sidebar" id="sciolySidebar" style="display:none;">
 <div class="sidebar-section-title">Science Olympiad</div>
 <button onclick="showSection('scioly-overview', this)">Overview</button>
-<div class="sidebar-section-title">Projects</div>
-<button onclick="showSection('scioly-v2', this)">EV-C — v2</button>
-<button onclick="showSection('scioly-v1', this)">EV-C — v1 (prototype)</button>
-<button onclick="showSection('scioly-projects', this)">All Projects</button>
-<div class="sidebar-section-title">Seasons & Events</div>
-<button onclick="showSection('scioly-seasons', this)">Seasons Summary</button>
+<div class="sidebar-section-title">EV C 2025-2026</div>
+<button onclick="showSection('scioly-evc', this)">EV C 2025-2026</button>
 </div>
 
 <div class="main">
@@ -836,10 +832,15 @@ Since our design goal was to keep the end effector <strong>under 1 kg</strong>, 
 <p>Electric Vehicle C project — use the sidebar to view V2 (autonomous) or V1 (prototype).</p>
 </div>
 
+<div id="scioly-overview" class="section">
+<h1>Science Olympiad — Overview</h1>
+<p>Science Olympiad is a team‑based STEM competition where students design, build, and test small engineering projects across many events. It emphasizes rapid iteration, robust designs, and clear experimental documentation. This portfolio highlights work in the Electric Vehicle C (EV‑C) event for the 2025–2026 season.</p>
+</div>
 
 
-<div id="scioly-projects" class="section">
-<h1>Electric Vehicle C — Projects</h1>
+
+<div id="scioly-evc" class="section">
+<h1>Electric Vehicle C — 2025-2026</h1>
 
 <div style="margin-top: 20px;">
     <button onclick="showShootTab('scioly-v2', this)" class="shoot-tab-btn active-shoot-btn">V2 — Autonomous</button>
@@ -910,8 +911,8 @@ Since our design goal was to keep the end effector <strong>under 1 kg</strong>, 
 
 <div id="scioly-v1" class="shoot-tab">
     <h2>EV‑C — V1 (Prototype)</h2>
-    <p><em>Car V1</em> was a rapid prototype built the day before regionals. It drove only forward and did not attempt the bonus‑can. Because parts were limited, the drive power was controlled with an electromechanical relay (a simple on/off switch for the motor) rather than a proportional motor controller.</p>
-    <p>V1 used a single wheel encoder to estimate traveled distance. Control was implemented as rectifying (on/off) corrections: the relay turned the motor fully on or fully off to reduce distance error. This approach is sometimes called bang‑bang control. It was extremely quick to implement and allowed fast tuning loops; in testing and at regionals it produced reasonable results, but it lacked smooth speed control and could not reliably perform the bonus‑can maneuver.</p>
+    <p><em>Car V1</em> was a rapid prototype originally built for an invitational event and later used at regionals. It was a very rushed build; during the invitational some setup and tuning mistakes caused failures on the track. V1 drove only forward and did not attempt the bonus‑can. Because parts were limited and time was short, drive power was switched with an electromechanical relay (a simple on/off switch) rather than a proportional motor controller.</p>
+    <p>V1 used a single wheel encoder to estimate traveled distance. Control was implemented as rectifying (on/off) corrections: the relay turned the motor fully on or fully off to reduce distance error. This approach (bang‑bang control) was extremely quick to implement and allowed fast tuning loops; it produced reasonable results at the invitational and regionals when it worked, but it lacked smooth speed control and could not reliably perform the bonus‑can maneuver.</p>
     <p>V1 highlights: very fast to build and tune, acceptable regional performance, but limited by coarse motor control and no bonus capability.</p>
     </div>
 
@@ -960,9 +961,9 @@ if (id === 'ftc-landing' || id.startsWith('ftc-')) {
     if (ftcSidebar) ftcSidebar.style.display = 'none';
     if (id === 'scioly-landing') {
         clearActiveSections();
-        // default Sci Oly landing opens EV-C v2
-        document.getElementById('scioly-v2').classList.add('active');
-        setActiveSidebarButton('scioly-v2');
+        // default Sci Oly landing opens Overview
+        document.getElementById('scioly-overview').classList.add('active');
+        setActiveSidebarButton('scioly-overview');
     }
 } else {
     if (ftcSidebar) ftcSidebar.style.display = 'none';

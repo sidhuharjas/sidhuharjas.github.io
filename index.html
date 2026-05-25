@@ -236,6 +236,12 @@ max-width: 900px;
 }
 .whitepage-title { font-size: 22px; margin-bottom: 12px; }
 .whitepage-body { line-height: 1.6; font-size: 15px; color: #222; }
+
+.code-toggle { margin-top: 8px; }
+.code-toggle button { padding: 8px 12px; border-radius:6px; border:1px solid #ccc; background:#f7f7f7; cursor:pointer; }
+.code-viewer { background:#0b1220; color:#e6f1ff; padding:12px; border-radius:8px; overflow:auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace; font-size:13px; border:1px solid #141a24; max-height: 420px; }
+.code-actions { margin-top:8px; display:flex; gap:8px; align-items:center; }
+.code-actions a { color: #0b1220; background: #fff; padding:6px 10px; border-radius:6px; text-decoration:none; border:1px solid #ddd; }
 width: 90%;
 height: auto;
 border-radius: 10px;
@@ -889,7 +895,7 @@ Since our design goal was to keep the end effector <strong>under 1 kg</strong>, 
 
 <p>Why it matters: Circuit Lab teaches small, practical skills used in electronics: reading schematics, using a multimeter, and understanding how series/parallel connections affect voltage and current. Those skills transfer directly to prototyping and debugging robotics electronics.</p>
 
-<p><a href="#" onclick="openWhitePage('scioly-circuit','Circuit Lab — Full Notes'); return false;">Read more: full Circuit Lab notes →</a></p>
+<p>Short notes available on request; I used hands‑on practice and quick troubleshooting to prepare.</p>
 </div>
 
 
@@ -959,8 +965,17 @@ Since our design goal was to keep the end effector <strong>under 1 kg</strong>, 
         </figure>
     </div>
 
-    <h3>Code</h3>
-    <p><a href="evc_autonomy.ino" target="_blank">Download EV‑C Autonomous Code (evc_autonomy.ino)</a></p>
+        <h3>Code</h3>
+        <div class="code-toggle">
+            <button onclick="toggleEvcCode()">Show EV‑C Code (evc_autonomy.ino)</button>
+            <div class="code-actions">
+                <a href="evc_autonomy.ino" target="_blank">Open raw file</a>
+                <a href="evc_autonomy.ino" download>Download .ino</a>
+            </div>
+        </div>
+        <pre id="evcCodeBlock" class="code-viewer" style="display:none;"><code id="evcCode">
+// Embedded evc_autonomy.ino (view-only)
+</code></pre>
     <p>Results: repeatable distance accuracy (±3–7 cm), heading stability (±1–2°), consistent finishes.</p>
     </div>
 
@@ -1074,6 +1089,32 @@ function closeWhitePage() {
     overlay.classList.remove('active');
     overlay.style.display = 'none';
     document.body.style.overflow = '';
+}
+// EV-C code viewer: fetch the .ino file and insert into the code block
+let evcCodeLoaded = false;
+function loadEvcCode() {
+    if (evcCodeLoaded) return;
+    fetch('evc_autonomy.ino').then(r => {
+        if (!r.ok) throw new Error('Failed to load');
+        return r.text();
+    }).then(txt => {
+        const el = document.getElementById('evcCode');
+        // use textContent to preserve raw code
+        el.textContent = txt;
+        evcCodeLoaded = true;
+    }).catch(err => {
+        const el = document.getElementById('evcCode');
+        el.textContent = '// Could not load evc_autonomy.ino — ' + err.message;
+    });
+}
+function toggleEvcCode() {
+    const block = document.getElementById('evcCodeBlock');
+    if (block.style.display === 'none' || block.style.display === '') {
+        block.style.display = 'block';
+        loadEvcCode();
+    } else {
+        block.style.display = 'none';
+    }
 }
 function setActiveSidebarButton(sectionId) {
 document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));

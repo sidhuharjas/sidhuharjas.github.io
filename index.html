@@ -3,1165 +3,1332 @@
 <head>
 <meta charset="UTF-8">
 <title>Harjas Sidhu — Robotics Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <meta name="robots" content="noindex">
-
-
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; }
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #181818;
+  --border: #2a2a2a;
+  --border2: #333333;
+  --text: #f0ede8;
+  --text2: #9a9690;
+  --text3: #5a5754;
+  --accent: #e8d5a3;
+  --accent2: #c4a35a;
+  --accent3: #8a6e2f;
+  --red: #e05a4e;
+  --teal: #3dbfa4;
+  --blue: #5b9bd5;
+  --sidebar-w: 240px;
+  --nav-h: 52px;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
 body {
-margin: 0;
-font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-background: #f5f5f5;
-color: #111;
+  font-family: var(--font-mono);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.navbar {
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 14px 32px;
-background: #ffffff;
-border-bottom: 1px solid #ddd;
-position: sticky;
-top: 0;
-z-index: 10;
-}
-.nav-left { font-size: 20px; font-weight: 600; }
-.nav-right button {
-margin-left: 18px;
-background: none;
-border: none;
-font-size: 14px;
-cursor: pointer;
-padding: 6px 10px;
-transition: all 0.2s ease;
-}
-.nav-right button:hover { 
-text-decoration: underline;
-opacity: 0.7;
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+  gap: 16px;
 }
 
-.layout { display: flex; min-height: calc(100vh - 56px); }
+.nav-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  white-space: nowrap;
+}
 
+.nav-links {
+  display: flex;
+  gap: 2px;
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-btn:hover { color: var(--text); background: var(--surface); }
+.nav-btn.active { color: var(--accent); background: var(--surface2); }
+
+/* ── LAYOUT ── */
+.layout {
+  display: flex;
+  padding-top: var(--nav-h);
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
 .sidebar {
-width: 260px;
-background: #ffffff;
-border-right: 1px solid #ddd;
-padding: 18px 16px;
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 16px 0;
+  z-index: 90;
+  display: none;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border2) transparent;
 }
-.sidebar-section-title {
-font-size: 13px;
-font-weight: 600;
-text-transform: uppercase;
-color: #666;
-margin: 20px 8px 6px;
-}
-.sidebar-section-title:first-child { margin-top: 8px; }
-.sidebar button {
-width: 100%;
-text-align: left;
-background: none;
-border: none;
-padding: 6px 10px;
-font-size: 14px;
-cursor: pointer;
-border-radius: 6px;
-transition: all 0.2s ease;
-}
-.sidebar button:hover { 
-background: #f0f0f0;
-}
-.sidebar button.active-link {
-background: #111;
-color: #fff;
-}
+.sidebar.visible { display: block; }
 
-.main {
-flex: 1;
-padding: 24px 32px;
-max-width: 1000px;
+.sidebar-cat {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 16px 16px 6px;
 }
-.section { display: none; }
+.sidebar-cat:first-child { padding-top: 8px; }
+
+.sidebar-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 7px 16px;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+}
+.sidebar-btn:hover { color: var(--text); background: var(--surface2); border-left-color: var(--border2); }
+.sidebar-btn.active { color: var(--accent); background: var(--surface2); border-left-color: var(--accent2); }
+
+/* ── MAIN ── */
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 40px 48px;
+  margin-left: 0;
+  max-width: 900px;
+  transition: margin-left 0.2s;
+}
+.main.with-sidebar { margin-left: var(--sidebar-w); }
+
+/* ── SECTIONS ── */
+.section { display: none; animation: fadeUp 0.3s ease; }
 .section.active { display: block; }
 
-h1 { margin-top: 0; font-size: 26px; margin-bottom: 16px; }
-h2 { font-size: 20px; margin-top: 28px; margin-bottom: 12px; }
-h3 { font-size: 17px; margin-top: 20px; margin-bottom: 10px; }
-p, ul { line-height: 1.6; font-size: 15px; margin-bottom: 14px; }
-li { margin-bottom: 6px; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-a { color: #111; text-decoration: underline; transition: opacity 0.2s; }
-a:hover { opacity: 0.6; }
+/* ── TYPOGRAPHY ── */
+h1 {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+h1 .accent { color: var(--accent); }
 
+h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 32px 0 12px;
+  letter-spacing: -0.01em;
+}
+h2::before {
+  content: '// ';
+  color: var(--accent3);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text2);
+  margin: 20px 0 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text2);
+  margin-bottom: 14px;
+}
+
+p strong { color: var(--text); font-weight: 500; }
+
+ul {
+  list-style: none;
+  margin-bottom: 14px;
+}
+ul li {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text2);
+  padding: 3px 0 3px 20px;
+  position: relative;
+}
+ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent3);
+  font-size: 11px;
+}
+ul li strong { color: var(--text); font-weight: 500; }
+
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent3); transition: border-color 0.15s; }
+a:hover { border-bottom-color: var(--accent); }
+
+/* ── CARDS ── */
 .card {
-background: #ffffff;
-border-radius: 10px;
-border: 1px solid #ddd;
-padding: 18px 18px 14px;
-margin-top: 16px;
-transition: all 0.3s ease;
-box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 22px;
+  margin-top: 16px;
+  transition: border-color 0.2s;
 }
-.card:hover {
-border-color: #111;
-box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-}
+.card:hover { border-color: var(--border2); }
+
 .card-title {
-font-size: 17px;
-font-weight: 600;
-margin-bottom: 8px;
-color: #111;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-title .tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--accent2);
+  background: rgba(200, 160, 80, 0.1);
+  border: 1px solid rgba(200, 160, 80, 0.2);
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.08em;
 }
 
+/* ── CALC BOX ── */
+.calc-box {
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent2);
+  border-radius: 6px;
+  padding: 16px 18px;
+  margin: 16px 0;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #a8c4e8;
+}
+.calc-box strong {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 4px;
+}
+.calc-box .line { color: var(--text2); }
+.calc-box .result { color: var(--teal); font-weight: 500; }
+.calc-box .conclusion { color: var(--text); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+
+/* ── MEDIA ── */
 .media-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 24px;
-margin: 20px 0;
-align-items: start;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+  align-items: start;
 }
 
 .media-figure {
-margin: 0;
-display: flex;
-flex-direction: column;
-align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-
 .media-figure img,
 .media-figure video {
-width: 100%;
-max-width: 100%;
-height: auto;
-display: block;
-border-radius: 10px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-border: 1px solid #eaeaea;
-transition: box-shadow 0.3s ease, transform 0.3s ease;
-cursor: pointer;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s;
 }
 .media-figure img:hover,
-.media-figure video:hover {
-box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-transform: translateY(-2px);
-}
-
-.mech-img { max-width: 520px; margin: 0 auto; cursor: pointer; }
-.field-img { max-width: 900px; margin: 0 auto; cursor: pointer; }
-.sample-img { max-width: 420px; margin: 0 auto; cursor: pointer; }
-
+.media-figure video:hover { border-color: var(--accent3); }
 .media-caption {
-margin-top: 10px;
-font-size: 13.5px;
-color: #555;
-text-align: center;
-font-style: italic;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.04em;
+  font-style: italic;
 }
 
-.shoot-tab, .transfer-tab, .lift-tab { display: none; margin-top: 20px; }
-.active-shoot-tab, .active-transfer-tab, .active-lift-tab { display: block; }
-
-.shoot-tab-btn, .transfer-tab-btn, .lift-tab-btn {
-background: #eee;
-border: 1px solid #ccc;
-padding: 6px 12px;
-margin-right: 6px;
-margin-bottom: 8px;
-border-radius: 6px;
-cursor: pointer;
-font-size: 14px;
-transition: all 0.2s ease;
-}
-.shoot-tab-btn:hover, .transfer-tab-btn:hover, .lift-tab-btn:hover {
-background: #ddd;
-border-color: #999;
-}
-.shoot-tab-btn.active-shoot-btn,
-.transfer-tab-btn.active-transfer-btn,
-.lift-tab-btn.active-lift-btn {
-background: #111;
-color: #fff;
-border-color: #111;
+.placeholder-img {
+  width: 100%;
+  min-height: 200px;
+  background: var(--surface2);
+  border: 1px dashed var(--border2);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text3);
+  font-size: 12px;
+  letter-spacing: 0.04em;
 }
 
-.lightbox-overlay {
-position: fixed;
-inset: 0;
-background: rgba(0,0,0,0.8);
-display: none;
-align-items: center;
-justify-content: center;
-z-index: 1000;
+/* ── TABS ── */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  margin: 20px 0 0;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0;
 }
-.lightbox-overlay.active {
-display: flex;
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 8px 14px;
+  margin-bottom: -1px;
+  letter-spacing: 0.06em;
+  transition: color 0.15s, border-color 0.15s;
 }
-.lightbox-image {
-max-width: 900px;
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent2); }
 
-/* White-page / documentation overlay */
-.whitepage-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1100;
-    padding: 30px;
-}
-.whitepage-overlay.active { display: flex; }
-.whitepage-content {
-    background: #fff;
-    width: 100%;
-    max-width: 1100px;
-    max-height: 90vh;
-    overflow: auto;
-    border-radius: 8px;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.2);
-    padding: 28px 34px;
-    color: #111;
-}
-.whitepage-close {
-    position: absolute;
-    right: 40px;
-    top: 30px;
-    background: none;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    color: #333;
-}
-.whitepage-title { font-size: 22px; margin-bottom: 12px; }
-.whitepage-body { line-height: 1.6; font-size: 15px; color: #222; }
+.tab-panel { display: none; padding-top: 20px; }
+.tab-panel.active { display: block; }
 
-.code-toggle { margin-top: 8px; }
-.code-toggle button { padding: 8px 12px; border-radius:6px; border:1px solid #ccc; background:#f7f7f7; cursor:pointer; }
-.code-viewer { background:#0b1220; color:#e6f1ff; padding:12px; border-radius:8px; overflow:auto; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace; font-size:13px; border:1px solid #141a24; max-height: 420px; }
-.code-actions { margin-top:8px; display:flex; gap:8px; align-items:center; }
-.code-actions a { color: #0b1220; background: #fff; padding:6px 10px; border-radius:6px; text-decoration:none; border:1px solid #ddd; }
-width: 90%;
-height: auto;
-border-radius: 10px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.lightbox-overlay:hover { cursor: zoom-out; }
-
-.calculation-box {
-background: #eef2f5;
-padding: 16px;
-border-radius: 8px;
-border-left: 4px solid #3b82f6;
-margin-top: 16px;
-font-family: monospace;
-font-size: 14px;
-box-shadow: 0 2px 8px rgba(59,130,246,0.1);
+/* ── ABOUT SECTION HERO ── */
+.hero-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
 }
 
-@media (max-width: 900px) {
-.layout { flex-direction: column; }
-.sidebar {
-width: 100%;
-border-right: none;
-border-bottom: 1px solid #ddd;
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 24px;
 }
+.stat-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ── SEASON CARDS ── */
+.season-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 22px;
+  margin-top: 16px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.season-card:hover { border-color: var(--accent3); background: var(--surface2); }
+.season-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.season-card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+.season-card-year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent2);
+  background: rgba(200,163,90,0.12);
+  border: 1px solid rgba(200,163,90,0.2);
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: zoom-out;
+}
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 6px; object-fit: contain; }
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 28px 0;
+}
+
+/* ── VERSION BADGE ── */
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--teal);
+  background: rgba(61,191,164,0.1);
+  border: 1px solid rgba(61,191,164,0.2);
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+/* ── CODE VIEWER ── */
+.code-toggle-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  transition: border-color 0.15s, color 0.15s;
+  margin-bottom: 8px;
+}
+.code-toggle-btn:hover { border-color: var(--accent3); color: var(--text); }
+
+.code-viewer {
+  background: #060a0f;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  overflow: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #a8c4e8;
+  max-height: 400px;
+  line-height: 1.6;
+  display: none;
+}
+.code-actions { display: flex; gap: 8px; margin-top: 8px; }
+.code-actions a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 5px 12px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  transition: color 0.15s;
+}
+.code-actions a:hover { color: var(--text); border-color: var(--accent3); }
+
+/* ── INLINE TAG ── */
+.inline-tag {
+  font-size: 11px;
+  color: var(--accent2);
+  background: rgba(200,163,90,0.1);
+  border: 1px solid rgba(200,163,90,0.2);
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+/* ── CONTACT ── */
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+.contact-label {
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .hero-block { grid-template-columns: 1fr; }
+  .main { padding: 28px 20px; }
+  .sidebar { width: 200px; }
+  .main.with-sidebar { margin-left: 200px; }
+  h1 { font-size: 24px; }
 }
 </style>
 </head>
 <body>
 
-<div class="navbar">
-<div class="nav-left">Harjas Sidhu</div>
-<div class="nav-right">
-<button onclick="showTopSection('about')">About</button>
-<button onclick="showTopSection('ftc-landing')">FTC</button>
-<button onclick="showTopSection('scioly-landing')">Sci Oly</button>
-<button onclick="showTopSection('contact')">Contact</button>
-</div>
-</div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-name">HS_</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="goTop('about', this)">About</button>
+    <button class="nav-btn" onclick="goTop('ftc-landing', this)">FTC</button>
+    <button class="nav-btn" onclick="goTop('scioly-landing', this)">Sci Oly</button>
+    <button class="nav-btn" onclick="goTop('contact', this)">Contact</button>
+  </div>
+</nav>
 
+<!-- SIDEBARS -->
+<aside class="sidebar" id="ftcSidebar">
+  <div class="sidebar-cat">FTC Overview</div>
+  <button class="sidebar-btn" onclick="showSection('ftc-mech-overview',this)">Mechanisms Overview</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-seasons-landing',this)">Seasons Summary</button>
+
+  <div class="sidebar-cat">DECODE™ 25–26</div>
+  <button class="sidebar-btn" onclick="showSection('ftc-2526-season',this)">Season Overview</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-mech-shooting',this)">Shooting Mechanism</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-mech-tipper',this)">Tipper Park</button>
+
+  <div class="sidebar-cat">INTO THE DEEP™ 24–25</div>
+  <button class="sidebar-btn" onclick="showSection('ftc-2425-season',this)">Season Overview</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-itd-robot',this)">Full Robot Overview</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-mech-lift',this)">Vertical Lift</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-mech-extendo',this)">Linear Extension</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-mech-transfer',this)">Transfer System</button>
+  <button class="sidebar-btn" onclick="showSection('ftc-mech-v4b',this)">2-Bar Deposit Arm</button>
+</aside>
+
+<aside class="sidebar" id="sciolySidebar">
+  <div class="sidebar-cat">Science Olympiad</div>
+  <button class="sidebar-btn" onclick="showSection('scioly-overview',this)">Overview</button>
+  <div class="sidebar-cat">EV C 2025–2026</div>
+  <button class="sidebar-btn" onclick="showSection('scioly-evc',this)">EV C 2025–2026</button>
+  <div class="sidebar-cat">Other Events</div>
+  <button class="sidebar-btn" onclick="showSection('scioly-circuit',this)">Circuit Lab — C</button>
+</aside>
+
+<!-- MAIN -->
 <div class="layout">
-
-<div class="sidebar" id="ftcSidebar" style="display:none;">
-<div class="sidebar-section-title">FTC Overview</div>
-<button onclick="showSection('ftc-mech-overview', this)">Mechanisms Overview</button>
-<button onclick="showSection('ftc-seasons-landing', this)">Seasons Summary</button>
-
-<div class="sidebar-section-title">DECODE™ (25-26)</div>
-<button onclick="showSection('ftc-2526-season', this)">Season Overview</button>
-<button onclick="showSection('ftc-mech-shooting', this)">Shooting Mechanism</button>
-<button onclick="showSection('ftc-mech-tipper', this)">Tipper Park</button>
-
-<div class="sidebar-section-title">INTO THE DEEP™ (24-25)</div>
-<button onclick="showSection('ftc-2425-season', this)">Season Overview</button>
-<button onclick="showSection('ftc-itd-robot', this)">Full Robot Overview</button>
-<button onclick="showSection('ftc-mech-lift', this)">Vertical Lift</button>
-<button onclick="showSection('ftc-mech-extendo', this)">Linear Extension</button>
-<button onclick="showSection('ftc-mech-transfer', this)">Transfer System</button>
-<button onclick="showSection('ftc-mech-v4b', this)">2‑Bar Deposit Arm</button>
-</div>
-
-<div class="sidebar" id="sciolySidebar" style="display:none;">
-<div class="sidebar-section-title">Science Olympiad</div>
-<button onclick="showSection('scioly-overview', this)">Overview</button>
-<div class="sidebar-section-title">EV C 2025-2026</div>
-<button onclick="showSection('scioly-evc', this)">EV C 2025-2026</button>
-<div class="sidebar-section-title">Other Events</div>
-<button onclick="showSection('scioly-circuit', this)">Circuit Lab — C</button>
-</div>
-
-<div class="main">
-
-<div id="about" class="section active">
-<h1>About Me</h1>
-<p>
-I'm a robotics engineer focused on building mechanisms that are reliable, fast, and competition-grade. 
-My work spans FTC robotics, mechanical design, control systems, and rapid iteration under real-world constraints.
-</p>
-<p>
-Every season in FTC is different: a new game, new rules, new field. That means designing, building, and competing with a completely new robot every year. 
-I thrive in that environment. I take problems—mechanical failures, design constraints, performance targets—and solve them through careful engineering, testing, and iteration.
-</p>
-<p>
-My focus is on the details that matter: precision gear ratios, friction loss analysis, load calculations, and systems that work in the chaos of competition. 
-Whether it's a shooter that hits the same spot every time, a transfer system that never jams, or a deposit arm optimized for speed, 
-I build mechanisms that perform when it counts.
-</p>
-<p>
-This portfolio documents the mechanisms, engineering decisions, and design iterations behind the systems I've built. 
-Each page includes calculations, CAD context, and the reasoning behind design choices.
-</p>
-</div>
-
-<div id="ftc-landing" class="section">
-<h1>FTC Robotics — Team 20744 “24Karat”</h1>
-<p>
-I am a core engineer on FTC Team 20744 "24Karat," where I design and build competition-grade mechanisms that win matches. 
-Every year brings a brand-new game, which means every year I design, build, and deploy a completely new robot from scratch.
-</p>
-<p>
-This section documents the mechanisms I designed, iterated on, and deployed—from concept through competition. 
-You'll find detailed technical breakdowns, engineering decisions, failure analysis, and the design solutions that worked under pressure.
-</p>
-</div>
-
-<div id="ftc-mech-overview" class="section">
-<h1>Mechanisms Overview</h1>
-<p>
-The <strong>FIRST Tech Challenge (FTC)</strong> is a global competition where teams design 18-inch robots to compete in a new game every season. 
-Unlike longer engineering projects, FTC demands rapid iteration: a new game reveal, 6–8 weeks of design and build, then competition season. 
-There's no room for "we'll get it right next year." It has to work now.
-</p>
-<p>
-This overview walks through the mechanisms I designed and built across the 2024–2025 and 2025–2026 seasons. 
-You'll see the problems I faced, the solutions I chose, and why those solutions mattered. Each mechanism has a dedicated deep-dive page with calculations, CAD, and iteration history.
-</p>
-</div>
-
-<div id="ftc-seasons-landing" class="section">
-<h1>FTC Seasons</h1>
-<p>
-Every season brings a completely new game. New scoring rules. New field. New robot design. Below are the seasons I competed in and the mechanisms I built.
-</p>
-
-<div class="card">
-<div class="card-title">2025–2026 — DECODE™</div>
-<p>
-A shooting-focused game where robots collect 5-inch spheres and score them into corner goals. 
-The game is won by teams that can shoot consistently, quickly, and under pressure.
-</p>
-<p><strong>What I designed:</strong> Shooting Mechanism (V1–V3 iterations), Tipper Park endgame mechanism.</p>
-</div>
-
-<div class="card">
-<div class="card-title">2024–2025 — INTO THE DEEP™</div>
-<p>
-A precision placement game where robots score triangular samples into baskets and onto bars at multiple heights. 
-Speed, precision, and reliability all matter equally.
-</p>
-<p><strong>What I designed:</strong> Vertical Lift, Linear Extension, Transfer Claw (3 iterations), 2-Bar Deposit Arm.</p>
-</div>
-</div>
-
-<div id="ftc-2526-season" class="section">
-<h1>2025–2026 Season — DECODE™</h1>
-<p>
-DECODE™ is a shooting-based game where robots collect 5-inch spherical artifacts and score them into corner goals.
-The game demands three things: 
-<strong>consistency</strong> (every shot must go the same place), 
-<strong>speed</strong> (cycle time matters), and 
-<strong>reliability</strong> (one jam costs you matches).
-</p>
-
-<h2>What Robots Had to Do</h2>
-<ul>
-<li>Collect artifacts from the field.</li>
-<li>Shoot them accurately into corner goals.</li>
-<li>Navigate field zones for additional points.</li>
-<li>Complete a Base park at the end of the match.</li>
-</ul>
-
-<h2>What I Worked On</h2>
-<ul>
-<li><strong>Shooting Mechanism (V1–V3):</strong> turreted shooting system for multi‑angle scoring.</li>
-<li><strong>Tipper Park Mechanism:</strong> compact tipping solution for consistent Base ranking point.</li>
-</ul>
-
-<h2>Field Layout</h2>
-<figure class="media-figure">
-<img src="images/decode_feild.jpg" class="field-img lightbox-img" alt="DECODE field">
-<figcaption class="media-caption">DECODE Field Map</figcaption>
-</figure>
-</div>
-
-<div id="ftc-2425-season" class="section">
-<h1>2024–2025 Season — INTO THE DEEP™</h1>
-<p>
-INTO THE DEEP™ is a precision placement game. Robots pick up triangular samples and score them into baskets or onto bars at multiple heights. 
-The challenge: every movement must be fast, smooth, and precise. A jerky arm causes drops. Misaligned claws cause jams. Poor cycle time loses close matches.
-</p>
-<p>
-My work focused on the mechanisms that controlled the samples after pickup: the lift, extension, transfer, and deposit systems.
-</p>
-
-<h2>What Robots Had to Do</h2>
-<ul>
-<li>Collect samples from the field.</li>
-<li>Lift them to multiple scoring heights.</li>
-<li>Place them accurately into baskets or onto bars.</li>
-<li>Complete endgame tasks such as climbs or parks.</li>
-</ul>
-
-<h2>What I Worked On</h2>
-<ul>
-<li><strong>Vertical Lift:</strong> dual-motor architecture and counterspring tuning.</li>
-<li><strong>Linear Extension System:</strong> horizontal extension on a linear slide for scoring reach.</li>
-<li><strong>Transfer System:</strong> extensive iteration leading to an active vectoring claw.</li>
-<li><strong>2‑Bar Deposit Arm:</strong> optimized linkage for controlled drop-offs.</li>
-</ul>
-
-<div class="media-grid">
-<figure class="media-figure">
-<img src="images/into-the-deep-field.webp" class="field-img lightbox-img" alt="INTO THE DEEP field">
-<figcaption class="media-caption">INTO THE DEEP Field Layout</figcaption>
-</figure>
-<figure class="media-figure">
-<img src="images/am-5401_blue.webp" class="sample-img lightbox-img" alt="FTC sample / component">
-<figcaption class="media-caption">FTC Sample — Used to tune mechanism grips.</figcaption>
-</figure>
-</div>
-</div>
-
-<div id="ftc-itd-robot" class="section">
-<h1>INTO THE DEEP — Full Robot Overview</h1>
-<p>
-Building a competitive FTC robot is a team effort. For our INTO THE DEEP competition robot, <strong>I led the design and manufacturing of the V2 platform,</strong> 
-responsible for the extension system, lift architecture, transfer claw, and deposit arm. 
-My goal was simple: design these subsystems so they worked seamlessly with my teammates' drivetrain, intake, and control systems.
-</p>
-<p>
-Below is a breakdown of the full system to show how my mechanisms fit into the bigger picture. 
-<em>For detailed calculations, CAD decisions, and iteration history, see each mechanism's dedicated page.</em>
-</p>
-
-<div>
-<h3>Team Subsystems Overview</h3>
-<ul>
-<li><strong>Custom Drivetrain:</strong> Built using four 6061 aluminum plates that were custom cut on an industrial laser cutter to optimize our chassis footprint.</li>
-<li><strong>Vertical Lift:</strong> Because the lift is the longest part of the cycle, I implemented two synchronized motors geared at 5.7:1 with 3D printed sprockets and chain, doubling the previous lift speed. It utilizes a 3-stage MiSUMI structure and a down-string spring to manage slack when gravity outpaces the spool.</li>
-<li><strong>Virtual 4-Bar Intake:</strong> A top-down, motor-driven intake. To solve geometry limitations that prevented picking up samples directly beneath the arm, I used a chain mounted to a fixed shaft to create a virtual 4-bar. This orientates the intake properly without needing a separate motor.</li>
-<li><strong>Intake Rollers:</strong> Features 3D-printed TPU fingers with hooks offset at 90 degrees to automatically orient the samples vertically for my transfer claw. A bottom roller lined with surgical tubing acts like a vacuum to sweep up the pieces.</li>
-</ul>
-</div>
-<figure class="media-figure">
-<img src="images/reebok.PNG" class="lightbox-img" alt="INTO THE DEEP Full Robot">
-<figcaption class="media-caption">Fully integrated INTO THE DEEP robot</figcaption>
-</figure>
-
-<figure class="media-figure" style="margin-top: 16px;">
-<video autoplay loop muted playsinline preload="auto">
-<source src="images/reebok-auto.mp4" type="video/mp4">
-<source src="images/reebok-auto.mov" type="video/quicktime">
-Your browser does not support this video format.
-</video>
-<figcaption class="media-caption">INTO THE DEEP autonomous run (Reebok)</figcaption>
-</figure>
-</div>
-
-<div id="ftc-mech-lift" class="section">
-<h1>Vertical Lift & Load Management</h1>
-<p>
-Our vertical lift is responsible for the longest physical movement in our scoring cycle and sees the highest volume of repetitions during a match. To hit our aggressive cycle-time targets, I helped overhaul our lift architecture and load management system.
-</p>
-
-<div style="margin-top: 20px;">
-<button onclick="showLiftTab('lift-architecture', this)" class="lift-tab-btn active-lift-btn">Lift Architecture</button>
-<button onclick="showLiftTab('lift-springs', this)" class="lift-tab-btn">Counterspringing</button>
-</div>
-
-<div id="lift-architecture" class="lift-tab active-lift-tab">
-<h2>Dual-Motor MiSUMI Setup</h2>
-<p>
-Originally, a single motor was bottlenecking cycle speed. I moved to a dual-motor setup, which—in combination with a change in the motor ratio—completely doubled the speed of the lift.
-</p>
-<div class="media-grid">
-<div>
-<h3>Mechanics & Reliability</h3>
-<ul>
-<li><strong>Actuation:</strong> Powered by two synchronized motors geared at 5.7:1, using custom 3D-printed sprockets and chain to ensure perfectly matched power delivery.</li>
-<li><strong>Structure:</strong> Built on a 3-stage MiSUMI slide structure, chosen for its rigidity and smooth travel under high lateral loads.</li>
-<li><strong>Down-string Tensioning:</strong> The key to the spool's reliability is a counter-spring system on the down-string. Because gravity assists the lift on the way down, the spool often struggles to reel in fast enough, creating dangerous slack. The spring dynamically adapts to this slack, keeping the string tensioned and preventing derailments.</li>
-</ul>
-</div>
-
-<figure class="media-figure">
-<div style="width:100%; height:250px; background:#eef2f5; display:flex; align-items:center; justify-content:center; border-radius:10px; border: 1px dashed #ccc;">
-<span style="color:#888; font-size:14px;">[Insert Lift Image Here]</span>
-</div>
-<figcaption class="media-caption">3-Stage dual-motor MiSUMI Lift System</figcaption>
-</figure>
-</div>
-</div>
-
-<div id="lift-springs" class="lift-tab">
-<h2>Counterspringing</h2>
-<p>
-Doubling the speed of the lift introduced a new problem: high current draw and increased stall risk. To minimize the load on our dual 5.7:1 motors, I implemented a mechanical counterspringing system.
-</p>
-<div class="media-grid">
-<div>
-<h3>Gravity Neutralization</h3>
-<p>
-By attaching constant-force springs to the moving stages of the MiSUMI slides, I neutralize the gravity load of the lift. This drastically improves the system's efficiency.
-</p>
-<ul>
-<li><strong>Reduced Motor Strain:</strong> The motors no longer have to lift the dead weight of the slides and the end effector; they only need to overcome system inertia and friction.</li>
-<li><strong>Battery Efficiency:</strong> Lower current draw prevents battery voltage sag during rapid cycling.</li>
-<li><strong>Faster Acceleration:</strong> Without fighting gravity, the motors reach their peak RPM much faster on the upward stroke.</li>
-</ul>
-
-<div class="calculation-box">
-<strong>Counterspringing Physics:</strong><br>
-The goal is to make the net vertical force required to hold the lift steady near zero:<br>
-&Sigma;F<sub>y</sub> = (m &middot; g) - F<sub>springs</sub> &approx; 0<br><br>
-Where:<br>
-m &middot; g = Total weight of all moving lift stages + end effector<br>
-F<sub>springs</sub> = Combined pull force of the constant force springs<br><br>
-By zeroing out the gravity penalty, 100% of the motor's torque can be dedicated to acceleration (F = m &middot; a).
-</div>
-</div>
-
-<figure class="media-figure">
-<div style="width:100%; height:300px; background:#eef2f5; display:flex; align-items:center; justify-content:center; border-radius:10px; border: 1px dashed #ccc;">
-<span style="color:#888; font-size:14px; text-align: center;">[Insert Close-Up Image of <br>Constant Force Springs Here]</span>
-</div>
-<figcaption class="media-caption">Constant force spring mounts on the lift stages</figcaption>
-</figure>
-</div>
-</div>
-</div>
-
-<div id="ftc-mech-shooting" class="section">
-<h1>Shooting Mechanism</h1>
-<p>
-The shooter is the most critical system in DECODE. It's responsible for scoring—which means it has to be consistent, 
-fast, and reliable. A single jam or miss during a critical match point can cost you the game.
-</p>
-<p>
-My approach: iterate relentlessly. I built three major versions (V1, V2, V3), each time testing flywheel inertia, hood angles, friction losses, 
-counter-roller dynamics, and turret mechanics. Every design decision was validated by testing.
-</p>
-
-<div style="margin-top: 20px;">
-<button onclick="showShootTab('shoot-v1', this)" class="shoot-tab-btn active-shoot-btn">V1</button>
-<button onclick="showShootTab('shoot-v2', this)" class="shoot-tab-btn">V2</button>
-<button onclick="showShootTab('shoot-v3', this)" class="shoot-tab-btn">V3</button>
-</div>
-
-<div id="shoot-v1" class="shoot-tab active-shoot-tab">
-<h2>Version 1 — Double Vertical Flywheel</h2>
-<p>
-Our first prototype was a double vertical flywheel system using two independently driven 6000 RPM motors with 4‑inch wheels. While one advantage was inherent backspin mitigation, the design proved impractical for competition.
-</p>
-<ul>
-    <li><strong>Accuracy Issues:</strong> Variations in motor output between the two wheels caused inconsistent ball trajectories.</li>
-    <li><strong>Low Rate of Fire:</strong> The system struggled to maintain consistent shooting speeds due to uneven power delivery.</li>
-    <li><strong>Design Constraints:</strong> Between the fixed angle wheels and lightweight wheels, the launcher was oversized, too heavy for effective turret mounting, and had very little position flexibility.</li>
-</ul>
-<figure class="media-figure" style="margin-top: 20px;">
-<img src="images/shooterv1.png" class="mech-img lightbox-img" alt="Shooter V1">
-<figcaption class="media-caption">V1 Prototype — Validating geometry and experiencing consistency issues</figcaption>
-</figure>
-</div>
-
-<div id="shoot-v2" class="shoot-tab">
-<h2>Version 2 — Servo‑Actuated Hooded Shooter</h2>
-<p>
-V2 moved away from the dual vertical wheels to a servo‑actuated hooded design powered by dual 6000 RPM motors. A rack‑and‑pinion mechanism allowed precise hood angle adjustment between 35° and 55°, enabling fine‑tuned shot trajectories.
-</p>
-<h3>Key Upgrades</h3>
-<ul>
-    <li><strong>Weight Reduction:</strong> Integrating pocketed plates reduced our overall mass by 0.75 kg, improving efficiency without compromising strength.</li>
-    <li><strong>Turntable Bearing:</strong> A geared lazy-susan bearing at the base enabled smooth left‑right turret rotation and acted as a receiver for artifacts.</li>
-    <li><strong>Friction Reduction:</strong> Thrust bearings were installed at all wall interfaces to minimize resistance, lubricated with NLGI Grade 2 grease. Belts were tensioned slightly loose to reduce drag, lowering noise and motor heating.</li>
-    <li><strong>Counter-Roller Introduction:</strong> A belted 30A shore hardness counter-roller was added. It spun clockwise (opposite the main wheel) to remove unwanted ball backspin, increase compression, and produce faster shots. Custom 3D printed gears provided stability.</li>
-</ul>
-<figure class="media-figure" style="margin-top: 20px;">
-<img src="images/shooterv2.png" class="mech-img lightbox-img" alt="Shooter V2">
-<figcaption class="media-caption">V2 Prototype — Implementing the hood and counter-roller</figcaption>
-</figure>
-</div>
-
-<div id="shoot-v3" class="shoot-tab">
-<h2>Version 3 — Final Competition Shooter</h2>
-<p>
-The V3 shooter includes a multitude of friction, angle, and weight optimizations to minimize cycle time and maximize reliability. PID Control ensures maximum reliability and consistency across varying battery levels.
-</p>
-
-<div class="media-grid">
-<div>
-<h3>Major Refinements</h3>
-<ul>
-    <li><strong>Advanced Counter-Roller:</strong> Testing proved artifacts would bounce out of goals from excessive backspin without a counter roller. Using a gear reversal system and HTD 3 belts, I spin 2 custom molded top rollers at 9000 RPM to mitigate backspin and account for linear velocity from smaller wheels.</li>
-    <li><strong>Custom Silicone Molding:</strong> A 20mm 30A wheel was needed. After Andymark 40A proved too stiff (thinner rubber tore) and Colson 30A reduced contact area via its chevron shape, I created 3D printed molds and poured custom 2-part 30A silicone, yielding consistent, leak-free parts.</li>
-    <li><strong>Optimized Friction & Articulation:</strong> I moved from HTD5 pitch belts to GT2 and HTD3 belts. Thrust bearings were installed wherever plates had clamping forces, converting sliding friction to rolling friction. For hood adjustment, a large radius herringbone gear acts as a rack and pinion to articulate the hood around the center of the wheel.</li>
-</ul>
-</div>
-<div>
-<h3>Flywheel Inertia & Calculations</h3>
-<p>I iterated through modeling clay (V1), a solid disk (V2), and finally a <strong>pocketed ring</strong> (V3) to maximize inertia while minimizing weight. Speeding up the turret and drivetrain reduced cycle times. Adding this 592g mass stabilized angular velocity:</p>
-
-<div class="calculation-box">
-<strong>System Inertia:</strong><br>
-I = &frac12; &middot; m &middot; r&sup2; &approx; 0.00172 kg&middot;m&sup2;<br><br>
-<strong>Stored Flywheel Energy:</strong><br>
-At &omega; = 500 rad/s &rarr; E &approx; 215 J<br><br>
-<strong>Ball Kinetic Energy:</strong><br>
-Mass = 0.165 lb (0.0748 kg)<br>
-Exit velocity (v) = 20 m/s<br>
-E<sub>b</sub> = &frac12; &middot; m &middot; v&sup2; &approx; 15 J<br><br>
-<strong>Conclusion:</strong><br>
-Only ~7% of stored energy is transferred per shot. This minimizes wheel speed drop and ensures rapid, consistent launches.
-</div>
-</div>
-</div>
-
-<div class="media-grid">
-<figure class="media-figure">
-<video autoplay loop muted playsinline>
-<source src="images/giphy.mp4" type="video/mp4">
-</video>
-<figcaption class="media-caption">V3 in action</figcaption>
-</figure>
-<figure class="media-figure">
-<img src="images/IMG_1166.jpg" class="lightbox-img" alt="Shooter V3">
-<figcaption class="media-caption">Final assembly mounted on turret</figcaption>
-</figure>
-</div>
-</div>
-</div>
-
-<div id="ftc-mech-tipper" class="section">
-<h1>Tipper Park Mechanism</h1>
-<p>
-In DECODE, the Base ranking point is free points if you tip the robot at the end of the match. 
-Most teams tried full-lift mechanisms, but they ran out of time or hit the 18-inch height limit. 
-The solution: a small, fast tipping mechanism that could secure this point reliably while staying simple.
-</p>
-<p>
-I built a small tipping park mechanism that cuts the robot's footprint in half while keeping mechanical complexity to a minimum. 
-</p>
-<p>
-The design uses two Axon Max servos working in parallel for redundancy, torque multiplication, and reliability under battery sag. 
-Finite Element Analysis (FEA) was used to optimize the kicker plate—strong enough to handle the load, light enough to make a difference.
-</p>
-
-<div class="media-grid">
-<div>
-<h3>Finite Element Analysis (FEA)</h3>
-<p>
-To minimize physical testing time and mitigate risk, I ran a static Finite Element Analysis (FEA) study on the kicker plate. This ensured the component would be sufficiently strong under the robot's weight, while allowing optimization and mass minimization through a strategic taper in areas with lower stress loads.
-</p>
-</div>
-</div>
-
-<div class="media-grid">
-<figure class="media-figure">
-<img src="images/FEA_Tipper.png" class="lightbox-img" alt="Tipper FEA">
-<figcaption class="media-caption">FEA validation of kicker plate loads to optimize the taper</figcaption>
-</figure>
-<figure class="media-figure">
-<img src="images/Park.png" class="lightbox-img" alt="Tipper Park mechanism">
-<figcaption class="media-caption">Final competition-ready park mechanism</figcaption>
-</figure>
-</div>
-</div>
-
-<div id="ftc-mech-extendo" class="section">
-<h1>Linear Extension</h1>
-<p>
-The linear extension system provides the horizontal reach necessary to score samples in the INTO THE DEEP game. 
-It is designed to be fast, stable under load, and smoothly integrated with the transfer and intake mechanisms.
-</p>
-
-<div class="media-grid">
-<div>
-<h3>Design & Actuation</h3>
-<ul>
-<li><strong>MiSUMI Linear Slides:</strong> The extension is built on MiSUMI slides because they provide an incredibly reliable and compact foundation, maximizing stiffness while minimizing the horizontal footprint.</li>
-<li><strong>Power Delivery:</strong> The extension is powered by a single <strong>Axon Max servo</strong>. To ensure it has the driving force to push and pull the slides without stalling, I designed a custom herringbone gear reduction.</li>
-<li><strong>Herringbone Gear Profile:</strong> Using herringbone gears ensures self-centering during operation and smooth power transmission without side-load slipping or axial thrust forces.</li>
-</ul>
-
-<div class="calculation-box">
-<strong>Gear Reduction & Torque Multiplication:</strong><br>
-Driving Gear = 16 Teeth<br>
-Driven Gear = 120 Teeth<br><br>
-<strong>Ratio:</strong> 120 / 16 = <strong>7.5:1 Reduction</strong><br><br>
-<strong>Conclusion:</strong><br>
-By gearing the Axon Max down by a factor of 7.5, we multiply our effective torque by 7.5&times;. This massive torque overhead easily overcomes any slide friction and ensures the intake deploys and retracts consistently under competition loads.
-</div>
-
-</div>
-<figure class="media-figure">
-<img src="images/extention.PNG" class="lightbox-img" alt="Linear Extension System">
-<figcaption class="media-caption">Linear Extension assembly (partially deployed)</figcaption>
-</figure>
-</div>
-</div>
-
-<div id="ftc-mech-transfer" class="section">
-<h1>Transfer System</h1>
-<p>
-The transfer system is a critical handoff point: it takes samples from the intake and moves them to the deposit arm 
-for scoring. It runs every cycle, hundreds of times per match. If it jams, slips, or misaligns—you lose time and points.
-</p>
-<p>
-I built three major iterations. V1 and V2 were passive systems that eventually hit their limits. V3—the active vectoring claw—
-solved the core problem through active motor control and precision geometry. 50+ prototype versions went into this final design.
-</p>
-
-<div style="margin-top: 20px;">
-<button onclick="showTransferTab('transfer-v1', this)" class="transfer-tab-btn active-transfer-btn">V1</button>
-<button onclick="showTransferTab('transfer-v2', this)" class="transfer-tab-btn">V2</button>
-<button onclick="showTransferTab('transfer-v3', this)" class="transfer-tab-btn">V3 (Claw)</button>
-</div>
-
-<div id="transfer-v1" class="transfer-tab active-transfer-tab">
-<h2>Version 1 — Passive Rubber‑Band Compression</h2>
-<p>
-V1 used a passive finger geometry with <strong>rubber‑band‑based compression</strong>.
-The rubber bands allowed the system to flex around the sample and guide it upward.
-Compression was <strong>adjustable</strong> by changing band count and mounting points.
-</p>
-<div class="media-grid">
-<div>
-<h3>What Worked</h3>
-<ul>
-<li>Very low weight</li>
-<li>Simple, low‑part‑count geometry</li>
-<li>Adjustable compression using rubber bands</li>
-</ul>
-
-<h3>What Didn’t Work</h3>
-<ul>
-<li>Unpredictable sample rotation</li>
-<li>Required near‑perfect intake angle</li>
-<li>No positive control — sample could slip or bounce</li>
-</ul>
-</div>
-<figure class="media-figure">
-<img src="images/transferV1.png" class="lightbox-img" alt="Transfer V1">
-<figcaption class="media-caption">V1 — Passive Compression</figcaption>
-</figure>
-</div>
-</div>
-
-<div id="transfer-v2" class="transfer-tab">
-<h2>Version 2 — Torsion Spring + Micro‑Servo Gate</h2>
-<p>
-V2 introduced a <strong>torsion spring</strong> for more consistent preload and a
-<strong>micro‑servo gate</strong> to stabilize the sample during transfer.
-Compression remained <strong>adjustable</strong> by changing torsion spring preload.
-</p>
-<div class="media-grid">
-<div>
-<h3>What Improved</h3>
-<ul>
-<li>More consistent alignment due to torsion spring preload</li>
-<li>Micro‑servo gate reduced bounce‑outs</li>
-<li>Better tolerance to imperfect intake angles</li>
-</ul>
-
-<h3>Remaining Problems</h3>
-<ul>
-<li>Too heavy at the end of the arm</li>
-<li>Servo horn flex under load</li>
-<li>Snag points — exposed edges could catch on the sample’s triangular corners, causing jams</li>
-</ul>
-</div>
-<figure class="media-figure">
-<img src="images/transferv2.jpeg" class="lightbox-img" alt="Transfer V2">
-<figcaption class="media-caption">V2 — Spring & Servo Gate</figcaption>
-</figure>
-</div>
-</div>
-
-<div id="transfer-v3" class="transfer-tab">
-<h2>Version 3 — Active Vectoring Claw</h2>
-<p>
-The robot’s transfer system is one of the most important parts of a fast cycle, as it is the most common culprit of lost time and reliability. To ensure a firm and consistent motion from the intake into the deposit, we replaced the passive systems with a compact, <strong>Axon Mini–powered claw</strong>. 
-</p>
-<p>
-Before arriving at this design, we designed, manufactured, and tested <strong>50+ versions</strong> of both passive and active systems. We ultimately determined through rigorous testing that an active motion done by a servo produced the highest performance.
-</p>
-
-<div class="media-grid">
-<div>
-<h3>Claw Geometry & Mechanics</h3>
-<ul>
-<li><strong>Funneling Vector Geometry:</strong> The claw utilizes funneling geometry to conform to the shape of the sample and the intake, actively vectoring the pieces into position.</li>
-<li><strong>Maximized Surface Contact:</strong> The internal shape matches the sample perfectly, providing a large amount of surface contact for a stable, positive grip.</li>
-<li><strong>Self-Centering Herringbone Gears:</strong> Each finger of the claw uses a herringbone gear. They are self-centering by nature and allow multiple teeth to contact each other simultaneously, drastically reducing the chances of slipping or stripping.</li>
-<li><strong>Lightweight & Enclosed:</strong> No snag points with fully enclosed geometry, allowing smooth and predictable handoffs.</li>
-</ul>
-</div>
-<figure class="media-figure">
-<img src="images/TransferV3.png" class="lightbox-img" alt="Transfer V3 Claw">
-<figcaption class="media-caption">V3 — Active Vectoring Claw Assembly</figcaption>
-</figure>
-</div>
-</div>
-</div>
-
-<div id="ftc-mech-v4b" class="section">
-<h1>2‑Bar Deposit Arm</h1>
-<p>
-Our arm is a simple 2-bar mechanism that moves the sample from the intake and brings it to the scoring baskets and bars. At the back, it is powered through a 1:1 aluminum gear connected to an Axon Mini to maximize the speed of the movement.
-</p>
-<p>
-Additionally, we have another degree of freedom that we call <strong>pitch</strong>, which pivots the end of the arm to optimize the drop-off position. The goal was a fast, predictable motion path with low mechanical complexity.
-</p>
-
-<div class="media-grid">
-<div>
-<h3>Torque & Payload Calculations</h3>
-<p>To ensure our arm could reliably lift the extension slides and the end effector, we calculated our required torque at a 51 cm extension length:</p>
-<div class="calculation-box">
-<strong>Torque Equation:</strong><br>
-&tau; = r &middot; F &middot; sin(&theta;)<br>
-&tau; = r &middot; m &middot; a &middot; sin(&pi;/3)<br>
-&tau; = 51 cm &middot; X &middot; 0.87<br><br>
-<strong>System Specs:</strong><br>
-2&times; Servo Boosted Axon Max+ servos provide <strong>68 kg&middot;cm</strong> of torque.<br>
-With a <strong>1:2.6 reduction</strong>, we have enough torque to move an end effector weighing up to 4 kg.<br><br>
-<strong>Conclusion:</strong><br>
-Since our design goal was to keep the end effector <strong>under 1 kg</strong>, this massive torque overhead easily accounts for any mechanical inefficiencies from the linear slides and servo linkages.
-</div>
-</div>
-
-<figure class="media-figure">
-<video autoplay loop muted playsinline>
-<source src="images/v4bar.mp4" type="video/mp4">
-</video>
-<figcaption class="media-caption">2-Bar Linkage demonstrating pitch control</figcaption>
-</figure>
-</div>
-
-</div>
-
-
-<div id="scioly-landing" class="section">
-<h1>EV C 2025-2026</h1>
-<p>Electric Vehicle C project — use the sidebar to view V2 (autonomous) or V1 (prototype).</p>
-</div>
-
-<div id="scioly-overview" class="section">
-</h1>
-<h1>Science Olympiad — Overview</h1>
-<p>Science Olympiad is an organized, competitive program that lets students practice hands‑on science and engineering. For younger students there are Elementary Science Olympiad (ESO) formats — from Fun Days to small tournaments — while middle and high school programs (grades 6–12) run more like a sports team: they require regular practice, coaching, and season‑long commitment.</p>
-
-<p>School teams typically prepare a roster of students who train across many events. Competitions are run like academic track meets: teams complete a series of events (about two dozen per division) that test laboratory skills, building and design challenges, timed performance tasks, and subject knowledge. Each year some events rotate to reflect new topics in biology, chemistry, physics, earth science, engineering and technology.</p>
-
-<p>The emphasis is practical and collaborative: students build prototypes, run repeatable tests, record results, and work together to solve problems. Events are designed so different strengths pair well — for example, a strong builder can team with a student who excels at verbal description to succeed in design‑and‑describe events. Successful teams practice documentation, measurement, and clear communication, skills that translate directly to robotics and engineering projects.</p>
-
-<p>Science Olympiad progresses from local invitationals to hundreds of regional and state tournaments, and culminates in the National Tournament at a rotating host university. The organization and its programs have received national recognition and awards; participation often becomes a memorable part of students' academic development and college exploration.</p>
-
-<p>Personal note: I started participating in Science Olympiad in 9th grade.</p>
-</div>
-
-<div id="scioly-circuit" class="section">
-<h1>Circuit Lab — C</h1>
-<p>Circuit Lab is an event that tests practical understanding of basic electrical circuits. In plain terms: competitors are asked to build and troubleshoot simple circuits on a breadboard, identify common components (resistors, capacitors, diodes, transistors, etc.), take measurements with a multimeter, and predict how a circuit will behave when parts or connections change. The event emphasizes careful wiring, accurate measurement, and fast, logical troubleshooting.</p>
-
-<p><strong>My result:</strong> 5th place at State. I did this while in 9th grade and had not taken formal physics courses — I relied on hands‑on practice and basic circuit intuition.</p>
-
-<p>Why it matters: Circuit Lab teaches small, practical skills used in electronics: reading schematics, using a multimeter, and understanding how series/parallel connections affect voltage and current. Those skills transfer directly to prototyping and debugging robotics electronics.</p>
-
-<p>Short notes available on request; I used hands‑on practice and quick troubleshooting to prepare.</p>
-</div>
-
-
-
-<div id="scioly-evc" class="section">
-<h1>Electric Vehicle C — 2025-2026</h1>
-
-<div style="margin-top: 20px;">
-    <button onclick="showShootTab('scioly-v2', this)" class="shoot-tab-btn active-shoot-btn">V2 — Autonomous</button>
-    <button onclick="showShootTab('scioly-v1', this)" class="shoot-tab-btn">V1 — Prototype</button>
-</div>
-
-<div id="scioly-v2" class="shoot-tab active-shoot-tab">
-    <h2>EV‑C Autonomous Control System (v2, 2026)</h2>
-    <p><strong>Portfolio Summary — Electric Vehicle C Autonomous Control System (2026, v2)</strong><br>
-    Odometry‑Driven S‑Curve Navigation with inertial sensor fusion, time‑targeting, and dynamic stability control.</p>
-
-    <p>
-    I engineered a fully autonomous Electric Vehicle C robot capable of completing a 7–10 meter precision run with optional bonus‑can navigation using a dynamically‑generated S‑curve anchored to forward odometry. The v2 control stack integrates wheel‑encoder odometry, heading fusion using an inertial sensor (a device that measures rotation rate), lateral‑position control, adaptive power scheduling, and time‑targeting to achieve competitive performance.
-    </p>
-
-    <h3>Competition Results</h3>
-    <p>Regional: <strong>6th place</strong> — State: <strong>11th place</strong> (2026 season).</p>
-
-    <h3>Core Capabilities</h3>
-    <ul>
-        <li><strong>Hybrid odometry and inertial navigation</strong> — the robot estimates forward travel from wheel encoders (which count wheel rotations) and combines that with an inertial sensor that measures rotational rate. The inertial data is smoothed by a low‑pass filter (a smoothing filter that reduces high‑frequency noise) before fusion to improve heading stability.</li>
-        <li><strong>Odometry‑anchored S‑curve navigation</strong> — lateral S‑curve motions are parameterized against forward distance so the maneuver happens at the same physical location regardless of speed.</li>
-        <li><strong>Dynamic power scheduling</strong> — drive power is split into phases: smooth acceleration, steady cruise, predictive deceleration, and a slow creep near the finish to minimize slip and improve stopping accuracy.</li>
-        <li><strong>Time‑targeting controller</strong> — a proportional scheduler adjusts speed to meet a target finish time while preserving distance and heading accuracy; the scheduler uses a proportional gain to compute a safe multiplier that slightly speeds up or slows down the nominal drive power.</li>
-        <li><strong>Stability and drift management</strong> — safeguards such as sensor smoothing, small‑value deadbands for encoder/gyro readings, limited integral action on lateral error, and softened heading corrections near the end of the run prevent oscillation and drift.</li>
-    </ul>
-
-    <h3>Representative math (explained)</h3>
-    <div class="calculation-box">
-        <strong>Forward distance:</strong> d = (d_left + d_right) / 2. Each wheel distance is computed from encoder degrees: d_wheel = encoder_deg × (π × wheel_diameter / 360).<br>
-        <br>
-        <strong>Heading update from odometry:</strong> Δθ ≈ (d_right − d_left) / wheelbase (this gives radians). To convert to degrees multiply by 180/π. Wheelbase is the distance between left and right wheels.<br>
-        <br>
-        <strong>S‑curve parameterization:</strong> use a normalized progress variable s ∈ [0,1] where 0=start and 1=finish. Example: heading(s) = A · sin(2π·s) · envelope(s); lateral(s) = L_max · sin(π · s^p). A is heading amplitude, L_max is maximum lateral offset, and p shapes where the lateral peak occurs.<br>
-        <br>
-        <strong>Time‑scaling controller:</strong> compute timeScale = clamp(1 + K_p · (t_elapsed / T_target − s), timeScale_min, timeScale_max). Here K_p is the proportional gain (how strongly schedule errors are corrected), t_elapsed is elapsed time, T_target is the desired run time, and s is odometry‑normalized progress. Clamping keeps the multiplier within safe bounds.
-    </div>
-
-    <h3>Areas for Improvement</h3>
-    <ul>
-        <li>More tuning & testing (parameter sweeps across track lengths and battery states).</li>
-        <li>Bonus‑can reliability (refine S‑curve + add a short-range sensor to confirm clearance).</li>
-        <li>Speed control & braking (velocity observer and tighter decel scheduling).</li>
-        <li>Telemetry logging & automated regression.</li>
-        <li>Sensor fusion improvements — for example implement a complementary filter or a Kalman filter to combine encoder and inertial measurements in a statistically robust way (these are algorithms that optimally blend sensors to reduce noise and drift).</li>
-    </ul>
-
-    <h3>Media</h3>
-    <p>Place the run video and car photo in the `images/` folder named `evc_run.mp4` and `evc_photo.jpg`.</p>
-    <div class="media-grid">
-        <figure class="media-figure">
-            <video controls class="field-img" preload="metadata">
-                <source src="images/evc_run.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <figcaption class="media-caption">EV‑C v2 run</figcaption>
-        </figure>
-        <figure class="media-figure">
-            <img src="images/evc_photo.jpg" class="sample-img" alt="EV-C photo">
-            <figcaption class="media-caption">EV‑C v2 photo</figcaption>
-        </figure>
-    </div>
-
-        <h3>Code</h3>
-        <div class="code-toggle">
-            <button onclick="toggleEvcCode()">Show EV‑C Code (evc_autonomy.ino)</button>
-            <div class="code-actions">
-                <a href="evc_autonomy.ino" target="_blank">Open raw file</a>
-                <a href="evc_autonomy.ino" download>Download .ino</a>
-            </div>
+  <main class="main" id="mainContent">
+
+    <!-- ABOUT -->
+    <section id="about" class="section active">
+      <h1>Harjas <span class="accent">Sidhu</span></h1>
+      <div class="hero-block">
+        <div>
+          <p>Robotics engineer focused on building mechanisms that are reliable, fast, and competition-grade. My work spans FTC robotics, mechanical design, control systems, and rapid iteration under real-world constraints.</p>
+          <p>Every FTC season means a new game, new rules, new field — and a completely new robot. I thrive in that environment. I take problems — mechanical failures, design constraints, performance targets — and solve them through careful engineering, testing, and iteration.</p>
+          <p>My focus is on the details that matter: precision gear ratios, friction loss analysis, load calculations, and systems that work in the chaos of competition.</p>
         </div>
-        <pre id="evcCodeBlock" class="code-viewer" style="display:none;"><code id="evcCode">
-// Embedded evc_autonomy.ino (view-only)
-</code></pre>
-    <p>Results: repeatable distance accuracy (±3–7 cm), heading stability (±1–2°), consistent finishes.</p>
-    </div>
+        <div>
+          <div class="stat-grid">
+            <div class="stat-item">
+              <div class="stat-num">2</div>
+              <div class="stat-label">FTC Seasons</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">50+</div>
+              <div class="stat-label">Transfer Prototypes</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">3</div>
+              <div class="stat-label">Shooter Versions</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">5th</div>
+              <div class="stat-label">State — Circuit Lab</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>This portfolio documents the mechanisms, engineering decisions, and design iterations behind the systems I've built. Each page includes calculations, CAD context, and the reasoning behind design choices.</p>
+    </section>
 
-<div id="scioly-v1" class="shoot-tab">
-    <h2>EV‑C — V1 (Prototype)</h2>
-    <p><em>Car V1</em> was a rapid prototype originally built for an invitational event and later used at regionals. It was a very rushed build; during the invitational some setup and tuning mistakes caused failures on the track. V1 drove only forward and did not attempt the bonus‑can. Because parts were limited and time was short, drive power was switched with an electromechanical relay (a simple on/off switch) rather than a proportional motor controller.</p>
-    <p>V1 used a single wheel encoder to estimate traveled distance. Control was implemented as rectifying (on/off) corrections: the relay turned the motor fully on or fully off to reduce distance error. This approach (bang‑bang control) was extremely quick to implement and allowed fast tuning loops; it produced reasonable results at the invitational and regionals when it worked, but it lacked smooth speed control and could not reliably perform the bonus‑can maneuver.</p>
-    <p>V1 highlights: very fast to build and tune, acceptable regional performance, but limited by coarse motor control and no bonus capability.</p>
-    </div>
+    <!-- FTC LANDING / OVERVIEW -->
+    <section id="ftc-landing" class="section">
+      <h1>FTC Team <span class="accent">20744</span></h1>
+      <p>Core engineer on FTC Team 20744 "24Karat." Every year brings a brand-new game — which means every year I design, build, and deploy a completely new robot from scratch.</p>
+      <p>This section documents the mechanisms I designed, iterated on, and deployed — from concept through competition. Detailed technical breakdowns, engineering decisions, failure analysis, and the solutions that worked under pressure.</p>
+    </section>
 
+    <section id="ftc-mech-overview" class="section">
+      <h1>Mechanisms <span class="accent">Overview</span></h1>
+      <p>The <strong>FIRST Tech Challenge (FTC)</strong> is a global competition where teams design 18-inch robots to compete in a new game every season. Unlike longer engineering projects, FTC demands rapid iteration: a new game reveal, 6–8 weeks of design and build, then competition season. There's no room for "we'll get it right next year." It has to work now.</p>
+      <p>This overview walks through the mechanisms I designed and built across the 2024–2025 and 2025–2026 seasons. You'll see the problems I faced, the solutions I chose, and why those solutions mattered. Each mechanism has a dedicated deep-dive page with calculations, CAD, and iteration history.</p>
+    </section>
+
+    <section id="ftc-seasons-landing" class="section">
+      <h1>FTC <span class="accent">Seasons</span></h1>
+      <p>Every season brings a completely new game. New scoring rules. New field. New robot design.</p>
+
+      <div class="season-card" onclick="goToSection('ftc-2526-season')">
+        <div class="season-card-header">
+          <div class="season-card-title">DECODE™</div>
+          <div class="season-card-year">2025–2026</div>
+        </div>
+        <p style="margin:0 0 10px;">A shooting-focused game where robots collect 5-inch spheres and score them into corner goals. Won by teams that shoot consistently, quickly, and under pressure.</p>
+        <p style="font-size:12px; color:var(--accent2); margin:0;">Shooting Mechanism (V1–V3) · Tipper Park</p>
+      </div>
+
+      <div class="season-card" onclick="goToSection('ftc-2425-season')" style="margin-top:12px;">
+        <div class="season-card-header">
+          <div class="season-card-title">INTO THE DEEP™</div>
+          <div class="season-card-year">2024–2025</div>
+        </div>
+        <p style="margin:0 0 10px;">A precision placement game where robots score triangular samples into baskets and onto bars at multiple heights. Speed, precision, and reliability all matter equally.</p>
+        <p style="font-size:12px; color:var(--accent2); margin:0;">Vertical Lift · Linear Extension · Transfer System (3 iterations) · 2-Bar Deposit Arm</p>
+      </div>
+    </section>
+
+    <!-- DECODE SEASON -->
+    <section id="ftc-2526-season" class="section">
+      <h1>DECODE™ <span class="accent">2025–26</span></h1>
+      <p>DECODE™ is a shooting-based game where robots collect 5-inch spherical artifacts and score them into corner goals. The game demands three things: <strong>consistency</strong> (every shot must go the same place), <strong>speed</strong> (cycle time matters), and <strong>reliability</strong> (one jam costs you matches).</p>
+
+      <h2>What Robots Had to Do</h2>
+      <ul>
+        <li>Collect artifacts from the field.</li>
+        <li>Shoot them accurately into corner goals.</li>
+        <li>Navigate field zones for additional points.</li>
+        <li>Complete a Base park at the end of the match.</li>
+      </ul>
+
+      <h2>What I Worked On</h2>
+      <ul>
+        <li><strong>Shooting Mechanism (V1–V3):</strong> turreted shooting system for multi-angle scoring.</li>
+        <li><strong>Tipper Park Mechanism:</strong> compact tipping solution for consistent Base ranking point.</li>
+      </ul>
+
+      <h2>Field Layout</h2>
+      <figure class="media-figure" style="max-width:700px;">
+        <img src="images/decode_feild.jpg" class="lightbox-img" alt="DECODE field">
+        <figcaption class="media-caption">DECODE field map</figcaption>
+      </figure>
+    </section>
+
+    <!-- ITD SEASON -->
+    <section id="ftc-2425-season" class="section">
+      <h1>INTO THE DEEP™ <span class="accent">2024–25</span></h1>
+      <p>INTO THE DEEP™ is a precision placement game. Robots pick up triangular samples and score them into baskets or onto bars at multiple heights. The challenge: every movement must be fast, smooth, and precise.</p>
+
+      <h2>What Robots Had to Do</h2>
+      <ul>
+        <li>Collect samples from the field.</li>
+        <li>Lift them to multiple scoring heights.</li>
+        <li>Place them accurately into baskets or onto bars.</li>
+        <li>Complete endgame tasks such as climbs or parks.</li>
+      </ul>
+
+      <h2>What I Worked On</h2>
+      <ul>
+        <li><strong>Vertical Lift:</strong> dual-motor architecture and counterspring tuning.</li>
+        <li><strong>Linear Extension System:</strong> horizontal extension on a linear slide for scoring reach.</li>
+        <li><strong>Transfer System:</strong> extensive iteration leading to an active vectoring claw.</li>
+        <li><strong>2-Bar Deposit Arm:</strong> optimized linkage for controlled drop-offs.</li>
+      </ul>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <img src="images/into-the-deep-field.webp" class="lightbox-img" alt="INTO THE DEEP field">
+          <figcaption class="media-caption">INTO THE DEEP field layout</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/am-5401_blue.webp" class="lightbox-img" alt="FTC sample">
+          <figcaption class="media-caption">FTC sample — used to tune mechanism grips</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FULL ROBOT -->
+    <section id="ftc-itd-robot" class="section">
+      <h1>Full Robot <span class="accent">Overview</span></h1>
+      <p>For the INTO THE DEEP competition robot, <strong>I led design and manufacturing of the V2 platform</strong> — responsible for the extension system, lift architecture, transfer claw, and deposit arm. The goal: design these subsystems to work seamlessly with my teammates' drivetrain, intake, and control systems.</p>
+
+      <h2>Team Subsystems</h2>
+      <ul>
+        <li><strong>Custom Drivetrain:</strong> Built using four 6061 aluminum plates custom cut on an industrial laser cutter to optimize chassis footprint.</li>
+        <li><strong>Vertical Lift:</strong> Two synchronized motors geared at 5.7:1 with 3D printed sprockets and chain, doubling the previous lift speed. Utilizes a 3-stage MiSUMI structure and a down-string spring to manage slack.</li>
+        <li><strong>Virtual 4-Bar Intake:</strong> Top-down, motor-driven intake. A chain mounted to a fixed shaft creates a virtual 4-bar, orienting the intake without a separate motor.</li>
+        <li><strong>Intake Rollers:</strong> 3D-printed TPU fingers with hooks offset at 90° to automatically orient samples vertically. A bottom roller lined with surgical tubing acts like a vacuum to sweep up pieces.</li>
+      </ul>
+
+      <figure class="media-figure" style="max-width:600px; margin-top:20px;">
+        <img src="images/reebok.PNG" class="lightbox-img" alt="INTO THE DEEP Full Robot">
+        <figcaption class="media-caption">Fully integrated INTO THE DEEP robot</figcaption>
+      </figure>
+      <figure class="media-figure" style="max-width:600px; margin-top:16px;">
+        <video autoplay loop muted playsinline preload="auto" style="border:1px solid var(--border); border-radius:6px; width:100%;">
+          <source src="images/reebok-auto.mp4" type="video/mp4">
+          <source src="images/reebok-auto.mov" type="video/quicktime">
+        </video>
+        <figcaption class="media-caption">INTO THE DEEP autonomous run (Reebok)</figcaption>
+      </figure>
+    </section>
+
+    <!-- LIFT -->
+    <section id="ftc-mech-lift" class="section">
+      <h1>Vertical <span class="accent">Lift</span></h1>
+      <p>The vertical lift is responsible for the longest physical movement in our scoring cycle and sees the highest volume of repetitions during a match. To hit aggressive cycle-time targets, I overhauled our lift architecture and load management system.</p>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('lift','lift-architecture',this)">Architecture</button>
+        <button class="tab-btn" onclick="switchTab('lift','lift-springs',this)">Counterspringing</button>
+      </div>
+
+      <div id="lift-architecture" class="tab-panel active">
+        <h2>Dual-Motor MiSUMI Setup</h2>
+        <p>Originally, a single motor was bottlenecking cycle speed. Moving to a dual-motor setup — combined with a change in the motor ratio — completely doubled the speed of the lift.</p>
+        <div class="media-grid">
+          <div>
+            <h3>Mechanics & Reliability</h3>
+            <ul>
+              <li><strong>Actuation:</strong> Two synchronized motors geared at 5.7:1, using custom 3D-printed sprockets and chain for perfectly matched power delivery.</li>
+              <li><strong>Structure:</strong> 3-stage MiSUMI slide structure for rigidity and smooth travel under high lateral loads.</li>
+              <li><strong>Down-string Tensioning:</strong> Counter-spring on the down-string dynamically adapts to slack caused by gravity assisting the descent, preventing derailments.</li>
+            </ul>
+          </div>
+          <figure class="media-figure">
+            <div class="placeholder-img">[Lift Image]</div>
+            <figcaption class="media-caption">3-stage dual-motor MiSUMI lift system</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div id="lift-springs" class="tab-panel">
+        <h2>Counterspringing</h2>
+        <p>Doubling the speed of the lift introduced a new problem: high current draw and increased stall risk. I implemented a mechanical counterspringing system to minimize load on the motors.</p>
+        <div class="media-grid">
+          <div>
+            <h3>Gravity Neutralization</h3>
+            <p>Constant-force springs attached to the moving stages neutralize the gravity load of the lift.</p>
+            <ul>
+              <li><strong>Reduced Motor Strain:</strong> Motors only need to overcome inertia and friction, not dead weight.</li>
+              <li><strong>Battery Efficiency:</strong> Lower current draw prevents voltage sag during rapid cycling.</li>
+              <li><strong>Faster Acceleration:</strong> Without fighting gravity, motors reach peak RPM much faster on the upward stroke.</li>
+            </ul>
+            <div class="calc-box">
+              <strong>Counterspringing Physics</strong>
+              <span class="line">ΣFy = (m · g) − F_springs ≈ 0</span>
+              <span class="line">m · g = total weight of moving stages + end effector</span>
+              <span class="line">F_springs = combined pull of constant-force springs</span>
+              <span class="conclusion">→ By zeroing the gravity penalty, 100% of motor torque is dedicated to acceleration (F = m · a)</span>
+            </div>
+          </div>
+          <figure class="media-figure">
+            <div class="placeholder-img">[Constant-Force Springs]</div>
+            <figcaption class="media-caption">Constant-force spring mounts on lift stages</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOOTER -->
+    <section id="ftc-mech-shooting" class="section">
+      <h1>Shooting <span class="accent">Mechanism</span></h1>
+      <p>The shooter is the most critical system in DECODE — it's responsible for scoring, so it has to be consistent, fast, and reliable. A single jam or miss during a critical match point can cost you the game.</p>
+      <p>My approach: iterate relentlessly. I built three major versions (V1, V2, V3), each time testing flywheel inertia, hood angles, friction losses, counter-roller dynamics, and turret mechanics. Every design decision was validated by testing.</p>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('shoot','shoot-v1',this)">V1</button>
+        <button class="tab-btn" onclick="switchTab('shoot','shoot-v2',this)">V2</button>
+        <button class="tab-btn" onclick="switchTab('shoot','shoot-v3',this)">V3 — Final</button>
+      </div>
+
+      <div id="shoot-v1" class="tab-panel active">
+        <h2>Version 1 <span class="version-badge">Prototype</span></h2>
+        <p>First prototype: a double vertical flywheel system using two independently driven 6000 RPM motors with 4-inch wheels. While one advantage was inherent backspin mitigation, the design proved impractical for competition.</p>
+        <ul>
+          <li><strong>Accuracy Issues:</strong> Variations in motor output between the two wheels caused inconsistent ball trajectories.</li>
+          <li><strong>Low Rate of Fire:</strong> Struggled to maintain consistent shooting speeds due to uneven power delivery.</li>
+          <li><strong>Design Constraints:</strong> Fixed angle wheels and lightweight wheels made the launcher oversized, too heavy for effective turret mounting, with very little position flexibility.</li>
+        </ul>
+        <figure class="media-figure" style="max-width:500px; margin-top:16px;">
+          <img src="images/shooterv1.png" class="lightbox-img" alt="Shooter V1">
+          <figcaption class="media-caption">V1 prototype — validating geometry and experiencing consistency issues</figcaption>
+        </figure>
+      </div>
+
+      <div id="shoot-v2" class="tab-panel">
+        <h2>Version 2 <span class="version-badge">Iteration</span></h2>
+        <p>V2 moved to a servo-actuated hooded design powered by dual 6000 RPM motors. A rack-and-pinion mechanism allowed precise hood angle adjustment between 35° and 55°, enabling fine-tuned shot trajectories.</p>
+        <h3>Key Upgrades</h3>
+        <ul>
+          <li><strong>Weight Reduction:</strong> Pocketed plates reduced overall mass by 0.75 kg without compromising strength.</li>
+          <li><strong>Turntable Bearing:</strong> Geared lazy-susan bearing enabled smooth left-right turret rotation and acted as a receiver for artifacts.</li>
+          <li><strong>Friction Reduction:</strong> Thrust bearings at all wall interfaces, lubricated with NLGI Grade 2 grease. Belts tensioned slightly loose to reduce drag.</li>
+          <li><strong>Counter-Roller Introduction:</strong> Belted 30A shore hardness counter-roller spins clockwise to remove unwanted backspin, increase compression, and produce faster shots.</li>
+        </ul>
+        <figure class="media-figure" style="max-width:500px; margin-top:16px;">
+          <img src="images/shooterv2.png" class="lightbox-img" alt="Shooter V2">
+          <figcaption class="media-caption">V2 — implementing the hood and counter-roller</figcaption>
+        </figure>
+      </div>
+
+      <div id="shoot-v3" class="tab-panel">
+        <h2>Version 3 <span class="version-badge">Competition</span></h2>
+        <p>V3 includes a multitude of friction, angle, and weight optimizations to minimize cycle time and maximize reliability. PID control ensures consistency across varying battery levels.</p>
+        <div class="media-grid">
+          <div>
+            <h3>Major Refinements</h3>
+            <ul>
+              <li><strong>Advanced Counter-Roller:</strong> Using a gear reversal system and HTD 3 belts, two custom molded top rollers spin at 9000 RPM to mitigate backspin.</li>
+              <li><strong>Custom Silicone Molding:</strong> After Andymark 40A tore and Colson 30A reduced contact area, I created 3D printed molds and poured custom 2-part 30A silicone — consistent, leak-free parts.</li>
+              <li><strong>Optimized Friction:</strong> GT2 and HTD3 belts replace HTD5. Thrust bearings everywhere clamping forces exist. Large radius herringbone gear actuates the hood around the wheel center.</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Flywheel Inertia Analysis</h3>
+            <p>Iterated through modeling clay (V1), solid disk (V2), and finally a pocketed ring (V3) to maximize inertia while minimizing weight.</p>
+            <div class="calc-box">
+              <strong>System Inertia</strong>
+              <span class="line">I = ½ · m · r² ≈ 0.00172 kg·m²</span>
+              <strong style="margin-top:8px; display:block;">Stored Energy at ω = 500 rad/s</strong>
+              <span class="result">E ≈ 215 J</span>
+              <strong style="margin-top:8px; display:block;">Ball Kinetic Energy</strong>
+              <span class="line">m = 0.0748 kg  |  v_exit = 20 m/s</span>
+              <span class="result">E_ball = ½ · m · v² ≈ 15 J</span>
+              <span class="conclusion">→ Only ~7% of stored energy transferred per shot. Wheel speed drop is minimal — rapid, consistent launches.</span>
+            </div>
+          </div>
+        </div>
+        <div class="media-grid" style="margin-top:16px;">
+          <figure class="media-figure">
+            <video autoplay loop muted playsinline style="border:1px solid var(--border); border-radius:6px; width:100%;">
+              <source src="images/giphy.mp4" type="video/mp4">
+            </video>
+            <figcaption class="media-caption">V3 in action</figcaption>
+          </figure>
+          <figure class="media-figure">
+            <img src="images/IMG_1166.jpg" class="lightbox-img" alt="Shooter V3">
+            <figcaption class="media-caption">Final assembly mounted on turret</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIPPER -->
+    <section id="ftc-mech-tipper" class="section">
+      <h1>Tipper Park <span class="accent">Mechanism</span></h1>
+      <p>In DECODE, the Base ranking point is free points if you tip the robot at the end of the match. Most teams tried full-lift mechanisms, but they ran out of time or hit the 18-inch height limit. The solution: a small, fast tipping mechanism that secures this point reliably while staying simple.</p>
+      <p>The design uses two Axon Max servos in parallel for redundancy, torque multiplication, and reliability under battery sag. FEA was used to optimize the kicker plate — strong enough to handle the load, light enough to matter.</p>
+
+      <h2>Finite Element Analysis</h2>
+      <p>I ran a static FEA study on the kicker plate to ensure sufficient strength under the robot's weight, while allowing mass minimization through a strategic taper in areas with lower stress loads.</p>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <img src="images/FEA_Tipper.png" class="lightbox-img" alt="Tipper FEA">
+          <figcaption class="media-caption">FEA validation — kicker plate load analysis for taper optimization</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/Park.png" class="lightbox-img" alt="Tipper Park mechanism">
+          <figcaption class="media-caption">Final competition-ready park mechanism</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- EXTENDO -->
+    <section id="ftc-mech-extendo" class="section">
+      <h1>Linear <span class="accent">Extension</span></h1>
+      <p>The linear extension system provides the horizontal reach necessary to score samples in INTO THE DEEP. Designed to be fast, stable under load, and smoothly integrated with the transfer and intake mechanisms.</p>
+
+      <div class="media-grid">
+        <div>
+          <h2>Design & Actuation</h2>
+          <ul>
+            <li><strong>MiSUMI Linear Slides:</strong> Compact foundation maximizing stiffness while minimizing horizontal footprint.</li>
+            <li><strong>Power Delivery:</strong> Single Axon Max servo with a custom herringbone gear reduction for adequate driving force without stalling.</li>
+            <li><strong>Herringbone Gear Profile:</strong> Self-centering during operation, smooth power transmission without side-load slipping or axial thrust forces.</li>
+          </ul>
+          <div class="calc-box">
+            <strong>Gear Reduction & Torque Multiplication</strong>
+            <span class="line">Driving Gear = 16T  |  Driven Gear = 120T</span>
+            <span class="result">Ratio: 120 / 16 = 7.5:1 Reduction</span>
+            <span class="conclusion">→ 7.5× torque multiplication. Massive overhead overcomes slide friction and ensures consistent deployment under competition loads.</span>
+          </div>
+        </div>
+        <figure class="media-figure">
+          <img src="images/extention.PNG" class="lightbox-img" alt="Linear Extension">
+          <figcaption class="media-caption">Linear extension assembly (partially deployed)</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- TRANSFER -->
+    <section id="ftc-mech-transfer" class="section">
+      <h1>Transfer <span class="accent">System</span></h1>
+      <p>The transfer system takes samples from the intake and moves them to the deposit arm for scoring. It runs every cycle, hundreds of times per match. If it jams, slips, or misaligns — you lose time and points.</p>
+      <p>Three major iterations. V1 and V2 were passive systems that eventually hit their limits. V3 — the active vectoring claw — solved the core problem through active motor control and precision geometry. <strong>50+ prototype versions</strong> went into this final design.</p>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('transfer','transfer-v1',this)">V1</button>
+        <button class="tab-btn" onclick="switchTab('transfer','transfer-v2',this)">V2</button>
+        <button class="tab-btn" onclick="switchTab('transfer','transfer-v3',this)">V3 — Claw</button>
+      </div>
+
+      <div id="transfer-v1" class="tab-panel active">
+        <h2>Version 1 — Passive Rubber-Band Compression</h2>
+        <p>Passive finger geometry with rubber-band-based compression. Bands allowed the system to flex around the sample and guide it upward. Compression adjustable by changing band count and mounting points.</p>
+        <div class="media-grid">
+          <div>
+            <h3>What Worked</h3>
+            <ul>
+              <li>Very low weight</li>
+              <li>Simple, low-part-count geometry</li>
+              <li>Adjustable compression using rubber bands</li>
+            </ul>
+            <h3>What Didn't Work</h3>
+            <ul>
+              <li>Unpredictable sample rotation</li>
+              <li>Required near-perfect intake angle</li>
+              <li>No positive control — sample could slip or bounce</li>
+            </ul>
+          </div>
+          <figure class="media-figure">
+            <img src="images/transferV1.png" class="lightbox-img" alt="Transfer V1">
+            <figcaption class="media-caption">V1 — passive compression</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div id="transfer-v2" class="tab-panel">
+        <h2>Version 2 — Torsion Spring + Micro-Servo Gate</h2>
+        <p>Introduced a torsion spring for more consistent preload and a micro-servo gate to stabilize the sample during transfer. Compression adjustable by changing torsion spring preload.</p>
+        <div class="media-grid">
+          <div>
+            <h3>What Improved</h3>
+            <ul>
+              <li>More consistent alignment due to torsion spring preload</li>
+              <li>Micro-servo gate reduced bounce-outs</li>
+              <li>Better tolerance to imperfect intake angles</li>
+            </ul>
+            <h3>Remaining Problems</h3>
+            <ul>
+              <li>Too heavy at the end of the arm</li>
+              <li>Servo horn flex under load</li>
+              <li>Snag points — exposed edges caught on triangular corners, causing jams</li>
+            </ul>
+          </div>
+          <figure class="media-figure">
+            <img src="images/transferv2.jpeg" class="lightbox-img" alt="Transfer V2">
+            <figcaption class="media-caption">V2 — spring & servo gate</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div id="transfer-v3" class="tab-panel">
+        <h2>Version 3 — Active Vectoring Claw</h2>
+        <p>The most common culprit of lost time and reliability. Replaced passive systems with a compact <strong>Axon Mini-powered claw</strong>. Before arriving at this design, we designed, manufactured, and tested 50+ versions of both passive and active systems. Rigorous testing determined that active servo motion produced the highest performance.</p>
+        <div class="media-grid">
+          <div>
+            <h3>Claw Geometry & Mechanics</h3>
+            <ul>
+              <li><strong>Funneling Vector Geometry:</strong> Conforms to the shape of the sample and intake, actively vectoring pieces into position.</li>
+              <li><strong>Maximized Surface Contact:</strong> Internal shape matches the sample perfectly for a large, stable grip.</li>
+              <li><strong>Self-Centering Herringbone Gears:</strong> Multiple teeth contact simultaneously, drastically reducing chances of slipping or stripping.</li>
+              <li><strong>Lightweight & Enclosed:</strong> No snag points, fully enclosed geometry for smooth and predictable handoffs.</li>
+            </ul>
+          </div>
+          <figure class="media-figure">
+            <img src="images/TransferV3.png" class="lightbox-img" alt="Transfer V3 Claw">
+            <figcaption class="media-caption">V3 — active vectoring claw assembly</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- V4B -->
+    <section id="ftc-mech-v4b" class="section">
+      <h1>2-Bar <span class="accent">Deposit Arm</span></h1>
+      <p>A 2-bar mechanism that moves the sample from the intake to the scoring baskets and bars. Powered at the back through a 1:1 aluminum gear connected to an Axon Mini to maximize movement speed.</p>
+      <p>Additionally, a <strong>pitch</strong> degree of freedom pivots the end of the arm to optimize the drop-off position. Goal: fast, predictable motion path with low mechanical complexity.</p>
+
+      <div class="media-grid">
+        <div>
+          <h2>Torque & Payload Calculations</h2>
+          <p>Required torque calculated at 51 cm extension length to ensure the arm could reliably lift the extension slides and end effector:</p>
+          <div class="calc-box">
+            <strong>Torque Equation</strong>
+            <span class="line">τ = r · m · a · sin(π/3)</span>
+            <span class="line">τ = 51 cm · X · 0.87</span>
+            <strong style="margin-top:8px; display:block;">System Specs</strong>
+            <span class="line">2× Servo Boosted Axon Max+ = 68 kg·cm torque</span>
+            <span class="line">1:2.6 reduction → supports up to 4 kg end effector</span>
+            <span class="conclusion">→ Design target was sub-1 kg end effector. Massive overhead accounts for all mechanical inefficiencies.</span>
+          </div>
+        </div>
+        <figure class="media-figure">
+          <video autoplay loop muted playsinline style="border:1px solid var(--border); border-radius:6px; width:100%;">
+            <source src="images/v4bar.mp4" type="video/mp4">
+          </video>
+          <figcaption class="media-caption">2-bar linkage demonstrating pitch control</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SCI OLY LANDING -->
+    <section id="scioly-landing" class="section">
+      <h1>Science <span class="accent">Olympiad</span></h1>
+      <p>Science Olympiad is an organized, competitive program for students to practice hands-on science and engineering. Use the sidebar to navigate events.</p>
+    </section>
+
+    <section id="scioly-overview" class="section">
+      <h1>Science Olympiad <span class="accent">Overview</span></h1>
+      <p>Science Olympiad lets students practice hands-on science and engineering in a competitive format. School teams prepare a roster of students who train across many events — laboratory skills, building and design challenges, timed performance tasks, and subject knowledge.</p>
+      <p>The emphasis is practical and collaborative: students build prototypes, run repeatable tests, record results, and work together to solve problems. The organization progresses from local invitationals to regional and state tournaments, culminating in the National Tournament at a rotating host university.</p>
+      <p>I started participating in Science Olympiad in 9th grade.</p>
+    </section>
+
+    <section id="scioly-circuit" class="section">
+      <h1>Circuit Lab <span class="accent">— C</span></h1>
+      <p>Circuit Lab tests practical understanding of basic electrical circuits: building and troubleshooting simple circuits on a breadboard, identifying common components, taking measurements with a multimeter, and predicting circuit behavior.</p>
+      <div class="calc-box" style="border-left-color: var(--teal);">
+        <strong style="color: var(--teal);">Result</strong>
+        <span class="line">5th place at State</span>
+        <span class="conclusion">→ Achieved in 9th grade without formal physics courses — relying on hands-on practice and basic circuit intuition.</span>
+      </div>
+      <p>Circuit Lab teaches small, practical skills used in electronics: reading schematics, using a multimeter, and understanding how series/parallel connections affect voltage and current. Those skills transfer directly to prototyping and debugging robotics electronics.</p>
+    </section>
+
+    <!-- EV C -->
+    <section id="scioly-evc" class="section">
+      <h1>Electric Vehicle C <span class="accent">2025–26</span></h1>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('evc','evc-v2',this)">V2 — Autonomous</button>
+        <button class="tab-btn" onclick="switchTab('evc','evc-v1',this)">V1 — Prototype</button>
+      </div>
+
+      <div id="evc-v2" class="tab-panel active">
+        <h2>Autonomous Control System <span class="version-badge">2026</span></h2>
+        <p>Odometry-driven S-curve navigation with inertial sensor fusion, time-targeting, and dynamic stability control. Capable of completing a 7–10 meter precision run with optional bonus-can navigation using a dynamically generated S-curve anchored to forward odometry.</p>
+
+        <div class="calc-box" style="border-left-color: var(--teal);">
+          <strong style="color: var(--teal);">Competition Results</strong>
+          <span class="line">Regional: 6th place  |  State: 11th place (2026 season)</span>
+          <span class="conclusion">→ Repeatable distance accuracy ±3–7 cm, heading stability ±1–2°</span>
+        </div>
+
+        <h3>Core Capabilities</h3>
+        <ul>
+          <li><strong>Hybrid odometry & inertial navigation:</strong> Wheel encoders combined with a low-pass-filtered inertial sensor for heading stability.</li>
+          <li><strong>Odometry-anchored S-curve navigation:</strong> Lateral S-curve motions parameterized against forward distance — same physical location regardless of speed.</li>
+          <li><strong>Dynamic power scheduling:</strong> Smooth acceleration → steady cruise → predictive deceleration → slow creep near finish.</li>
+          <li><strong>Time-targeting controller:</strong> Proportional scheduler adjusts speed to meet a target finish time while preserving distance and heading accuracy.</li>
+          <li><strong>Stability & drift management:</strong> Sensor smoothing, small-value deadbands, limited integral action on lateral error, softened heading corrections near end of run.</li>
+        </ul>
+
+        <h2>Representative Math</h2>
+        <div class="calc-box">
+          <strong>Forward distance</strong>
+          <span class="line">d = (d_left + d_right) / 2</span>
+          <span class="line">d_wheel = encoder_deg × (π × wheel_diameter / 360)</span>
+          <strong style="margin-top:8px; display:block;">Heading update from odometry</strong>
+          <span class="line">Δθ ≈ (d_right − d_left) / wheelbase</span>
+          <strong style="margin-top:8px; display:block;">S-curve parameterization (s ∈ [0,1])</strong>
+          <span class="line">heading(s) = A · sin(2π·s) · envelope(s)</span>
+          <span class="line">lateral(s) = L_max · sin(π · s^p)</span>
+          <strong style="margin-top:8px; display:block;">Time-scaling controller</strong>
+          <span class="result">timeScale = clamp(1 + K_p · (t_elapsed/T_target − s), min, max)</span>
+        </div>
+
+        <h3>Areas for Improvement</h3>
+        <ul>
+          <li>More tuning & testing across track lengths and battery states.</li>
+          <li>Bonus-can reliability — refine S-curve + add short-range sensor to confirm clearance.</li>
+          <li>Speed control & braking — velocity observer and tighter decel scheduling.</li>
+          <li>Telemetry logging & automated regression.</li>
+          <li>Sensor fusion — implement complementary filter or Kalman filter for statistically robust encoder + inertial blending.</li>
+        </ul>
+
+        <h2>Media</h2>
+        <div class="media-grid">
+          <figure class="media-figure">
+            <video controls preload="metadata" style="border:1px solid var(--border); border-radius:6px; width:100%;">
+              <source src="images/evc_run.mp4" type="video/mp4">
+            </video>
+            <figcaption class="media-caption">EV-C v2 run</figcaption>
+          </figure>
+          <figure class="media-figure">
+            <img src="images/evc_photo.jpg" class="lightbox-img" alt="EV-C photo">
+            <figcaption class="media-caption">EV-C v2 photo</figcaption>
+          </figure>
+        </div>
+
+        <h2>Code</h2>
+        <button class="code-toggle-btn" onclick="toggleCode('evcCodeBlock', this)">Show evc_autonomy.ino</button>
+        <div class="code-actions">
+          <a href="evc_autonomy.ino" target="_blank">Open raw</a>
+          <a href="evc_autonomy.ino" download>Download .ino</a>
+        </div>
+        <pre id="evcCodeBlock" class="code-viewer"><code id="evcCode">// evc_autonomy.ino loading...</code></pre>
+      </div>
+
+      <div id="evc-v1" class="tab-panel">
+        <h2>V1 — Prototype <span class="version-badge">Invitational</span></h2>
+        <p>A rapid prototype originally built for an invitational event and later used at regionals. A rushed build — during the invitational, setup and tuning mistakes caused failures on the track. V1 drove only forward and did not attempt the bonus-can.</p>
+        <p>Drive power was switched with an electromechanical relay (simple on/off) rather than a proportional motor controller. A single wheel encoder estimated traveled distance. Control was implemented as bang-bang corrections: relay turned the motor fully on or off to reduce distance error.</p>
+        <div class="calc-box" style="border-left-color: var(--text3);">
+          <strong style="color: var(--text2);">Assessment</strong>
+          <span class="line">Very fast to build and tune</span>
+          <span class="line">Acceptable regional performance when it worked</span>
+          <span class="conclusion">→ Limited by coarse motor control and no bonus capability</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <h1>Get in <span class="accent">Touch</span></h1>
+      <p>Interested in robotics projects, engineering challenges, and conversations about design and iteration.</p>
+
+      <div style="margin-top:24px;">
+        <div class="contact-item">
+          <div class="contact-label">Email</div>
+          <a href="mailto:sidhu.harjas@example.com" style="font-size:14px;">sidhu.harjas@example.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">GitHub</div>
+          <a href="https://github.com" target="_blank" style="font-size:14px;">github.com/sidhuharjas</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-label">LinkedIn</div>
+          <a href="https://linkedin.com" target="_blank" style="font-size:14px;">linkedin.com/in/sidhuharjas</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
 </div>
 
-
-
-<div id="contact" class="section">
-<h1>Contact</h1>
-<p>
-I'm always interested in robotics projects, engineering challenges, and conversations about design and iteration.
-</p>
-<p>
-<strong>Email:</strong> sidhu.harjas@example.com<br>
-<strong>GitHub:</strong> <a href="https://github.com" target="_blank" style="color: #111; text-decoration: underline;">github.com/sidhuharjas</a><br>
-<strong>LinkedIn:</strong> <a href="https://linkedin.com" target="_blank" style="color: #111; text-decoration: underline;">linkedin.com/in/sidhuharjas</a>
-</p>
-</div>
-
-</div>
-</div>
-
-<div id="lightboxOverlay" class="lightbox-overlay">
-<img id="lightboxImage" class="lightbox-image" src="" alt="Enlarged view">
-</div>
-
-<!-- White-page overlay for full documentation / white paper style pages -->
-<div id="whitepageOverlay" class="whitepage-overlay" style="display:none;">
-    <div class="whitepage-content">
-        <button class="whitepage-close" onclick="closeWhitePage()">✕</button>
-        <div class="whitepage-title">Full Documentation</div>
-        <div class="whitepage-body"></div>
-    </div>
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+  <img id="lightboxImg" src="" alt="Enlarged view">
 </div>
 
 <script>
-function clearActiveSections() {
-document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+var activeTopBtn = document.querySelector('.nav-btn.active');
+var tabStates = {};
+
+function clearSections() {
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
 }
-function showTopSection(id) {
-clearActiveSections();
-document.getElementById(id).classList.add('active');
-const ftcSidebar = document.getElementById('ftcSidebar');
-const sciolySidebar = document.getElementById('sciolySidebar');
-if (id === 'ftc-landing' || id.startsWith('ftc-')) {
-    if (ftcSidebar) ftcSidebar.style.display = 'block';
-    if (sciolySidebar) sciolySidebar.style.display = 'none';
-    if (id === 'ftc-landing') {
-        clearActiveSections();
-        document.getElementById('ftc-mech-overview').classList.add('active');
-        setActiveSidebarButton('ftc-mech-overview');
-    }
-} else if (id === 'scioly-landing' || id.startsWith('scioly-')) {
-    if (sciolySidebar) sciolySidebar.style.display = 'block';
-    if (ftcSidebar) ftcSidebar.style.display = 'none';
-    if (id === 'scioly-landing') {
-        clearActiveSections();
-        // default Sci Oly landing opens Overview
-        document.getElementById('scioly-overview').classList.add('active');
-        setActiveSidebarButton('scioly-overview');
-    }
-} else {
-    if (ftcSidebar) ftcSidebar.style.display = 'none';
-    if (sciolySidebar) sciolySidebar.style.display = 'none';
-    document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
+
+function setSidebarVisibility(which) {
+  var ftc = document.getElementById('ftcSidebar');
+  var sci = document.getElementById('sciolySidebar');
+  var main = document.getElementById('mainContent');
+  ftc.classList.remove('visible');
+  sci.classList.remove('visible');
+  if (which === 'ftc') {
+    ftc.classList.add('visible');
+    main.classList.add('with-sidebar');
+  } else if (which === 'scioly') {
+    sci.classList.add('visible');
+    main.classList.add('with-sidebar');
+  } else {
+    main.classList.remove('with-sidebar');
+  }
 }
+
+function setNavActive(id) {
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  var mapping = {
+    'about': 0, 'contact': 3,
+    'ftc-landing': 1, 'ftc-seasons-landing': 1, 'ftc-mech-overview': 1,
+    'ftc-2526-season': 1, 'ftc-2425-season': 1, 'ftc-itd-robot': 1,
+    'ftc-mech-lift': 1, 'ftc-mech-shooting': 1, 'ftc-mech-tipper': 1,
+    'ftc-mech-extendo': 1, 'ftc-mech-transfer': 1, 'ftc-mech-v4b': 1,
+    'scioly-landing': 2, 'scioly-overview': 2, 'scioly-circuit': 2, 'scioly-evc': 2
+  };
+  var idx = mapping[id];
+  if (idx !== undefined) {
+    var btns = document.querySelectorAll('.nav-btn');
+    if (btns[idx]) btns[idx].classList.add('active');
+  }
 }
+
+function goTop(id, btn) {
+  clearSections();
+  setNavActive(id);
+  if (id === 'ftc-landing') {
+    document.getElementById('ftc-mech-overview').classList.add('active');
+    setSidebarVisibility('ftc');
+    setActiveSidebarBtn('ftc-mech-overview');
+  } else if (id === 'scioly-landing') {
+    document.getElementById('scioly-overview').classList.add('active');
+    setSidebarVisibility('scioly');
+    setActiveSidebarBtn('scioly-overview');
+  } else {
+    document.getElementById(id).classList.add('active');
+    setSidebarVisibility('');
+  }
+  window.scrollTo(0, 0);
+}
+
 function showSection(id, btn) {
-clearActiveSections();
-document.getElementById(id).classList.add('active');
-    // Show the correct sidebar based on section id prefix
-    const ftcSidebar = document.getElementById('ftcSidebar');
-    const sciolySidebar = document.getElementById('sciolySidebar');
-    if (id.startsWith('ftc-')) {
-        if (ftcSidebar) ftcSidebar.style.display = 'block';
-        if (sciolySidebar) sciolySidebar.style.display = 'none';
-    } else if (id.startsWith('scioly-')) {
-        if (sciolySidebar) sciolySidebar.style.display = 'block';
-        if (ftcSidebar) ftcSidebar.style.display = 'none';
-    } else {
-        if (ftcSidebar) ftcSidebar.style.display = 'none';
-        if (sciolySidebar) sciolySidebar.style.display = 'none';
-    }
-    document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
-    if (btn) btn.classList.add('active-link');
+  clearSections();
+  document.getElementById(id).classList.add('active');
+  setNavActive(id);
+  if (id.startsWith('ftc-')) setSidebarVisibility('ftc');
+  else if (id.startsWith('scioly-')) setSidebarVisibility('scioly');
+  setActiveSidebarBtn(id);
+  window.scrollTo(0, 0);
 }
-function openWhitePage(sectionId, title) {
-    const section = document.getElementById(sectionId);
-    if (!section) return;
-    const overlay = document.getElementById('whitepageOverlay');
-    const body = overlay.querySelector('.whitepage-body');
-    const heading = overlay.querySelector('.whitepage-title');
-    heading.textContent = title || (section.querySelector('h1, h2') ? (section.querySelector('h1, h2').textContent) : 'Documentation');
-    // clone the section content into the whitepage body for full reading
-    // strip navigation-only controls to leave content focused
-    body.innerHTML = section.innerHTML;
-    overlay.style.display = 'flex';
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+
+function goToSection(id) {
+  clearSections();
+  document.getElementById(id).classList.add('active');
+  setNavActive(id);
+  if (id.startsWith('ftc-')) setSidebarVisibility('ftc');
+  setActiveSidebarBtn(id);
+  window.scrollTo(0, 0);
 }
-function closeWhitePage() {
-    const overlay = document.getElementById('whitepageOverlay');
-    if (!overlay) return;
-    overlay.classList.remove('active');
-    overlay.style.display = 'none';
-    document.body.style.overflow = '';
+
+function setActiveSidebarBtn(id) {
+  document.querySelectorAll('.sidebar-btn').forEach(function(b){
+    b.classList.remove('active');
+    var oc = b.getAttribute('onclick') || '';
+    if (oc.indexOf("'" + id + "'") !== -1) b.classList.add('active');
+  });
 }
-// EV-C code viewer: fetch the .ino file and insert into the code block
-let evcCodeLoaded = false;
-function loadEvcCode() {
-    if (evcCodeLoaded) return;
-    fetch('evc_autonomy.ino').then(r => {
-        if (!r.ok) throw new Error('Failed to load');
-        return r.text();
-    }).then(txt => {
-        const el = document.getElementById('evcCode');
-        // use textContent to preserve raw code
-        el.textContent = txt;
-        evcCodeLoaded = true;
-    }).catch(err => {
-        const el = document.getElementById('evcCode');
-        el.textContent = '// Could not load evc_autonomy.ino — ' + err.message;
+
+function switchTab(group, panelId, btn) {
+  var panel = document.getElementById(panelId);
+  if (!panel) return;
+  var section = panel.closest('.section');
+  if (!section) return;
+  section.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  section.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+var evcCodeLoaded = false;
+function toggleCode(blockId, btn) {
+  var block = document.getElementById(blockId);
+  if (!block) return;
+  var showing = block.style.display === 'block';
+  block.style.display = showing ? 'none' : 'block';
+  btn.textContent = showing ? 'Show evc_autonomy.ino' : 'Hide code';
+  if (!showing && !evcCodeLoaded) {
+    fetch('evc_autonomy.ino').then(function(r){
+      if (!r.ok) throw new Error('Not found');
+      return r.text();
+    }).then(function(txt){
+      document.getElementById('evcCode').textContent = txt;
+      evcCodeLoaded = true;
+    }).catch(function(e){
+      document.getElementById('evcCode').textContent = '// Could not load evc_autonomy.ino — ' + e.message;
     });
-}
-function toggleEvcCode() {
-    const block = document.getElementById('evcCodeBlock');
-    if (block.style.display === 'none' || block.style.display === '') {
-        block.style.display = 'block';
-        loadEvcCode();
-    } else {
-        block.style.display = 'none';
-    }
-}
-function setActiveSidebarButton(sectionId) {
-document.querySelectorAll('.sidebar button').forEach(b => b.classList.remove('active-link'));
-document.querySelectorAll('.sidebar button').forEach(b => {
-const onclick = b.getAttribute('onclick') || '';
-if (onclick.includes(sectionId)) {
-b.classList.add('active-link');
-}
-});
-}
-function showShootTab(id, btn) {
-document.querySelectorAll('.shoot-tab').forEach(t => t.classList.remove('active-shoot-tab'));
-document.getElementById(id).classList.add('active-shoot-tab');
-document.querySelectorAll('.shoot-tab-btn').forEach(b => b.classList.remove('active-shoot-btn'));
-if (btn) btn.classList.add('active-shoot-btn');
-}
-function showTransferTab(id, btn) {
-document.querySelectorAll('.transfer-tab').forEach(t => t.classList.remove('active-transfer-tab'));
-document.getElementById(id).classList.add('active-transfer-tab');
-document.querySelectorAll('.transfer-tab-btn').forEach(b => b.classList.remove('active-transfer-btn'));
-if (btn) btn.classList.add('active-transfer-btn');
-}
-function showLiftTab(id, btn) {
-document.querySelectorAll('.lift-tab').forEach(t => t.classList.remove('active-lift-tab'));
-document.getElementById(id).classList.add('active-lift-tab');
-document.querySelectorAll('.lift-tab-btn').forEach(b => b.classList.remove('active-lift-btn'));
-if (btn) btn.classList.add('active-lift-btn');
+  }
 }
 
-const overlay = document.getElementById('lightboxOverlay');
-const overlayImg = document.getElementById('lightboxImage');
-
+// Lightbox
+var lb = document.getElementById('lightbox');
+var lbImg = document.getElementById('lightboxImg');
 document.addEventListener('click', function(e) {
-if (e.target.classList.contains('lightbox-img')) {
-overlayImg.src = e.target.src;
-overlay.classList.add('active');
-} else if (e.target === overlay || e.target === overlayImg) {
-overlay.classList.remove('active');
-overlayImg.src = '';
-}
+  if (e.target.classList.contains('lightbox-img')) {
+    lbImg.src = e.target.src;
+    lb.classList.add('active');
+  } else if (e.target === lb || e.target === lbImg) {
+    lb.classList.remove('active');
+    lbImg.src = '';
+  }
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') { lb.classList.remove('active'); lbImg.src = ''; }
 });
 </script>
-
 </body>
 </html>

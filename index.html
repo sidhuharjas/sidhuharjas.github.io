@@ -614,6 +614,8 @@ a:hover { border-bottom-color: var(--accent); }
   <button class="sidebar-btn" onclick="showSection('combat-weapon-math',this)">Weapon Physics</button>
   <button class="sidebar-btn" onclick="showSection('combat-structure',this)">Structure & Materials</button>
 </aside>
+ 
+<aside class="sidebar" id="fllSidebar">
   <div class="sidebar-cat">FLL Overview</div>
   <button class="sidebar-btn" onclick="showSection('fll-overview',this)">Overview</button>
   <div class="sidebar-cat">Superpowered (6th Grade)</div>
@@ -630,35 +632,96 @@ a:hover { border-bottom-color: var(--accent); }
 
     <!-- ABOUT -->
     <section id="about" class="section active">
-      <h1>Harjas <span class="accent">Sidhu</span></h1>
-      <div class="hero-block">
-        <div>
-          <p>Robotics engineer focused on building mechanisms that are reliable, fast, and competition-grade. My work spans FTC robotics, mechanical design, control systems, and rapid iteration under real-world constraints.</p>
-          <p>Every FTC season means a new game, new rules, new field — and a completely new robot. I thrive in that environment. I take problems — mechanical failures, design constraints, performance targets — and solve them through careful engineering, testing, and iteration.</p>
-          <p>My focus is on the details that matter: precision gear ratios, friction loss analysis, load calculations, and systems that work in the chaos of competition.</p>
+
+      <div style="padding-bottom: 28px; border-bottom: 1px solid var(--border); margin-bottom: 32px;">
+        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;">Engineering Portfolio — Harjas Sidhu</div>
+        <h1 style="font-size: 42px; margin-bottom: 12px; line-height: 1.05;">I build things that<br><span class="accent">have to work.</span></h1>
+        <p style="font-size: 15px; color: var(--text2); max-width: 520px; line-height: 1.7; margin: 0;">Robotics engineer. Started competing in 6th grade. Still going. Every mechanism I build has calculations behind it, failures before it, and a competition deadline driving it.</p>
+      </div>
+
+      <!-- BIG STATS ROW -->
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; margin-bottom: 32px;">
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">6+</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Years competing</div>
         </div>
-        <div>
-          <div class="stat-grid">
-            <div class="stat-item">
-              <div class="stat-num">2</div>
-              <div class="stat-label">FTC Seasons</div>
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">50+</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Prototype iterations</div>
+        </div>
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">306</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">mph weapon tip speed</div>
+        </div>
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">4</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Disciplines</div>
+        </div>
+      </div>
+
+      <!-- TRAJECTORY -->
+      <div style="margin-bottom: 32px;">
+        <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--font-mono);">// Trajectory</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+
+          <div onclick="goTop('fll-landing')" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; cursor: pointer; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent3)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text);">FIRST Lego League</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px;">6th – 7th</div>
             </div>
-            <div class="stat-item">
-              <div class="stat-num">50+</div>
-              <div class="stat-label">Transfer Prototypes</div>
+            <p style="font-size: 13px; color: var(--text2); margin: 0 0 10px; line-height: 1.6;">Where it started. Solar panel cleaning robot, autonomous EV control systems, robot lead on the Masterpiece season. Reached California Invitational.</p>
+            <div style="font-size: 11px; color: var(--accent2); font-family: var(--font-mono);">Superpowered · Masterpiece →</div>
+          </div>
+
+          <div onclick="goTop('ftc-landing')" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; cursor: pointer; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent3)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text);">FTC — Team 20744</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px;">Current</div>
             </div>
-            <div class="stat-item">
-              <div class="stat-num">3</div>
-              <div class="stat-label">Shooter Versions</div>
+            <p style="font-size: 13px; color: var(--text2); margin: 0 0 10px; line-height: 1.6;">Core engineer on 24Karat. New game every year, new robot every year. 50+ transfer iterations, 3 shooter versions, dual-motor lifts, custom silicone molds.</p>
+            <div style="font-size: 11px; color: var(--accent2); font-family: var(--font-mono);">INTO THE DEEP · DECODE →</div>
+          </div>
+
+          <div onclick="goTop('combat-landing')" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; cursor: pointer; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent3)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text);">Combat Robotics</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px;">In Dev</div>
             </div>
-            <div class="stat-item">
-              <div class="stat-num">5th</div>
-              <div class="stat-label">State — Circuit Lab</div>
+            <p style="font-size: 13px; color: var(--text2); margin: 0 0 10px; line-height: 1.6;">Personal project since 7th grade. Blew up ESCs, learned why, fixed the circuit. 23+ chassis iterations. 306 mph eggbeater weapon. SolidWorks FEA-driven design.</p>
+            <div style="font-size: 11px; color: var(--accent2); font-family: var(--font-mono);">Horizontal → Vertical V1→V2→V3 →</div>
+          </div>
+
+          <div onclick="goTop('scioly-landing')" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; cursor: pointer; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent3)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text);">Science Olympiad</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px;">Current</div>
             </div>
+            <p style="font-size: 13px; color: var(--text2); margin: 0 0 10px; line-height: 1.6;">5th at State in Circuit Lab (9th grade, no formal physics). EV-C autonomous control system with odometry-anchored S-curve navigation and sensor fusion.</p>
+            <div style="font-size: 11px; color: var(--accent2); font-family: var(--font-mono);">Circuit Lab · EV-C Autonomous →</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WHAT MAKES THIS DIFFERENT -->
+      <div style="border-top: 1px solid var(--border); padding-top: 28px;">
+        <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--font-mono);">// What this portfolio is</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
+          <div style="padding: 14px 16px; background: var(--surface2); border-radius: 6px; border-left: 2px solid var(--accent3);">
+            <div style="font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px;">The math behind decisions</div>
+            <div style="font-size: 12px; color: var(--text3); line-height: 1.6;">Every mechanism has calculations. Gear ratios, stored energy, torque margins, FEA results. Not just "I built it."</div>
+          </div>
+          <div style="padding: 14px 16px; background: var(--surface2); border-radius: 6px; border-left: 2px solid var(--accent3);">
+            <div style="font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px;">The failures, not just the wins</div>
+            <div style="font-size: 12px; color: var(--text3); line-height: 1.6;">ESCs that died and why. 15 chassis iterations that didn't work. What the data showed and what changed.</div>
+          </div>
+          <div style="padding: 14px 16px; background: var(--surface2); border-radius: 6px; border-left: 2px solid var(--accent3);">
+            <div style="font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 4px;">Decisions, not just descriptions</div>
+            <div style="font-size: 12px; color: var(--text3); line-height: 1.6;">Why outrunner over inrunner. Why vertical over horizontal. Why the eggbeater grew from 80mm to 95mm.</div>
           </div>
         </div>
       </div>
-      <p>This portfolio documents the mechanisms, engineering decisions, and design iterations behind the systems I've built. Each page includes calculations, CAD context, and the reasoning behind design choices.</p>
+
     </section>
 
     <!-- FTC LANDING / OVERVIEW -->
@@ -1413,7 +1476,7 @@ a:hover { border-bottom-color: var(--accent); }
         <li><strong>Efficiency:</strong> Brushless drive motors run significantly cooler and more efficiently under the repeated stall conditions of a combat match.</li>
         <li><strong>Weight:</strong> Blitz Lites are purpose-optimized for the weight class — small, powerful, and light.</li>
       </ul>
-      <p>See the <button onclick="showSection('combat-drivetrain', null)" style="background:none; border:none; color:var(--accent); cursor:pointer; font-family:var(--font-mono); font-size:13px; text-decoration:underline; padding:0;">Drivetrain & Ratio page</button> for the full gear ratio analysis.</p>
+      <p>See the <button onclick="showSection('combat-drivetrain')" style="background:none; border:none; color:var(--accent); cursor:pointer; font-family:var(--font-mono); font-size:13px; text-decoration:underline; padding:0;">Drivetrain & Ratio page</button> for the full gear ratio analysis.</p>
 
       <h2>Battery — 4S 1100 mAh</h2>
       <p>Battery selection in combat robots is a delicate balance between energy, weight, and discharge rate. The 4S 1100 mAh cell was chosen after analysis:</p>
@@ -1826,126 +1889,105 @@ a:hover { border-bottom-color: var(--accent); }
 </div>
 
 <script>
-var activeTopBtn = document.querySelector('.nav-btn.active');
-var tabStates = {};
+// Map every section id → which nav button to highlight (by its onclick target)
+var sectionNav = {
+  'about': 'about', 'contact': 'contact',
+  'ftc-landing': 'ftc-landing', 'ftc-mech-overview': 'ftc-landing',
+  'ftc-seasons-landing': 'ftc-landing', 'ftc-2526-season': 'ftc-landing',
+  'ftc-2425-season': 'ftc-landing', 'ftc-itd-robot': 'ftc-landing',
+  'ftc-mech-lift': 'ftc-landing', 'ftc-mech-shooting': 'ftc-landing',
+  'ftc-mech-tipper': 'ftc-landing', 'ftc-mech-extendo': 'ftc-landing',
+  'ftc-mech-transfer': 'ftc-landing', 'ftc-mech-v4b': 'ftc-landing',
+  'scioly-landing': 'scioly-landing', 'scioly-overview': 'scioly-landing',
+  'scioly-circuit': 'scioly-landing', 'scioly-evc': 'scioly-landing',
+  'combat-landing': 'combat-landing', 'combat-overview': 'combat-landing',
+  'combat-h-spinner': 'combat-landing', 'combat-failures': 'combat-landing',
+  'combat-v1': 'combat-landing', 'combat-v2': 'combat-landing',
+  'combat-v3': 'combat-landing', 'combat-drivetrain': 'combat-landing',
+  'combat-weapon-math': 'combat-landing', 'combat-structure': 'combat-landing',
+  'fll-landing': 'fll-landing', 'fll-overview': 'fll-landing',
+  'fll-superpowered': 'fll-landing', 'fll-sp-innovation': 'fll-landing',
+  'fll-sp-robot': 'fll-landing', 'fll-masterpiece': 'fll-landing',
+  'fll-mp-innovation': 'fll-landing', 'fll-mp-robot': 'fll-landing'
+};
+
+// Map section id prefix → which sidebar to show
+function getSidebar(id) {
+  if (id.startsWith('ftc-')) return 'ftc';
+  if (id.startsWith('scioly-')) return 'scioly';
+  if (id.startsWith('combat-')) return 'combat';
+  if (id.startsWith('fll-')) return 'fll';
+  return '';
+}
+
+// Landing pages redirect to a real first section
+var landingMap = {
+  'ftc-landing': 'ftc-mech-overview',
+  'scioly-landing': 'scioly-overview',
+  'combat-landing': 'combat-overview',
+  'fll-landing': 'fll-overview'
+};
 
 function clearSections() {
-  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+}
+
+function setNavActive(sectionId) {
+  var target = sectionNav[sectionId] || '';
+  document.querySelectorAll('.nav-btn').forEach(function(b) {
+    b.classList.remove('active');
+    var oc = b.getAttribute('onclick') || '';
+    if (target && oc.indexOf("'" + target + "'") !== -1) b.classList.add('active');
+  });
 }
 
 function setSidebarVisibility(which) {
-  var ftc = document.getElementById('ftcSidebar');
-  var sci = document.getElementById('sciolySidebar');
-  var fll = document.getElementById('fllSidebar');
-  var combat = document.getElementById('combatSidebar');
+  ['ftcSidebar','sciolySidebar','combatSidebar','fllSidebar'].forEach(function(sid) {
+    document.getElementById(sid).classList.remove('visible');
+  });
   var main = document.getElementById('mainContent');
-  ftc.classList.remove('visible');
-  sci.classList.remove('visible');
-  fll.classList.remove('visible');
-  combat.classList.remove('visible');
-  if (which === 'ftc') {
-    ftc.classList.add('visible');
-    main.classList.add('with-sidebar');
-  } else if (which === 'scioly') {
-    sci.classList.add('visible');
-    main.classList.add('with-sidebar');
-  } else if (which === 'fll') {
-    fll.classList.add('visible');
-    main.classList.add('with-sidebar');
-  } else if (which === 'combat') {
-    combat.classList.add('visible');
+  var map = { ftc: 'ftcSidebar', scioly: 'sciolySidebar', combat: 'combatSidebar', fll: 'fllSidebar' };
+  if (which && map[which]) {
+    document.getElementById(map[which]).classList.add('visible');
     main.classList.add('with-sidebar');
   } else {
     main.classList.remove('with-sidebar');
   }
 }
 
-function setNavActive(id) {
-  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
-  var mapping = {
-    'about': 0, 'contact': 5,
-    'ftc-landing': 1, 'ftc-seasons-landing': 1, 'ftc-mech-overview': 1,
-    'ftc-2526-season': 1, 'ftc-2425-season': 1, 'ftc-itd-robot': 1,
-    'ftc-mech-lift': 1, 'ftc-mech-shooting': 1, 'ftc-mech-tipper': 1,
-    'ftc-mech-extendo': 1, 'ftc-mech-transfer': 1, 'ftc-mech-v4b': 1,
-    'scioly-landing': 2, 'scioly-overview': 2, 'scioly-circuit': 2, 'scioly-evc': 2,
-    'combat-landing': 3, 'combat-overview': 3, 'combat-h-spinner': 3, 'combat-failures': 3,
-    'combat-v1': 3, 'combat-v2': 3, 'combat-v3': 3, 'combat-drivetrain': 3,
-    'combat-weapon-math': 3, 'combat-structure': 3,
-    'fll-landing': 4, 'fll-overview': 4, 'fll-superpowered': 4, 'fll-sp-innovation': 4,
-    'fll-sp-robot': 4, 'fll-masterpiece': 4, 'fll-mp-innovation': 4, 'fll-mp-robot': 4
-  };
-  var idx = mapping[id];
-  if (idx !== undefined) {
-    var btns = document.querySelectorAll('.nav-btn');
-    if (btns[idx]) btns[idx].classList.add('active');
-  }
-}
-
-function goTop(id, btn) {
-  clearSections();
-  setNavActive(id);
-  if (id === 'ftc-landing') {
-    document.getElementById('ftc-mech-overview').classList.add('active');
-    setSidebarVisibility('ftc');
-    setActiveSidebarBtn('ftc-mech-overview');
-  } else if (id === 'scioly-landing') {
-    document.getElementById('scioly-overview').classList.add('active');
-    setSidebarVisibility('scioly');
-    setActiveSidebarBtn('scioly-overview');
-  } else if (id === 'fll-landing') {
-    document.getElementById('fll-overview').classList.add('active');
-    setSidebarVisibility('fll');
-    setActiveSidebarBtn('fll-overview');
-  } else if (id === 'combat-landing') {
-    document.getElementById('combat-overview').classList.add('active');
-    setSidebarVisibility('combat');
-    setActiveSidebarBtn('combat-overview');
-  } else {
-    document.getElementById(id).classList.add('active');
-    setSidebarVisibility('');
-  }
-  window.scrollTo(0, 0);
-}
-
-function showSection(id, btn) {
-  clearSections();
-  document.getElementById(id).classList.add('active');
-  setNavActive(id);
-  if (id.startsWith('ftc-')) setSidebarVisibility('ftc');
-  else if (id.startsWith('scioly-')) setSidebarVisibility('scioly');
-  else if (id.startsWith('fll-')) setSidebarVisibility('fll');
-  else if (id.startsWith('combat-')) setSidebarVisibility('combat');
-  setActiveSidebarBtn(id);
-  window.scrollTo(0, 0);
-}
-
-function goToSection(id) {
-  clearSections();
-  document.getElementById(id).classList.add('active');
-  setNavActive(id);
-  if (id.startsWith('ftc-')) setSidebarVisibility('ftc');
-  else if (id.startsWith('fll-')) setSidebarVisibility('fll');
-  else if (id.startsWith('combat-')) setSidebarVisibility('combat');
-  setActiveSidebarBtn(id);
-  window.scrollTo(0, 0);
-}
-
 function setActiveSidebarBtn(id) {
-  document.querySelectorAll('.sidebar-btn').forEach(function(b){
+  document.querySelectorAll('.sidebar-btn').forEach(function(b) {
     b.classList.remove('active');
     var oc = b.getAttribute('onclick') || '';
     if (oc.indexOf("'" + id + "'") !== -1) b.classList.add('active');
   });
 }
 
+function navigate(id) {
+  // Resolve landing pages to their real first section
+  var realId = landingMap[id] || id;
+  var el = document.getElementById(realId);
+  if (!el) return;
+  clearSections();
+  el.classList.add('active');
+  setNavActive(realId);
+  setSidebarVisibility(getSidebar(realId));
+  setActiveSidebarBtn(realId);
+  window.scrollTo(0, 0);
+}
+
+// Public functions used in onclick attributes
+function goTop(id) { navigate(id); }
+function showSection(id) { navigate(id); }
+function goToSection(id) { navigate(id); }
+
 function switchTab(group, panelId, btn) {
   var panel = document.getElementById(panelId);
   if (!panel) return;
   var section = panel.closest('.section');
   if (!section) return;
-  section.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
-  section.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  section.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+  section.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
   panel.classList.add('active');
   if (btn) btn.classList.add('active');
 }
@@ -1958,13 +2000,13 @@ function toggleCode(blockId, btn) {
   block.style.display = showing ? 'none' : 'block';
   btn.textContent = showing ? 'Show evc_autonomy.ino' : 'Hide code';
   if (!showing && !evcCodeLoaded) {
-    fetch('evc_autonomy.ino').then(function(r){
+    fetch('evc_autonomy.ino').then(function(r) {
       if (!r.ok) throw new Error('Not found');
       return r.text();
-    }).then(function(txt){
+    }).then(function(txt) {
       document.getElementById('evcCode').textContent = txt;
       evcCodeLoaded = true;
-    }).catch(function(e){
+    }).catch(function(e) {
       document.getElementById('evcCode').textContent = '// Could not load evc_autonomy.ino — ' + e.message;
     });
   }

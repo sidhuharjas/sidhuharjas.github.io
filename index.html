@@ -564,6 +564,8 @@ a:hover { border-bottom-color: var(--accent); }
     <button class="nav-btn active" onclick="goTop('about', this)">About</button>
     <button class="nav-btn" onclick="goTop('ftc-landing', this)">FTC</button>
     <button class="nav-btn" onclick="goTop('scioly-landing', this)">Sci Oly</button>
+    <button class="nav-btn" onclick="goTop('combat-landing', this)">Combat</button>
+    <button class="nav-btn" onclick="goTop('fll-landing', this)">FLL</button>
     <button class="nav-btn" onclick="goTop('contact', this)">Contact</button>
   </div>
 </nav>
@@ -597,7 +599,32 @@ a:hover { border-bottom-color: var(--accent); }
   <button class="sidebar-btn" onclick="showSection('scioly-circuit',this)">Circuit Lab — C</button>
 </aside>
 
-<!-- MAIN -->
+<aside class="sidebar" id="combatSidebar">
+  <div class="sidebar-cat">Combat Robotics</div>
+  <button class="sidebar-btn" onclick="showSection('combat-overview',this)">Overview</button>
+  <div class="sidebar-cat">Horizontal Spinner</div>
+  <button class="sidebar-btn" onclick="showSection('combat-h-spinner',this)">V1 — Horizontal Spinner</button>
+  <button class="sidebar-btn" onclick="showSection('combat-failures',this)">Failure Analysis & ESC Lessons</button>
+  <div class="sidebar-cat">Vertical Spinner</div>
+  <button class="sidebar-btn" onclick="showSection('combat-v1',this)">V1 — First Eggbeater</button>
+  <button class="sidebar-btn" onclick="showSection('combat-v2',this)">V2 — Refined Eggbeater</button>
+  <button class="sidebar-btn" onclick="showSection('combat-v3',this)">V3 — Current Build</button>
+  <div class="sidebar-cat">Engineering Deep-Dives</div>
+  <button class="sidebar-btn" onclick="showSection('combat-drivetrain',this)">Drivetrain & Ratio</button>
+  <button class="sidebar-btn" onclick="showSection('combat-weapon-math',this)">Weapon Physics</button>
+  <button class="sidebar-btn" onclick="showSection('combat-structure',this)">Structure & Materials</button>
+</aside>
+  <div class="sidebar-cat">FLL Overview</div>
+  <button class="sidebar-btn" onclick="showSection('fll-overview',this)">Overview</button>
+  <div class="sidebar-cat">Superpowered (6th Grade)</div>
+  <button class="sidebar-btn" onclick="showSection('fll-superpowered',this)">Season Overview</button>
+  <button class="sidebar-btn" onclick="showSection('fll-sp-innovation',this)">Innovation Project</button>
+  <button class="sidebar-btn" onclick="showSection('fll-sp-robot',this)">Robot Design</button>
+  <div class="sidebar-cat">Masterpiece (7th Grade)</div>
+  <button class="sidebar-btn" onclick="showSection('fll-masterpiece',this)">Season Overview</button>
+  <button class="sidebar-btn" onclick="showSection('fll-mp-innovation',this)">Innovation Project</button>
+  <button class="sidebar-btn" onclick="showSection('fll-mp-robot',this)">Robot Design</button>
+</aside>
 <div class="layout">
   <main class="main" id="mainContent">
 
@@ -1167,6 +1194,608 @@ a:hover { border-bottom-color: var(--accent); }
       </div>
     </section>
 
+    <!-- COMBAT ROBOTICS -->
+    <section id="combat-landing" class="section">
+      <h1>Combat <span class="accent">Robotics</span></h1>
+      <p>Personal project started in 7th grade — still in active development. Combat robotics is where I go when I want to push engineering to its actual limits: high-speed spinning weapons, impact loads that shatter lesser designs, and a weight budget measured in grams. Every gram matters. Every millimeter matters.</p>
+    </section>
+
+    <section id="combat-overview" class="section">
+      <h1>Combat Robotics <span class="accent">Overview</span></h1>
+      <p>Combat robotics is a personal engineering project I started in 7th grade and am still actively developing. The goal: build a competition-ready combat robot from scratch — designing, iterating, and engineering every subsystem myself.</p>
+      <p>The project began as an experiment with a horizontal spinner and has evolved through multiple generations of vertical spinner designs, each more refined than the last. This isn't a kit build. Every chassis, every weapon geometry, every gear ratio was calculated and designed by hand in SolidWorks.</p>
+
+      <div class="stat-grid" style="margin-top:20px;">
+        <div class="stat-item">
+          <div class="stat-num">23+</div>
+          <div class="stat-label">Chassis Iterations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">250</div>
+          <div class="stat-label">mph Tip Speed (target)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">95mm</div>
+          <div class="stat-label">Current Weapon Diameter</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">4S</div>
+          <div class="stat-label">LiPo Battery</div>
+        </div>
+      </div>
+
+      <p style="margin-top:20px;">The current robot is V3 — still being refined. SolidWorks static studies are being used to validate structural decisions before cutting anything. This is ongoing.</p>
+    </section>
+
+    <!-- HORIZONTAL SPINNER -->
+    <section id="combat-h-spinner" class="section">
+      <h1>V1 — Horizontal <span class="accent">Spinner</span></h1>
+      <p>The horizontal spinner was my first ever combat robotics project — built to experiment with high-speed weapon systems, understand brushless motor behavior, and get hands-on with the electrical and mechanical challenges of spinning weapons before committing to a full robot design.</p>
+
+      <h2>System Specs</h2>
+      <ul>
+        <li><strong>Motor:</strong> 1100 KV brushless outrunner</li>
+        <li><strong>Weapon disc:</strong> 140 mm diameter steel disc</li>
+        <li><strong>Battery:</strong> 4S LiPo (14.8V nominal, 16.8V fully charged)</li>
+      </ul>
+
+      <h2>Weapon Physics</h2>
+      <div class="calc-box">
+        <strong>Motor Free-Spin RPM</strong>
+        <span class="line">RPM = KV × V_battery = 1100 × 14.8 = 16,280 RPM (nominal)</span>
+        <span class="line">At full charge (16.8V): 1100 × 16.8 = 18,480 RPM</span>
+        <strong style="margin-top:8px; display:block;">Tip Speed</strong>
+        <span class="line">Radius = 70 mm = 0.070 m</span>
+        <span class="line">ω = 16,280 RPM × (2π / 60) = 1,705 rad/s</span>
+        <span class="line">v_tip = ω × r = 1,705 × 0.070 = 119.4 m/s</span>
+        <span class="result">≈ 267 mph tip speed at nominal voltage</span>
+        <strong style="margin-top:8px; display:block;">Rotational Kinetic Energy (solid disc approximation)</strong>
+        <span class="line">I = ½ × m × r²</span>
+        <span class="line">Assuming disc mass ≈ 0.25 kg: I = ½ × 0.25 × 0.070² = 6.125 × 10⁻⁴ kg·m²</span>
+        <span class="line">E = ½ × I × ω² = ½ × 6.125×10⁻⁴ × 1705² ≈ 890 J</span>
+        <span class="result">~890 joules of stored energy — significant destructive potential</span>
+      </div>
+
+      <h2>Why the Horizontal Spinner Was Abandoned</h2>
+      <p>The horizontal spinner concept has a fundamental physics problem: <strong>gyroscopic deflection</strong>. A high-speed disc spinning in the horizontal plane resists any change to its axis of rotation. When the robot turns or gets hit, the gyroscopic force fights the chassis — making the robot nearly unsteerable and causing the frame to flex and twist unpredictably under impact.</p>
+      <ul>
+        <li><strong>Gyroscopic precession:</strong> Any applied torque perpendicular to the spin axis produces a reaction 90° away. Turning while the weapon spins causes the robot to pitch or roll instead of yaw cleanly.</li>
+        <li><strong>Deflection under impact:</strong> When the disc hits a target, the reaction force couples with the gyroscopic effect to push the robot in unpredictable directions, making follow-up strikes unreliable.</li>
+        <li><strong>Low wedge compatibility:</strong> Horizontal spinners sit high and present a large lateral surface. A low wedge opponent can slide underneath and negate the weapon entirely.</li>
+      </ul>
+      <p>These aren't solvable by better chassis stiffness. They're geometric and physical constraints. The conclusion: move to a vertical spinner, where the gyroscopic effect actually aids ground contact and the weapon geometry is far more favorable.</p>
+    </section>
+
+    <!-- FAILURE ANALYSIS -->
+    <section id="combat-failures" class="section">
+      <h1>Failure Analysis <span class="accent">& ESC Lessons</span></h1>
+      <p>The horizontal spinner phase destroyed a significant number of ESCs before I understood what was actually happening. This failure analysis is one of the most valuable engineering lessons of the project.</p>
+
+      <h2>How the ESCs Were Dying</h2>
+      <p>Every time the weapon disc hit something and decelerated rapidly — or when the motor was braked — a massive voltage spike appeared on the power rail and killed the ESC's MOSFETs. I went through multiple ESCs before I stopped and actually analyzed the circuit.</p>
+
+      <h2>The Root Cause: Back-EMF & Stall Torque</h2>
+      <ul>
+        <li><strong>Brushless motors are generators:</strong> When a spinning brushless motor decelerates suddenly — from impact or braking — the rotating magnetic field generates a back-electromotive force (back-EMF) spike. This voltage can far exceed the battery voltage and exceeds the MOSFET breakdown voltage, destroying the ESC instantly.</li>
+        <li><strong>Stall torque vs. running current:</strong> Brushless motors at stall draw enormous current — sometimes 10–20× their running current — because there's no back-EMF to limit it. ESCs rated for the running current fail under stall conditions. Undersized ESCs couldn't handle the instantaneous current demand during weapon spin-up from zero or after a hard impact.</li>
+        <li><strong>Brushed motors have the same issue:</strong> Brushed motors' commutator brushes arc under high current, and without protection, the motor controller sees the same inductive voltage spike on deceleration.</li>
+      </ul>
+
+      <h2>The Fix: Schottky Diode Flyback Protection</h2>
+      <p>The solution was adding a <strong>Schottky diode</strong> — specifically a flyback (freewheeling) diode — across the motor terminals in the correct orientation.</p>
+      <ul>
+        <li><strong>How it works:</strong> When the motor decelerates and generates a back-EMF spike that exceeds battery voltage, the Schottky diode becomes forward-biased and provides a low-resistance path for the inductive energy to dissipate — bypassing the ESC's MOSFETs entirely.</li>
+        <li><strong>Why Schottky specifically:</strong> Schottky diodes have a very low forward voltage drop (~0.2–0.4V vs ~0.7V for standard silicon diodes) and extremely fast switching. In a high-frequency back-EMF spike scenario, a slow diode fails to clamp the spike in time. Schottky diodes respond fast enough to catch the transient.</li>
+        <li><strong>Orientation matters:</strong> The diode is placed with the cathode toward the motor's positive terminal. During normal operation it's reverse-biased and does nothing. During a back-EMF spike, it conducts and clamps the voltage.</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>Why the Schottky Diode Works</strong>
+        <span class="line">V_spike = L × (dI/dt) — inductive spike proportional to inductance and rate of current change</span>
+        <span class="line">Without diode: V_spike flows through ESC MOSFETs → breakdown → destruction</span>
+        <span class="line">With Schottky diode: V_spike exceeds V_forward (~0.3V) → diode conducts → energy loops through motor → MOSFET protected</span>
+        <span class="result">→ No more ESC deaths from back-EMF events</span>
+      </div>
+
+      <p>After implementing the diode circuit, ESC failures from back-EMF stopped entirely. This was one of the most important electrical engineering lessons of the project — understanding not just that components were failing, but <em>why</em> at the circuit level.</p>
+    </section>
+
+    <!-- VERTICAL V1 -->
+    <section id="combat-v1" class="section">
+      <h1>Vertical Spinner <span class="accent">V1</span></h1>
+      <p>After abandoning the horizontal spinner, I moved to a vertical eggbeater design. The eggbeater profile — a disc with material removed asymmetrically — is a proven combat weapon geometry that maximizes energy storage for a given mass while reducing the risk of the weapon getting stuck after a bite.</p>
+
+      <h2>Why Vertical Over Horizontal</h2>
+      <ul>
+        <li><strong>Gyroscopic advantage:</strong> A vertically spinning weapon generates gyroscopic forces that press the robot into the ground during forward movement, improving traction rather than fighting it.</li>
+        <li><strong>Wedge compatibility:</strong> Vertical spinners sit low and pair naturally with a front wedge geometry. The wedge guides opponents up into the weapon's strike zone.</li>
+        <li><strong>Impact geometry:</strong> Vertical hits transfer energy upward — launching opponents into the air — rather than sideways, where arena walls absorb the energy.</li>
+      </ul>
+
+      <h2>V1 Specs</h2>
+      <ul>
+        <li><strong>Weapon:</strong> 80 mm diameter eggbeater</li>
+        <li><strong>Battery:</strong> 4S LiPo</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>80mm Eggbeater Tip Speed</strong>
+        <span class="line">Assuming weapon motor KV ≈ 2000 KV on 4S (14.8V nominal)</span>
+        <span class="line">RPM = 2000 × 14.8 = 29,600 RPM</span>
+        <span class="line">ω = 29,600 × (2π / 60) = 3,100 rad/s</span>
+        <span class="line">v_tip = 3,100 × 0.040 m = 124 m/s ≈ 277 mph</span>
+        <span class="result">Eggbeater profile reduces moment of inertia vs solid disc — faster spin-up, same tip speed</span>
+      </div>
+
+      <h2>Why V1 Was Retired After 8 Chassis Iterations</h2>
+      <p>The weapon geometry was sound. The chassis wasn't. V1's chassis was too large — overbuilt in ways that ate into the weight budget without adding meaningful structural benefit. I redesigned the chassis 8 times trying to solve it within the existing architecture, but the fundamental footprint was wrong. The lesson: a good weapon mounted on a bad chassis is still a bad robot. I scrapped the chassis entirely and started V2.</p>
+    </section>
+
+    <!-- VERTICAL V2 -->
+    <section id="combat-v2" class="section">
+      <h1>Vertical Spinner <span class="accent">V2</span></h1>
+      <p>V2 addressed the chassis size problem with a significantly smaller, lighter frame — but introduced new problems that took 15 iterations to fully diagnose.</p>
+
+      <h2>Changes from V1</h2>
+      <ul>
+        <li><strong>Weapon:</strong> 85 mm diameter eggbeater (slight size increase for more energy storage)</li>
+        <li><strong>Chassis:</strong> Redesigned from scratch — smaller footprint for weight reduction</li>
+        <li><strong>Drive motors:</strong> JustCuz Robotics brushed motors</li>
+      </ul>
+
+      <h2>Why V2 Still Failed</h2>
+
+      <h3>Problem 1 — Brushed Drive Motors</h3>
+      <p>I used brushed motors for the drivetrain because they're simpler to control and cheaper. In practice, they were the wrong choice for this application:</p>
+      <ul>
+        <li><strong>High stall current:</strong> Brushed motors at low speed or under load draw enormous current. In a combat robot, the drivetrain stalls constantly — tight turning, pushing, being pushed. The motors ran hot and the ESCs struggled.</li>
+        <li><strong>Low efficiency:</strong> Brushed motors waste more energy as heat compared to brushless equivalents. In a weight-limited robot where battery size is constrained, efficiency directly translates to runtime and speed.</li>
+        <li><strong>Brush wear:</strong> Under repeated high-current stall events, brushes degrade quickly. Not ideal for a robot that gets hit repeatedly.</li>
+      </ul>
+
+      <h3>Problem 2 — Wrong Weapon Motor</h3>
+      <p>I used a FingerTech Robotics inrunner at 2980 KV. The motor was physically too small for the application:</p>
+      <ul>
+        <li><strong>Inrunner vs outrunner:</strong> Inrunners have the magnets inside the rotating shaft. They spin faster but produce less torque at a given size. For spinning up a weapon disc with meaningful rotational inertia, torque during spin-up matters — an underpowered motor means slow weapon ramp-up and poor recovery after an impact.</li>
+        <li><strong>Too small physically:</strong> The motor's stator couldn't produce enough torque to spin the 85 mm eggbeater to target speed quickly enough. Recovery time after impact was too long.</li>
+      </ul>
+
+      <h3>Problem 3 — Structural Integrity</h3>
+      <p>Shrinking the chassis for weight savings compromised the structural integrity. The frame flexed under weapon torque reaction, and impact loads transmitted directly into drivetrain components. 15 iterations tried to patch this — gussets, different material thicknesses, geometry changes — but the core architecture had too many competing constraints to solve cleanly within V2.</p>
+
+      <div class="calc-box" style="border-left-color: var(--red);">
+        <strong style="color: var(--red);">V2 Assessment</strong>
+        <span class="line">Chassis: 15 iterations, still structurally compromised</span>
+        <span class="line">Drive: Brushed — inefficient, high stall current, heat issues</span>
+        <span class="line">Weapon motor: 2980 KV inrunner — too small, slow spin-up, poor impact recovery</span>
+        <span class="conclusion">→ Architecture not salvageable. Moved to V3 with correct motor selection and redesigned chassis.</span>
+      </div>
+    </section>
+
+    <!-- VERTICAL V3 -->
+    <section id="combat-v3" class="section">
+      <h1>Vertical Spinner <span class="accent">V3 — Current</span></h1>
+      <p>V3 is the current build — still in active development and not yet competition-ready. Every major lesson from V1 and V2 is incorporated: correct motor selection, verified weight distribution, SolidWorks-validated structure, and a chassis designed for pocketability and TPU integration from the start.</p>
+
+      <h2>Weapon System</h2>
+      <ul>
+        <li><strong>Weapon:</strong> 95 mm diameter eggbeater</li>
+        <li><strong>Motor:</strong> BA 2320, 1860 KV outrunner</li>
+        <li><strong>Battery:</strong> 4S LiPo, 1100 mAh</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>V3 Weapon Physics — 95mm Eggbeater, 1860 KV on 4S</strong>
+        <span class="line">V_nominal = 14.8V  |  V_full charge = 16.8V</span>
+        <span class="line">RPM (nominal) = 1860 × 14.8 = 27,528 RPM</span>
+        <span class="line">RPM (full charge) = 1860 × 16.8 = 31,248 RPM</span>
+        <span class="line">ω (nominal) = 27,528 × (2π / 60) = 2,883 rad/s</span>
+        <span class="line">Tip radius = 47.5 mm = 0.0475 m</span>
+        <span class="line">v_tip = 2,883 × 0.0475 = 136.9 m/s</span>
+        <span class="result">≈ 306 mph tip speed at nominal — exceeds 250 mph target</span>
+        <strong style="margin-top:8px; display:block;">Stored Energy (eggbeater, estimated I ≈ 40% of solid disc)</strong>
+        <span class="line">Solid disc I = ½ × m × r² → eggbeater I ≈ 0.4 × ½ × m × r²</span>
+        <span class="line">Assuming weapon mass ≈ 0.15 kg: I ≈ 0.4 × ½ × 0.15 × 0.0475² ≈ 6.75 × 10⁻⁵ kg·m²</span>
+        <span class="line">E = ½ × I × ω² = ½ × 6.75×10⁻⁵ × 2883² ≈ 280 J</span>
+        <span class="result">~280 joules stored — highly competitive for the weight class</span>
+      </div>
+
+      <h2>Why the BA 2320 1860 KV</h2>
+      <ul>
+        <li><strong>Outrunner geometry:</strong> The rotating outer can gives the motor a larger effective radius for torque production compared to an inrunner of the same size — far better for spinning up a weapon with real rotational inertia.</li>
+        <li><strong>1860 KV on 4S:</strong> This KV rating hits the target tip speed window without over-revving or requiring additional reduction. Direct drive to the weapon keeps the system simple and eliminates belt/gear losses.</li>
+        <li><strong>Spin-up torque:</strong> The BA 2320 has enough stall torque to bring the eggbeater from zero to fight speed in under 2 seconds — crucial for recovery after an impact that stalls the weapon.</li>
+      </ul>
+
+      <h2>Drivetrain</h2>
+      <p>The drivetrain uses <strong>JustCuz Robotics Blitz Lites</strong> — brushless drive motors purpose-built for combat robots. The switch from the brushed motors in V2 to these was significant:</p>
+      <ul>
+        <li><strong>Efficiency:</strong> Brushless drive motors run significantly cooler and more efficiently under the repeated stall conditions of a combat match.</li>
+        <li><strong>Weight:</strong> Blitz Lites are purpose-optimized for the weight class — small, powerful, and light.</li>
+      </ul>
+      <p>See the <button onclick="showSection('combat-drivetrain', null)" style="background:none; border:none; color:var(--accent); cursor:pointer; font-family:var(--font-mono); font-size:13px; text-decoration:underline; padding:0;">Drivetrain & Ratio page</button> for the full gear ratio analysis.</p>
+
+      <h2>Battery — 4S 1100 mAh</h2>
+      <p>Battery selection in combat robots is a delicate balance between energy, weight, and discharge rate. The 4S 1100 mAh cell was chosen after analysis:</p>
+      <ul>
+        <li><strong>4S voltage:</strong> 14.8V nominal gives the weapon motor its target RPM band. Going to 6S would overspin the motor beyond its rated limits and require a different KV selection.</li>
+        <li><strong>1100 mAh capacity:</strong> A combat match is typically 3 minutes. At peak combined weapon + drive current (~40–60A burst), a 1100 mAh pack at 100C discharge rate has sufficient instantaneous current delivery. Going larger adds weight that hurts maneuverability. Going smaller risks voltage sag under load, which drops weapon speed mid-fight.</li>
+        <li><strong>C rating:</strong> High-C LiPo cells maintain voltage under burst current loads. Voltage sag directly reduces weapon motor RPM and stored energy — a sagging battery is a slower weapon.</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>Runtime Estimate</strong>
+        <span class="line">Capacity: 1100 mAh = 1.1 Ah</span>
+        <span class="line">Average combined draw (weapon cruise + drive): ~25A</span>
+        <span class="line">Runtime = 1.1 Ah / 25A × 60 = 2.64 minutes</span>
+        <span class="result">→ Tight for a 3-minute match. Pack selection and power management are still being tuned.</span>
+      </div>
+
+      <h2>Status</h2>
+      <div class="calc-box" style="border-left-color: var(--accent2);">
+        <strong style="color: var(--accent);">Current State</strong>
+        <span class="line">Weapon system: verified in SolidWorks, physics confirmed</span>
+        <span class="line">Chassis: in iteration — pocketing and TPU integration ongoing</span>
+        <span class="line">Drivetrain ratio: optimized (see Drivetrain page)</span>
+        <span class="conclusion">→ Not yet competition-ready. Converting SolidWorks designs into physical hardware is the current phase.</span>
+      </div>
+    </section>
+
+    <!-- DRIVETRAIN -->
+    <section id="combat-drivetrain" class="section">
+      <h1>Drivetrain <span class="accent">& Ratio</span></h1>
+      <p>The drivetrain in a combat robot isn't just about going fast — it's about controlled aggression. You need enough speed to close distance and dodge, enough torque to push and resist being pushed, and enough efficiency to survive a full match without browning out.</p>
+
+      <h2>Optimal Gear Ratio</h2>
+      <p>The target drivetrain tip speed is ~250 mph weapon spin with the robot itself moving at a controlled, maneuverable pace — roughly 4–6 mph for a robot in this weight class. Too fast and the robot is uncontrollable; too slow and it can't reposition after an attack.</p>
+
+      <div class="calc-box">
+        <strong>Drivetrain Ratio Analysis — Blitz Lite on 4S</strong>
+        <span class="line">Blitz Lite KV ≈ 3000–4000 KV (brushless, purpose-built drive motor)</span>
+        <span class="line">Free-spin RPM on 4S = 3500 × 14.8 ≈ 51,800 RPM (unloaded)</span>
+        <span class="line">Target wheel RPM for ~5 mph with ~30mm wheel: v = 5 mph = 2.24 m/s</span>
+        <span class="line">Wheel RPM = (v / (π × d)) × 60 = (2.24 / (π × 0.030)) × 60 ≈ 1,420 RPM</span>
+        <span class="line">Required reduction = 51,800 / 1,420 ≈ 36.5:1</span>
+        <span class="result">→ High reduction needed — achieved through motor gearbox + wheel size selection</span>
+        <strong style="margin-top:8px; display:block;">Torque at Wheel</strong>
+        <span class="line">Motor stall torque × 36.5 reduction = massive torque overhead</span>
+        <span class="conclusion">→ Robot can push and resist being pushed without drivetrain stall</span>
+      </div>
+
+      <h2>Why 250 mph Weapon Tip Speed is the Target</h2>
+      <p>250 mph (~112 m/s) is a widely-used benchmark in combat robotics for vertical spinners in the antweight/beetleweight class. Here's why it matters:</p>
+      <ul>
+        <li><strong>Energy scales with v²:</strong> Kinetic energy is ½mv². Doubling tip speed quadruples stored energy. At 250 mph, even a small eggbeater stores enough energy to flip or damage most opponents.</li>
+        <li><strong>Diminishing returns above 300 mph:</strong> Above ~300 mph, the gains in stored energy are offset by increased stress on the weapon, shaft, and mounting hardware. The weapon becomes more likely to self-destruct on a hard hit.</li>
+        <li><strong>250 mph is the sweet spot:</strong> Maximum competitive energy storage without risking weapon structural failure under impact loads at this weight class.</li>
+      </ul>
+
+      <h2>Weight Distribution</h2>
+      <p>Weight distribution is as critical as total weight. In a combat robot, where and how weight is placed determines handling, stability, and how the robot responds to weapon recoil:</p>
+      <ul>
+        <li><strong>Low center of gravity:</strong> Mass concentrated low to the ground reduces the tendency to flip when the weapon bites. A high CoG robot gets launched on impact.</li>
+        <li><strong>Rearward battery placement:</strong> The battery (heaviest single component) is placed toward the rear to counterbalance the weapon at the front. This keeps the CoG roughly centered and prevents the weapon from nose-diving the robot into the ground during spin-up torque.</li>
+        <li><strong>Weapon reaction forces:</strong> When the weapon hits something, Newton's third law sends a reaction force into the chassis. The chassis must be designed so this force doesn't tip the robot over or flip it — which means the CoG placement and chassis geometry work together.</li>
+        <li><strong>Drive wheel position:</strong> Drive wheels placed at the optimal lateral position maximize the turning moment while keeping the robot's rotational inertia low for quick pivoting.</li>
+      </ul>
+    </section>
+
+    <!-- WEAPON PHYSICS -->
+    <section id="combat-weapon-math" class="section">
+      <h1>Weapon Physics <span class="accent">& Math</span></h1>
+      <p>The eggbeater weapon geometry was chosen deliberately. Here's the complete physics breakdown of why it works, how it's sized, and what the numbers actually mean in a fight.</p>
+
+      <h2>Why an Eggbeater Profile</h2>
+      <p>A solid disc maximizes moment of inertia for a given diameter — more stored energy. But it also risks getting stuck in an opponent after a deep bite (the disc can't "ride over" the hit). The eggbeater profile removes material asymmetrically, creating a geometry where:</p>
+      <ul>
+        <li>The weapon can bite into an opponent and the asymmetric shape causes it to "walk out" of the hit rather than jam.</li>
+        <li>Material removal reduces weight while keeping much of the rotational inertia (since most of the mass is still at the outer radius, where it contributes most to I = mr²).</li>
+        <li>The uneven mass distribution creates a slight imbalance — which, when properly tuned, is acceptable — but requires careful balancing to prevent destructive vibration at high RPM.</li>
+      </ul>
+
+      <h2>Progression: 80mm → 85mm → 95mm</h2>
+      <div class="calc-box">
+        <strong>Moment of Inertia Scaling (eggbeater approximation, constant mass)</strong>
+        <span class="line">I ∝ r²  — doubling radius quadruples I</span>
+        <span class="line">80mm (r=40mm): I ∝ 0.040² = 1.600 × 10⁻³</span>
+        <span class="line">85mm (r=42.5mm): I ∝ 0.0425² = 1.806 × 10⁻³  (+13%)</span>
+        <span class="line">95mm (r=47.5mm): I ∝ 0.0475² = 2.256 × 10⁻³  (+41% vs 80mm)</span>
+        <span class="result">→ 95mm stores 41% more rotational energy than the original 80mm at the same mass and RPM</span>
+        <strong style="margin-top:8px; display:block;">Trade-off</strong>
+        <span class="line">Larger diameter = lower free-spin RPM (tip speed is what matters, not RPM)</span>
+        <span class="line">Larger diameter = more stress at the weapon hub under impact loads</span>
+        <span class="conclusion">→ 95mm is the optimized point for this motor/battery combination</span>
+      </div>
+
+      <h2>Wedge Geometry</h2>
+      <p>The wedge is not a passive feature — it's an active weapon. The front wedge geometry is carefully designed to:</p>
+      <ul>
+        <li><strong>Undercut opponents:</strong> A low front wedge angle slides under opposing robots and lifts them, removing their traction and presenting them to the weapon. The wedge angle is typically 5–15° — shallow enough to get under most chassis gaps, steep enough to actually lift and guide.</li>
+        <li><strong>Guide into the weapon:</strong> The wedge isn't flat — it's angled to direct an opponent upward and toward the eggbeater's strike zone. The geometry is designed so that once the wedge makes contact, the natural motion of the robot driving forward feeds the opponent into the weapon.</li>
+        <li><strong>Self-righting aid:</strong> If the robot gets flipped (invertible design), the wedge geometry also helps it drive while inverted — the weapon can reach opponents in either orientation.</li>
+        <li><strong>Low scrape angle:</strong> The wedge's contact point with the arena floor is kept as low as possible — ideally within 1–2mm — to prevent opponents from getting their own wedge underneath.</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>Wedge Geometry Design</strong>
+        <span class="line">Target wedge angle: 8–12° from horizontal</span>
+        <span class="line">Leading edge height off floor: ≤ 2mm</span>
+        <span class="line">Wedge material: hardened steel or titanium — must resist opponent weapon hits without deforming</span>
+        <span class="conclusion">→ The wedge and weapon work as a system: wedge captures, weapon delivers energy</span>
+      </div>
+    </section>
+
+    <!-- STRUCTURE & MATERIALS -->
+    <section id="combat-structure" class="section">
+      <h1>Structure <span class="accent">& Materials</span></h1>
+      <p>Every structural decision in this robot is a weight vs. strength trade-off. SolidWorks static studies, pocketing strategy, and TPU integration are the three tools I'm using to solve it.</p>
+
+      <h2>SolidWorks Static Studies</h2>
+      <p>Before cutting any material, I run static FEA studies on every structural component in SolidWorks. This is the same workflow I use in FTC (the Tipper Park kicker plate, for example) — applied here with much higher stakes because a combat robot's chassis sees impact loads that are harder to estimate from intuition alone.</p>
+      <ul>
+        <li><strong>Weapon mount stress:</strong> The weapon shaft and motor mount see the highest loads — weapon impact forces feed directly into these structures. FEA shows where yielding would occur first and guides material thickness decisions.</li>
+        <li><strong>Chassis torsion:</strong> When one side of the drive gets hit while the other doesn't, the chassis twists. Static studies verify that the chassis cross-section resists this without permanent deformation.</li>
+        <li><strong>Wedge interface:</strong> The joint between the wedge and the chassis is a high-stress point. FEA guides whether a gusset is needed and where exactly to place it.</li>
+      </ul>
+
+      <h2>Pocketing Strategy</h2>
+      <p>Pocketing — removing material from low-stress regions of a part — is the primary weight-reduction method for structural components. The principle: keep material where the FEA shows high stress, remove it where stress is low.</p>
+      <ul>
+        <li><strong>Chassis side plates:</strong> Material is removed from the center spans between mounting points, where bending moment is lowest. The perimeter and mounting regions are kept full-thickness.</li>
+        <li><strong>Weapon disc:</strong> The eggbeater profile is itself a form of pocketing — removing material between the "teeth" to reduce weight while keeping mass concentrated at the outer radius where it contributes most to rotational energy.</li>
+        <li><strong>Motor mounts:</strong> Lightening holes where FEA shows near-zero stress, full material at the bolt bosses and load-bearing edges.</li>
+      </ul>
+      <p>Pocketing in a combat robot is not the same as in a hobby part. Over-pocket and the part shatters on first impact. The FEA studies define exactly how much material can be removed before the safety factor drops below the acceptable threshold for combat loads.</p>
+
+      <h2>TPU Integration</h2>
+      <p>TPU (thermoplastic polyurethane) is a flexible, impact-absorbing 3D-printable material. In a combat robot, it plays a specific structural role:</p>
+      <ul>
+        <li><strong>Wheel guards / armor panels:</strong> TPU panels on the sides and rear absorb glancing impacts without shattering. Unlike rigid armor that transmits shock directly into the chassis, TPU deforms elastically and returns to shape, decoupling the impact energy from the frame.</li>
+        <li><strong>Shock mounts:</strong> TPU printed at the right infill percentage acts as a vibration isolator between the weapon motor and the chassis, protecting electronics from high-frequency vibration during weapon spin-up and operation.</li>
+        <li><strong>Weapon bumper:</strong> A thin TPU lip at the front of the chassis, just below the weapon, prevents opponent wedges from slipping under the weapon disc and hitting the motor mount directly.</li>
+        <li><strong>Why not everywhere:</strong> TPU is heavy relative to its rigidity. It's used only where impact absorption outweighs the weight cost — primarily anywhere a glancing hit is more likely than a direct hit.</li>
+      </ul>
+
+      <h2>Timeline</h2>
+      <p>This project started in <strong>7th grade</strong> and is ongoing. The timeline reflects how long real iterative engineering takes — especially when every design decision requires validation, and every mistake reveals a lesson that changes the next iteration.</p>
+      <ul>
+        <li><strong>7th grade:</strong> Horizontal spinner experiment. ESC failures. Back-EMF lessons. Schottky diode fix.</li>
+        <li><strong>7th grade (continued):</strong> Pivot to vertical spinner. V1 eggbeater — 8 chassis iterations. Chassis too large, scrapped.</li>
+        <li><strong>Early 8th grade:</strong> V2 — smaller chassis, 85mm eggbeater, brushed motors. 15 chassis iterations. Motor and structural problems identified.</li>
+        <li><strong>8th grade (continued) → current:</strong> V3 — BA 2320 outrunner, Blitz Lites, 95mm eggbeater, 4S 1100 mAh. SolidWorks FEA driving structural decisions. TPU integration. Still converting designs to physical hardware.</li>
+      </ul>
+      <div class="calc-box" style="border-left-color: var(--accent2);">
+        <strong style="color: var(--accent);">What "Still in Development" Actually Means</strong>
+        <span class="line">The physics are solved. The motor selection is correct. The weapon geometry is verified.</span>
+        <span class="line">What remains: manufacturing the final chassis, completing TPU armor integration, tuning the drivetrain ratio in hardware, and competition testing.</span>
+        <span class="conclusion">→ The gap between a correct design and a competition-ready robot is manufacturing, tuning, and time.</span>
+      </div>
+    </section>
+
+    <!-- FLL LANDING -->
+    <section id="fll-landing" class="section">
+      <h1>FIRST Lego League <span class="accent">FLL</span></h1>
+      <p>FLL was where my robotics journey started. I competed for two seasons — 6th and 7th grade — before moving into FTC. FLL taught me the engineering design process, how to work with a team under pressure, and how to present technical work to judges. It built the foundation everything else is built on.</p>
+    </section>
+
+    <section id="fll-overview" class="section">
+      <h1>FLL <span class="accent">Overview</span></h1>
+      <p>FIRST Lego League (FLL) is a global robotics competition for students in grades 4–8. Each season centers on a real-world scientific theme. Teams design, build, and program an autonomous Lego robot to complete missions on a themed field mat — all within a 2.5-minute window. Alongside the robot game, teams develop and present an <strong>Innovation Project</strong> proposing a real solution to a problem within the season's theme.</p>
+      <p>Competitions are judged on four pillars: Robot Design, Innovation Project, Core Values, and Robot Game performance. It's fast, iterative, and demands both technical skill and clear communication.</p>
+      <p>I started FLL in 6th grade and competed through 7th grade, across the <strong>Superpowered</strong> and <strong>Masterpiece</strong> seasons — before transitioning into FTC.</p>
+
+      <div class="stat-grid" style="margin-top:20px;">
+        <div class="stat-item">
+          <div class="stat-num">2</div>
+          <div class="stat-label">FLL Seasons</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Expert Consultations</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">420</div>
+          <div class="stat-label">Max Points (Masterpiece)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">1,798</div>
+          <div class="stat-label">Mission Runs Logged</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPERPOWERED -->
+    <section id="fll-superpowered" class="section">
+      <h1>Superpowered <span class="accent">Season</span></h1>
+      <p>Superpowered was my first ever year doing robotics — 6th grade, starting from scratch. The season's theme centered on the energy sector: how we generate, transmit, store, and consume power. It was a steep learning curve, but it's where I first learned what it means to engineer something under real competition constraints.</p>
+      <p>We advanced through regionals and states all the way to the California Invitational — a strong result for a first-year team.</p>
+
+      <h2>What I Worked On</h2>
+      <ul>
+        <li><strong>Robot Game:</strong> Contributed to mission strategy, attachment design, and iterating runs to maximize scoring within the 2.5-minute limit.</li>
+        <li><strong>Innovation Project:</strong> Core team member on the solar panel soiling problem — from research through expert consultation and solution design.</li>
+      </ul>
+
+      <h2>Competition Results</h2>
+      <div class="calc-box" style="border-left-color: var(--teal);">
+        <strong style="color: var(--teal);">Season Path</strong>
+        <span class="line">Regionals → States → California Invitational</span>
+        <span class="conclusion">→ First year competing in robotics</span>
+      </div>
+
+      <div style="margin-top:16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px 18px;">
+        <p style="font-size:12px; color:var(--text3); margin:0;">[Image placeholder — competition photos]</p>
+      </div>
+    </section>
+
+    <section id="fll-sp-innovation" class="section">
+      <h1>Innovation Project <span class="accent">— Superpowered</span></h1>
+      <p>Our challenge: identify and solve an impactful problem in the energy sector. We brainstormed across four categories — energy generation, transmission, storage, and consumption — and narrowed from over 50 identified problems down to one.</p>
+
+      <h2>The Problem</h2>
+      <p>Dust and soiling on solar panels reduces efficiency by <strong>7–50%</strong>, costing solar farms between $242,000 and $1.6 million in lost revenue annually. In 2021, more than 10.8 billion gallons of water were used to clean solar panels — water that could have supplied 2 million people. Manual cleaning also claimed 11 lives in 2020.</p>
+
+      <h2>Expert Research</h2>
+      <ul>
+        <li><strong>Mrs. Carrie Beddle:</strong> Overview of the energy sector and identification of solution constraints.</li>
+        <li><strong>Mr. Mike Hughes (Reliability First):</strong> Detailed breakdown of the power distribution and control system.</li>
+        <li><strong>Dr. Kishore & Dr. Raji (Denora):</strong> Fuel cell alternatives to lithium batteries and hazards of radioactive materials.</li>
+        <li><strong>Mr. Cody Cooper (Yellowlite):</strong> Challenges of solar installation and farm maintenance.</li>
+        <li><strong>Great Lakes Energy Institute (Mr. Steirer & Mr. Raymond):</strong> Validated the solution as highly beneficial for large solar farms, especially in dry regions.</li>
+        <li><strong>Amazon Solar Farms:</strong> Expressed strong support and promised collaboration on further development.</li>
+      </ul>
+
+      <h2>The Solution — Three-Part System</h2>
+      <ul>
+        <li><strong>Bi-directional Cleaning Robot:</strong> Mounts directly onto solar panels and automates cleaning at predefined intervals, eliminating manual labor risk.</li>
+        <li><strong>Water Harvesting & Filtration:</strong> Captures rainwater and recycles dirty runoff through a multi-stage filtration system — modeled after municipal wastewater treatment — for reuse.</li>
+        <li><strong>Regional Chemical Customization:</strong> Soiling varies by geography. The system formulates and swaps targeted cleaning fluids to match the soil profile of different global regions, validated through soil simulation experiments.</li>
+      </ul>
+
+      <h2>Financial Analysis — 10 MW Plant</h2>
+      <div class="calc-box">
+        <strong>ROI Breakdown</strong>
+        <span class="line">Setup cost: ~$500,000</span>
+        <span class="line">Annual savings: $250,000 – $1.6 million (recovered efficiency)</span>
+        <span class="result">Payback period: 4 months to 2 years</span>
+        <span class="conclusion">→ Maximum value in dry regions like Arizona and Nevada, where soiling is severe and water is scarce</span>
+      </div>
+
+      <h2>Next Steps</h2>
+      <ul>
+        <li>Return to Yellowlite to reconfirm recent findings.</li>
+        <li>Ongoing conversations with NASA's Solar Energy team and Amazon Farms for collaboration.</li>
+        <li>Partnering with a local Aurora makerspace to build a functional working prototype.</li>
+      </ul>
+    </section>
+
+    <section id="fll-sp-robot" class="section">
+      <h1>Robot Design <span class="accent">— Superpowered</span></h1>
+      <p>The robot game required an autonomous Lego robot to complete as many scored missions as possible on the themed field mat within 2.5 minutes. We iterated through the entire season using a structured engineering process.</p>
+
+      <h2>Strategy & Engineering Process</h2>
+      <ul>
+        <li><strong>Mission Analysis:</strong> Evaluated points, distances, attachment types, and mission combination potential to form strategy early in the season.</li>
+        <li><strong>PDCA Framework:</strong> Followed Plan, Do, Check, Adjust cycles to map robot paths and log every iteration.</li>
+        <li><strong>Task Management:</strong> Used Jamboard for task tracking, rotated meeting minutes under a dedicated project manager.</li>
+        <li><strong>Data-Driven:</strong> Logged <strong>1,798 mission runs</strong> and used video replays of failures to refine mechanical and code performance.</li>
+      </ul>
+
+      <h2>Hardware</h2>
+      <ul>
+        <li><strong>Chassis:</strong> Iterated through half a dozen designs (Box, XY, Droid X) before selecting the Y-Axis Robot.</li>
+        <li><strong>Drive System:</strong> 2 large driving motors + 2 medium attachment motors.</li>
+        <li><strong>Pinless Attachments:</strong> Fast-swap pinless connections for rapid mission transitions.</li>
+      </ul>
+
+      <h2>Programming</h2>
+      <ul>
+        <li><strong>Gyro Move Straight:</strong> Eliminated drift during long straight runs.</li>
+        <li><strong>PID Line Follow:</strong> Smooth, jerk-free navigation along field lines.</li>
+        <li><strong>Sensors:</strong> Built-in gyro + 2 color sensors for wall squaring and line squaring.</li>
+        <li><strong>Code Architecture:</strong> Modular MyBlocks and Variables for reusability; source control via GitHub.</li>
+        <li><strong>Python:</strong> Learned Python over the summer; implemented one full run in MicroPython.</li>
+      </ul>
+
+      <div class="calc-box" style="border-left-color: var(--teal);">
+        <strong style="color: var(--teal);">Performance</strong>
+        <span class="line">Maximum score: 370 points within 2.5 minutes</span>
+        <span class="conclusion">→ Surpassed the 300-point team goal</span>
+      </div>
+    </section>
+
+    <!-- MASTERPIECE -->
+    <section id="fll-masterpiece" class="section">
+      <h1>Masterpiece <span class="accent">Season</span></h1>
+      <p>Masterpiece was my second and final FLL season — 7th grade. I stepped into a significantly more technical role: <strong>Robot Lead</strong> and <strong>Hardware Innovation Designer</strong> for the Innovation Project. I also built the control system for the innovation project using an Arduino R4 and designed the robot in CAD using Bricklink Studio before it was physically built.</p>
+      <p>This season is where I first seriously used CAD, which directly led me to learning SolidWorks afterward — the skill that carries through everything in my FTC work.</p>
+
+      <h2>My Roles</h2>
+      <ul>
+        <li><strong>Robot Lead:</strong> Led hardware design, chassis decisions, and attachment engineering.</li>
+        <li><strong>Innovation Project Hardware:</strong> Designed and built the physical control system for the Oxi-Suit innovation project.</li>
+        <li><strong>CAD Design:</strong> Designed the robot in Bricklink Studio. Published CAD renderings and build instructions to the team website (positive-protons.com).</li>
+      </ul>
+
+      <h2>What This Season Taught Me</h2>
+      <p>Masterpiece was the bridge between competitive Lego robotics and real engineering. Designing in CAD before building, wiring a 60V electrical system, and presenting to industry experts pushed me far beyond the FLL basics — and set me up directly for FTC.</p>
+    </section>
+
+    <section id="fll-mp-innovation" class="section">
+      <h1>Innovation Project <span class="accent">— Masterpiece</span></h1>
+      <p>The Masterpiece season's innovation challenge focused on enhancing the experience of a passionate community. Our team chose <strong>scuba diving</strong> — targeting safety, accessibility, and comfort using the Tuckman Engineering Design Process.</p>
+
+      <h2>Community Research</h2>
+      <p>Surveyed over 100 diving enthusiasts and found:</p>
+      <ul>
+        <li><strong>97%</strong> want unobstructed marine views.</li>
+        <li><strong>80%</strong> want verbal communication underwater.</li>
+        <li><strong>77%</strong> want longer dive times.</li>
+        <li><strong>50%+</strong> worry about dehydration.</li>
+      </ul>
+
+      <h2>The Solution — The Oxi-Suit</h2>
+      <ul>
+        <li><strong>Pre-Filtration:</strong> Pumps seawater through a saltless water softener bead system to extract harmful salts and minerals.</li>
+        <li><strong>Oxygen Generation via Electrolysis:</strong> Splits purified water into hydrogen and oxygen, capturing oxygen in a storage tank (110 ml required per human per minute).</li>
+        <li><strong>Closed-Loop Rebreather:</strong> Recycles exhaled air through counterlungs; gas sensors balance oxygen/nitrogen filler gas; soda lime absorbs carbon dioxide.</li>
+        <li><strong>Astronaut-Style Helmet:</strong> Maximum unobstructed visibility; bubbleless exhaust protects marine life.</li>
+        <li><strong>Nitrogen Tank:</strong> Dedicated tank prevents oxygen toxicity — added after expert consultation.</li>
+      </ul>
+
+      <h2>Control System — My Build</h2>
+      <p>I designed and built the hardware control system for the Oxi-Suit:</p>
+      <ul>
+        <li><strong>Brain:</strong> Arduino R4 as the central controller managing all sensors, valves, relays, and gas levels.</li>
+        <li><strong>Power:</strong> 60V / 20A electrical system with a voltage regulator for stable supply.</li>
+        <li><strong>Display:</strong> Status display showing real-time system state.</li>
+        <li><strong>Oxygen Sensor:</strong> Measures O₂ percentage continuously.</li>
+        <li><strong>Solenoids:</strong> Relay-controlled solenoids release oxygen and nitrogen on demand.</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>Electrical Specs</strong>
+        <span class="line">Supply: 60V · 20A</span>
+        <span class="line">Controller: Arduino R4 + relay board</span>
+        <span class="line">Regulation: Voltage regulator for stable 5V/12V rails</span>
+        <span class="result">Sensors: O₂ percentage sensor · status display</span>
+        <span class="conclusion">→ Solenoid valves control oxygen and nitrogen release based on real-time sensor readings</span>
+      </div>
+
+      <h2>Expert Consultations</h2>
+      <ul>
+        <li>Dive shop owners and certified divers.</li>
+        <li>Chemistry professors (oxygen toxicity, gas chemistry).</li>
+        <li>VP of Innovation at Parker Hannifin.</li>
+        <li>Cleveland Aquarium, Case Western, and Kent State (next steps).</li>
+        <li>McMaster-Carr (prototyping partnership).</li>
+      </ul>
+    </section>
+
+    <section id="fll-mp-robot" class="section">
+      <h1>Robot Design <span class="accent">— Masterpiece</span></h1>
+      <p>As Robot Lead, I owned the hardware decisions for the Masterpiece season. I used <strong>Bricklink Studio</strong> to design the robot in CAD before building it — a first for me, and the skill that led directly into SolidWorks and FTC.</p>
+
+      <h2>Hardware</h2>
+      <ul>
+        <li><strong>Drive System:</strong> 2 medium driving motors + 2 large attachment motors + 2 color sensors.</li>
+        <li><strong>Chassis:</strong> Custom-built, optimized robot chassis designed in Bricklink and published open-source at positive-protons.com.</li>
+        <li><strong>Pinless Attachments:</strong> Iterated through numerous designs to finalize fast-swapping, pinless mechanical mechanisms for rapid mission transitions.</li>
+      </ul>
+
+      <h2>Programming & Performance</h2>
+      <ul>
+        <li><strong>Run Revamp:</strong> Completely revamped all runs in December — condensed individual missions into highly efficient multi-mission combinations.</li>
+        <li><strong>Open-Source:</strong> Published CAD renderings and full build instructions to the team website.</li>
+      </ul>
+
+      <div class="calc-box" style="border-left-color: var(--teal);">
+        <strong style="color: var(--teal);">Performance</strong>
+        <span class="line">Maximum score: 420 points within 2.5 minutes</span>
+        <span class="conclusion">→ Crushed the original 300-point goal</span>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section id="contact" class="section">
       <h1>Get in <span class="accent">Touch</span></h1>
@@ -1207,14 +1836,24 @@ function clearSections() {
 function setSidebarVisibility(which) {
   var ftc = document.getElementById('ftcSidebar');
   var sci = document.getElementById('sciolySidebar');
+  var fll = document.getElementById('fllSidebar');
+  var combat = document.getElementById('combatSidebar');
   var main = document.getElementById('mainContent');
   ftc.classList.remove('visible');
   sci.classList.remove('visible');
+  fll.classList.remove('visible');
+  combat.classList.remove('visible');
   if (which === 'ftc') {
     ftc.classList.add('visible');
     main.classList.add('with-sidebar');
   } else if (which === 'scioly') {
     sci.classList.add('visible');
+    main.classList.add('with-sidebar');
+  } else if (which === 'fll') {
+    fll.classList.add('visible');
+    main.classList.add('with-sidebar');
+  } else if (which === 'combat') {
+    combat.classList.add('visible');
     main.classList.add('with-sidebar');
   } else {
     main.classList.remove('with-sidebar');
@@ -1224,12 +1863,17 @@ function setSidebarVisibility(which) {
 function setNavActive(id) {
   document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
   var mapping = {
-    'about': 0, 'contact': 3,
+    'about': 0, 'contact': 5,
     'ftc-landing': 1, 'ftc-seasons-landing': 1, 'ftc-mech-overview': 1,
     'ftc-2526-season': 1, 'ftc-2425-season': 1, 'ftc-itd-robot': 1,
     'ftc-mech-lift': 1, 'ftc-mech-shooting': 1, 'ftc-mech-tipper': 1,
     'ftc-mech-extendo': 1, 'ftc-mech-transfer': 1, 'ftc-mech-v4b': 1,
-    'scioly-landing': 2, 'scioly-overview': 2, 'scioly-circuit': 2, 'scioly-evc': 2
+    'scioly-landing': 2, 'scioly-overview': 2, 'scioly-circuit': 2, 'scioly-evc': 2,
+    'combat-landing': 3, 'combat-overview': 3, 'combat-h-spinner': 3, 'combat-failures': 3,
+    'combat-v1': 3, 'combat-v2': 3, 'combat-v3': 3, 'combat-drivetrain': 3,
+    'combat-weapon-math': 3, 'combat-structure': 3,
+    'fll-landing': 4, 'fll-overview': 4, 'fll-superpowered': 4, 'fll-sp-innovation': 4,
+    'fll-sp-robot': 4, 'fll-masterpiece': 4, 'fll-mp-innovation': 4, 'fll-mp-robot': 4
   };
   var idx = mapping[id];
   if (idx !== undefined) {
@@ -1249,6 +1893,14 @@ function goTop(id, btn) {
     document.getElementById('scioly-overview').classList.add('active');
     setSidebarVisibility('scioly');
     setActiveSidebarBtn('scioly-overview');
+  } else if (id === 'fll-landing') {
+    document.getElementById('fll-overview').classList.add('active');
+    setSidebarVisibility('fll');
+    setActiveSidebarBtn('fll-overview');
+  } else if (id === 'combat-landing') {
+    document.getElementById('combat-overview').classList.add('active');
+    setSidebarVisibility('combat');
+    setActiveSidebarBtn('combat-overview');
   } else {
     document.getElementById(id).classList.add('active');
     setSidebarVisibility('');
@@ -1262,6 +1914,8 @@ function showSection(id, btn) {
   setNavActive(id);
   if (id.startsWith('ftc-')) setSidebarVisibility('ftc');
   else if (id.startsWith('scioly-')) setSidebarVisibility('scioly');
+  else if (id.startsWith('fll-')) setSidebarVisibility('fll');
+  else if (id.startsWith('combat-')) setSidebarVisibility('combat');
   setActiveSidebarBtn(id);
   window.scrollTo(0, 0);
 }
@@ -1271,6 +1925,8 @@ function goToSection(id) {
   document.getElementById(id).classList.add('active');
   setNavActive(id);
   if (id.startsWith('ftc-')) setSidebarVisibility('ftc');
+  else if (id.startsWith('fll-')) setSidebarVisibility('fll');
+  else if (id.startsWith('combat-')) setSidebarVisibility('combat');
   setActiveSidebarBtn(id);
   window.scrollTo(0, 0);
 }

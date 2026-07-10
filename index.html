@@ -545,13 +545,94 @@ a:hover { border-bottom-color: var(--accent); }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
 
+/* ── MOBILE SIDEBAR TOGGLE ── */
+.sidebar-toggle-btn {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text2);
+  cursor: pointer;
+  padding: 7px 14px;
+  border-radius: 4px;
+  letter-spacing: 0.06em;
+  margin-bottom: 20px;
+}
+@media (max-width: 700px) {
+  .sidebar-toggle-btn { display: inline-block; }
+}
+
+/* ── HAMBURGER BUTTON ── */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* ── SIDEBAR OVERLAY BACKDROP ── */
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 89;
+}
+.sidebar-backdrop.active { display: block; }
+
 /* ── RESPONSIVE ── */
 @media (max-width: 700px) {
+  .nav { padding: 0 16px; gap: 10px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: block; }
+
+  .mobile-nav-drawer {
+    display: none;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    z-index: 95;
+    padding: 8px 0 12px;
+    flex-direction: column;
+  }
+  .mobile-nav-drawer.open { display: flex; }
+  .mobile-nav-drawer .nav-btn {
+    text-align: left;
+    padding: 10px 20px;
+    font-size: 13px;
+    border-radius: 0;
+    border-left: 2px solid transparent;
+  }
+  .mobile-nav-drawer .nav-btn.active { border-left-color: var(--accent2); }
+
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 90;
+  }
+  .sidebar.visible {
+    display: block;
+    transform: translateX(0);
+  }
+
+  .main { padding: 24px 16px; margin-left: 0 !important; max-width: 100%; }
+  .main.with-sidebar { margin-left: 0 !important; }
+
+  h1 { font-size: 22px; }
+  h2 { font-size: 16px; }
   .hero-block { grid-template-columns: 1fr; }
-  .main { padding: 28px 20px; }
-  .sidebar { width: 200px; }
-  .main.with-sidebar { margin-left: 200px; }
-  h1 { font-size: 24px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .calc-box { font-size: 11.5px; }
 }
 </style>
 </head>
@@ -566,9 +647,27 @@ a:hover { border-bottom-color: var(--accent); }
     <button class="nav-btn" onclick="goTop('scioly-landing', this)">Sci Oly</button>
     <button class="nav-btn" onclick="goTop('combat-landing', this)">Combat</button>
     <button class="nav-btn" onclick="goTop('fll-landing', this)">FLL</button>
+    <button class="nav-btn" onclick="goTop('printer-landing', this)">3D Printer</button>
+    <button class="nav-btn" onclick="goTop('agra-landing', this)">Agra AI</button>
     <button class="nav-btn" onclick="goTop('contact', this)">Contact</button>
   </div>
+  <button class="nav-hamburger" id="hamburgerBtn" onclick="toggleMobileNav()">☰</button>
 </nav>
+
+<!-- MOBILE NAV DRAWER -->
+<div class="mobile-nav-drawer" id="mobileNavDrawer">
+  <button class="nav-btn active" onclick="goTop('about');closeMobileNav()">About</button>
+  <button class="nav-btn" onclick="goTop('ftc-landing');closeMobileNav()">FTC</button>
+  <button class="nav-btn" onclick="goTop('scioly-landing');closeMobileNav()">Sci Oly</button>
+  <button class="nav-btn" onclick="goTop('combat-landing');closeMobileNav()">Combat</button>
+  <button class="nav-btn" onclick="goTop('fll-landing');closeMobileNav()">FLL</button>
+  <button class="nav-btn" onclick="goTop('printer-landing');closeMobileNav()">3D Printer</button>
+  <button class="nav-btn" onclick="goTop('agra-landing');closeMobileNav()">Agra AI</button>
+  <button class="nav-btn" onclick="goTop('contact');closeMobileNav()">Contact</button>
+</div>
+
+<!-- SIDEBAR BACKDROP -->
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="closeSidebarMobile()"></div>
 
 <!-- SIDEBARS -->
 <aside class="sidebar" id="ftcSidebar">
@@ -627,6 +726,34 @@ a:hover { border-bottom-color: var(--accent); }
   <button class="sidebar-btn" onclick="showSection('fll-mp-innovation',this)">Innovation Project</button>
   <button class="sidebar-btn" onclick="showSection('fll-mp-robot',this)">Robot Design</button>
 </aside>
+
+<aside class="sidebar" id="printerSidebar">
+  <div class="sidebar-cat">3D Printer</div>
+  <button class="sidebar-btn" onclick="showSection('printer-overview',this)">Overview</button>
+  <div class="sidebar-cat">Hardware Upgrades</div>
+  <button class="sidebar-btn" onclick="showSection('printer-firmware',this)">Firmware — Marlin → Klipper</button>
+  <button class="sidebar-btn" onclick="showSection('printer-motion',this)">Motion System</button>
+  <button class="sidebar-btn" onclick="showSection('printer-extruder',this)">Extruder & Hotend</button>
+  <button class="sidebar-btn" onclick="showSection('printer-power',this)">Power & Reliability</button>
+  <div class="sidebar-cat">Tuning & Software</div>
+  <button class="sidebar-btn" onclick="showSection('printer-resonance',this)">Resonance & Input Shaping</button>
+  <button class="sidebar-btn" onclick="showSection('printer-networking',this)">Networking & Remote Access</button>
+  <button class="sidebar-btn" onclick="showSection('printer-ai',this)">AI Failure Detection</button>
+</aside>
+
+<aside class="sidebar" id="agraSidebar">
+  <div class="sidebar-cat">Agra AI Overview</div>
+  <button class="sidebar-btn" onclick="showSection('agra-context',this)">Context & Background</button>
+  <button class="sidebar-btn" onclick="showSection('agra-overview',this)">Overview & Motivation</button>
+  <div class="sidebar-cat">Methodology</div>
+  <button class="sidebar-btn" onclick="showSection('agra-data',this)">Data Collection & Prep</button>
+  <button class="sidebar-btn" onclick="showSection('agra-model',this)">Model & Iterations</button>
+  <button class="sidebar-btn" onclick="showSection('agra-training',this)">Training on the Cardinal Supercomputer</button>
+  <div class="sidebar-cat">Results</div>
+  <button class="sidebar-btn" onclick="showSection('agra-results',this)">Evaluation & Results</button>
+  <button class="sidebar-btn" onclick="showSection('agra-demo',this)">Web App & Demo</button>
+</aside>
+
 <div class="layout">
   <main class="main" id="mainContent">
 
@@ -654,7 +781,7 @@ a:hover { border-bottom-color: var(--accent); }
           <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">mph weapon tip speed</div>
         </div>
         <div style="background: var(--surface); padding: 20px 18px;">
-          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">4</div>
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">6</div>
           <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Disciplines</div>
         </div>
       </div>
@@ -698,6 +825,24 @@ a:hover { border-bottom-color: var(--accent); }
             </div>
             <p style="font-size: 13px; color: var(--text2); margin: 0 0 10px; line-height: 1.6;">5th at State in Circuit Lab (9th grade, no formal physics). EV-C autonomous control system with odometry-anchored S-curve navigation and sensor fusion.</p>
             <div style="font-size: 11px; color: var(--accent2); font-family: var(--font-mono);">Circuit Lab · EV-C Autonomous →</div>
+          </div>
+
+          <div onclick="goTop('agra-landing')" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; cursor: pointer; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent3)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text);">Agra AI — STEM Institute</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px;">Summer Research</div>
+            </div>
+            <p style="font-size: 13px; color: var(--text2); margin: 0 0 10px; line-height: 1.6;">Built and fine-tuned a YOLOv8-based real-time weed detection model for automated pesticide spraying, trained on the Cardinal H100 supercomputer through a STEM Institute (SI) research program. Three dataset iterations, full evaluation pipeline, and a web demo.</p>
+            <div style="font-size: 11px; color: var(--accent2); font-family: var(--font-mono);">Computer Vision · Precision Agriculture →</div>
+          </div>
+
+          <div onclick="goTop('printer-landing')" style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; cursor: pointer; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent3)'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+              <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--text);">Ender 3 V2 Neo — Full Rebuild</div>
+              <div style="font-family: var(--font-mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 2px 8px; border-radius: 3px;">5th – 7th Grade</div>
+            </div>
+            <p style="font-size: 13px; color: var(--text2); margin: 0 0 10px; line-height: 1.6;">Bought a broken printer in 5th grade and spent two years turning it into a high-performance machine. Klipper firmware, dual Z axis, input shaping, CF-capable hotend, remote access over SSH tunnel, AI failure detection, and a Pi 5 brain.</p>
+            <div style="font-size: 11px; color: var(--accent2); font-family: var(--font-mono);">Klipper · Hardware Mods · Networking →</div>
           </div>
 
         </div>
@@ -1157,6 +1302,8 @@ a:hover { border-bottom-color: var(--accent); }
       <p>Science Olympiad lets students practice hands-on science and engineering in a competitive format. School teams prepare a roster of students who train across many events — laboratory skills, building and design challenges, timed performance tasks, and subject knowledge.</p>
       <p>The emphasis is practical and collaborative: students build prototypes, run repeatable tests, record results, and work together to solve problems. The organization progresses from local invitationals to regional and state tournaments, culminating in the National Tournament at a rotating host university.</p>
       <p>I started participating in Science Olympiad in 9th grade.</p>
+
+      
     </section>
 
     <section id="scioly-circuit" class="section">
@@ -1168,6 +1315,8 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="conclusion">→ Achieved in 9th grade without formal physics courses — relying on hands-on practice and basic circuit intuition.</span>
       </div>
       <p>Circuit Lab teaches small, practical skills used in electronics: reading schematics, using a multimeter, and understanding how series/parallel connections affect voltage and current. Those skills transfer directly to prototyping and debugging robotics electronics.</p>
+
+      
     </section>
 
     <!-- EV C -->
@@ -1225,13 +1374,13 @@ a:hover { border-bottom-color: var(--accent); }
         <div class="media-grid">
           <figure class="media-figure">
             <video controls preload="metadata" style="border:1px solid var(--border); border-radius:6px; width:100%;">
-              <source src="images/evc_run.mp4" type="video/mp4">
+              <source src="images/evc_runv2.mp4" type="video/mp4">          
+              <source src="images/evc_runv2.mov" type="video/quicktime">
+
             </video>
-            <figcaption class="media-caption">EV-C v2 run</figcaption>
+            <img src="images/ev2.JPG" class="lightbox-img" alt="EV-C V2 car photo">
           </figure>
           <figure class="media-figure">
-            <img src="images/evc_photo.jpg" class="lightbox-img" alt="EV-C photo">
-            <figcaption class="media-caption">EV-C v2 photo</figcaption>
           </figure>
         </div>
 
@@ -1254,6 +1403,11 @@ a:hover { border-bottom-color: var(--accent); }
           <span class="line">Acceptable regional performance when it worked</span>
           <span class="conclusion">→ Limited by coarse motor control and no bonus capability</span>
         </div>
+
+        <figure class="media-figure" style="max-width:500px; margin-top:16px;">
+        <img src="images/evc2_photo.jpg" class="lightbox-img" alt="EV-C photo">
+          <figcaption class="media-caption">EV-C V1 prototype — relay-controlled, single encoder</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -1288,6 +1442,17 @@ a:hover { border-bottom-color: var(--accent); }
       </div>
 
       <p style="margin-top:20px;">The current robot is V3 — still being refined. SolidWorks static studies are being used to validate structural decisions before cutting anything. This is ongoing.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — current V3 robot or CAD render]</div>
+          <figcaption class="media-caption">Combat robot V3 — current build</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — weapon eggbeater close-up]</div>
+          <figcaption class="media-caption">95mm eggbeater weapon profile</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- HORIZONTAL SPINNER -->
@@ -1327,6 +1492,21 @@ a:hover { border-bottom-color: var(--accent); }
         <li><strong>Low wedge compatibility:</strong> Horizontal spinners sit high and present a large lateral surface. A low wedge opponent can slide underneath and negate the weapon entirely.</li>
       </ul>
       <p>These aren't solvable by better chassis stiffness. They're geometric and physical constraints. The conclusion: move to a vertical spinner, where the gyroscopic effect actually aids ground contact and the weapon geometry is far more favorable.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/sawSpin.JPG" class="lightbox-img" alt="Horizontal spinner with a cement cutting blade attached, spins 267 mph">
+          <figcaption class="media-caption">140mm sawblade spinning at 267 mph</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/hspinn.JPG" class="lightbox-img" alt="Horizontal spinner protoype with 3d printer">
+          <figcaption class="media-caption">Horizontal spinner prototype (photo)</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/horzspinn.PNG" class="lightbox-img" alt="Horizontal spinner prototype designed in CAD before being built">
+          <figcaption class="media-caption">Horizontal spinner prototype (CAD)</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- FAILURE ANALYSIS -->
@@ -1361,6 +1541,17 @@ a:hover { border-bottom-color: var(--accent); }
       </div>
 
       <p>After implementing the diode circuit, ESC failures from back-EMF stopped entirely. This was one of the most important electrical engineering lessons of the project — understanding not just that components were failing, but <em>why</em> at the circuit level.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+        <img src="images/escBurn.jpg" class="lightbox-img" alt="Burned ESC MOSFETs">
+          <figcaption class="media-caption">Failed ESC — MOSFET destruction from back-EMF spike</figcaption>
+        </figure>
+        <figure class="media-figure">
+        <img src="images/schottky_diode.PNG" class="lightbox-img" alt="Schottky diode across motor terminals">
+          <figcaption class="media-caption">Schottky diode flyback protection — wired across motor terminals</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- VERTICAL V1 -->
@@ -1392,6 +1583,17 @@ a:hover { border-bottom-color: var(--accent); }
 
       <h2>Why V1 Was Retired After 8 Chassis Iterations</h2>
       <p>The weapon geometry was sound. The chassis wasn't. V1's chassis was too large — overbuilt in ways that ate into the weight budget without adding meaningful structural benefit. I redesigned the chassis 8 times trying to solve it within the existing architecture, but the fundamental footprint was wrong. The lesson: a good weapon mounted on a bad chassis is still a bad robot. I scrapped the chassis entirely and started V2.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — V1 vertical spinner / eggbeater]</div>
+          <figcaption class="media-caption">V1 eggbeater — 80mm, sound weapon geometry, oversized chassis</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo or CAD — chassis iteration showing size problem]</div>
+          <figcaption class="media-caption">V1 chassis — footprint too large, scrapped after 8 iterations</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- VERTICAL V2 -->
@@ -1432,6 +1634,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Drive: Brushed — inefficient, high stall current, heat issues</span>
         <span class="line">Weapon motor: 2980 KV inrunner — too small, slow spin-up, poor impact recovery</span>
         <span class="conclusion">→ Architecture not salvageable. Moved to V3 with correct motor selection and redesigned chassis.</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — V2 robot / 85mm eggbeater]</div>
+          <figcaption class="media-caption">V2 — smaller chassis, 85mm eggbeater, wrong motor selection</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — FingerTech inrunner motor]</div>
+          <figcaption class="media-caption">FingerTech 2980 KV inrunner — too small, insufficient spin-up torque</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -1502,6 +1715,21 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Drivetrain ratio: optimized (see Drivetrain page)</span>
         <span class="conclusion">→ Not yet competition-ready. Converting SolidWorks designs into physical hardware is the current phase.</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo or CAD — V3 full robot / current chassis]</div>
+          <figcaption class="media-caption">V3 current build — BA 2320 outrunner, 95mm eggbeater, Blitz Lite drivetrain</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — BA 2320 outrunner motor]</div>
+          <figcaption class="media-caption">BA 2320 1860 KV outrunner — correct motor selection for V3</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[SolidWorks screenshot — V3 CAD model]</div>
+          <figcaption class="media-caption">SolidWorks CAD — V3 chassis design with pocketing</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- DRIVETRAIN -->
@@ -1541,6 +1769,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li><strong>Weapon reaction forces:</strong> When the weapon hits something, Newton's third law sends a reaction force into the chassis. The chassis must be designed so this force doesn't tip the robot over or flip it — which means the CoG placement and chassis geometry work together.</li>
         <li><strong>Drive wheel position:</strong> Drive wheels placed at the optimal lateral position maximize the turning moment while keeping the robot's rotational inertia low for quick pivoting.</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo or CAD — drivetrain layout / wheel placement]</div>
+          <figcaption class="media-caption">Drivetrain layout — wheel position and weight distribution</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Blitz Lite brushless drive motors]</div>
+          <figcaption class="media-caption">JustCuz Robotics Blitz Lite — brushless drive motors</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- WEAPON PHYSICS -->
@@ -1585,6 +1824,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Leading edge height off floor: ≤ 2mm</span>
         <span class="line">Wedge material: hardened steel or titanium — must resist opponent weapon hits without deforming</span>
         <span class="conclusion">→ The wedge and weapon work as a system: wedge captures, weapon delivers energy</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo or CAD — eggbeater profile 80mm vs 85mm vs 95mm comparison]</div>
+          <figcaption class="media-caption">Eggbeater progression — 80mm → 85mm → 95mm weapon diameter</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[CAD — wedge geometry / front profile]</div>
+          <figcaption class="media-caption">Wedge geometry — 8–12° angle, ≤2mm floor clearance</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -1633,6 +1883,21 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">What remains: manufacturing the final chassis, completing TPU armor integration, tuning the drivetrain ratio in hardware, and competition testing.</span>
         <span class="conclusion">→ The gap between a correct design and a competition-ready robot is manufacturing, tuning, and time.</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[SolidWorks FEA screenshot — chassis stress analysis]</div>
+          <figcaption class="media-caption">SolidWorks static study — stress distribution on chassis under impact load</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — pocketed chassis plate]</div>
+          <figcaption class="media-caption">Pocketed chassis plate — material removed in low-stress zones</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — TPU armor panels / printed parts]</div>
+          <figcaption class="media-caption">TPU armor panels — impact-absorbing 3D printed side protection</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- FLL LANDING -->
@@ -1671,7 +1936,7 @@ a:hover { border-bottom-color: var(--accent); }
     <section id="fll-superpowered" class="section">
       <h1>Superpowered <span class="accent">Season</span></h1>
       <p>Superpowered was my first ever year doing robotics — 6th grade, starting from scratch. The season's theme centered on the energy sector: how we generate, transmit, store, and consume power. It was a steep learning curve, but it's where I first learned what it means to engineer something under real competition constraints.</p>
-      <p>We advanced through regionals and states all the way to the California Invitational — a strong result for a first-year team.</p>
+      <p>We advanced through regionals and states all the way to the California Invitational.</p>
 
       <h2>What I Worked On</h2>
       <ul>
@@ -1688,6 +1953,17 @@ a:hover { border-bottom-color: var(--accent); }
 
       <div style="margin-top:16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px 18px;">
         <p style="font-size:12px; color:var(--text3); margin:0;">[Image placeholder — competition photos]</p>
+      </div>
+
+      <div class="media-grid" style="margin-top:16px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Superpowered robot on field mat]</div>
+          <figcaption class="media-caption">Superpowered robot completing missions on the field mat</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — team at California Invitational]</div>
+          <figcaption class="media-caption">California Invitational — end of season tournament</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -1730,6 +2006,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li>Ongoing conversations with NASA's Solar Energy team and Amazon Farms for collaboration.</li>
         <li>Partnering with a local Aurora makerspace to build a functional working prototype.</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — solar panel cleaning robot prototype / model]</div>
+          <figcaption class="media-caption">Bi-directional cleaning robot concept — mounts directly to panel surface</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — innovation project presentation / judges]</div>
+          <figcaption class="media-caption">Innovation project presentation at competition</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section id="fll-sp-robot" class="section">
@@ -1765,6 +2052,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Maximum score: 370 points within 2.5 minutes</span>
         <span class="conclusion">→ Surpassed the 300-point team goal</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Superpowered robot close-up / attachments]</div>
+          <figcaption class="media-caption">Y-Axis robot with pinless attachment system</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — robot running missions on field mat]</div>
+          <figcaption class="media-caption">Robot game run — 370 points in 2.5 minutes</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- MASTERPIECE -->
@@ -1782,6 +2080,17 @@ a:hover { border-bottom-color: var(--accent); }
 
       <h2>What This Season Taught Me</h2>
       <p>Masterpiece was the bridge between competitive Lego robotics and real engineering. Designing in CAD before building, wiring a 60V electrical system, and presenting to industry experts pushed me far beyond the FLL basics — and set me up directly for FTC.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Masterpiece robot / Bricklink CAD render]</div>
+          <figcaption class="media-caption">Masterpiece robot — designed in Bricklink Studio before physical build</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — competition or team photo]</div>
+          <figcaption class="media-caption">Masterpiece season — 7th grade</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section id="fll-mp-innovation" class="section">
@@ -1833,6 +2142,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li>Cleveland Aquarium, Case Western, and Kent State (next steps).</li>
         <li>McMaster-Carr (prototyping partnership).</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Oxi-Suit control system / Arduino build]</div>
+          <figcaption class="media-caption">Oxi-Suit control system — Arduino R4, relay board, solenoids, O₂ sensor</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — innovation project presentation / judges]</div>
+          <figcaption class="media-caption">Masterpiece innovation project presentation</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section id="fll-mp-robot" class="section">
@@ -1856,6 +2176,613 @@ a:hover { border-bottom-color: var(--accent); }
         <strong style="color: var(--teal);">Performance</strong>
         <span class="line">Maximum score: 420 points within 2.5 minutes</span>
         <span class="conclusion">→ Crushed the original 300-point goal</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Masterpiece robot on field mat]</div>
+          <figcaption class="media-caption">Masterpiece robot — pinless attachments, dual large motors</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Bricklink CAD render — robot design]</div>
+          <figcaption class="media-caption">Bricklink Studio CAD render — published open-source at positive-protons.com</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- AGRA AI LANDING -->
+    <section id="agra-landing" class="section">
+      <h1>Agra <span class="accent">AI</span></h1>
+      <p>A summer research project through the <strong>STEM Institute (SI)</strong>: how to leverage advances in AI and computing in agriculture. The goal was a real-time weed detection system for automated pesticide spraying — fine-tuning a YOLOv8 object detection model on a custom corn field dataset and deploying it through a web interface.</p>
+      <p>I led the model development end-to-end: dataset selection and curation, training pipeline, optimization, and evaluation — running on the <strong>Cardinal supercomputer</strong> with NVIDIA H100 access through the program.</p>
+    </section>
+
+    <!-- AGRA CONTEXT -->
+    <section id="agra-context" class="section">
+      <h1>Context <span class="accent">& Background</span></h1>
+      <p>This project came out of the <strong>STEM Institute (SI)</strong> — a summer research program that gives students access to university-level resources, mentorship, and high-performance computing infrastructure that would otherwise be completely out of reach.</p>
+
+      <h2>What SI Is</h2>
+      <ul>
+        <li><strong>Program structure:</strong> Students work in small teams on a focused research problem over a condensed summer timeline, guided by mentors with domain expertise.</li>
+        <li><strong>HPC access:</strong> The defining resource SI provides is access to the <strong>Cardinal supercomputer</strong> — an institutional HPC cluster with NVIDIA H100 GPUs. Training a real computer vision model on meaningful data isn't feasible on a laptop. Cardinal is what made this project possible at a real research scale.</li>
+        <li><strong>Research framing:</strong> Projects follow a proper research methodology — problem definition, data pipeline, experimental setup, evaluation metrics, and a final presentation. It's not a hackathon or a workshop. The output is a working system with defensible results.</li>
+      </ul>
+
+      <h2>My Role</h2>
+      <p>I led the model development end-to-end within the team. That meant owning the full technical pipeline: evaluating dataset options, diagnosing why early versions failed, designing the data curation and augmentation strategy, structuring the training runs on Cardinal, and building out the evaluation framework (confusion matrix, precision, recall, F1, loss curves).</p>
+      <p>The field data collection — mounting GoPros on an ATV and driving through corn fields — was a team effort. The model is mine.</p>
+
+      <h2>Why This Project</h2>
+      <p>The SI challenge question was open-ended: <em>how can advances in AI and computing be applied in agriculture?</em> Precision weed detection was the right answer because it's a problem where computer vision has a direct, measurable impact — not a demo, but an actual system an automated sprayer could run. The 70% reduction in pesticide use that targeted spraying enables isn't theoretical; it's been demonstrated in real deployments. Building the detection layer that makes that possible is concrete engineering.</p>
+
+      <div class="calc-box" style="border-left-color: var(--blue);">
+        <strong style="color: var(--blue);">Program Context at a Glance</strong>
+        <span class="line">Program: STEM Institute (SI) — summer research</span>
+        <span class="line">Compute: Cardinal supercomputer, NVIDIA H100, 96 GB HBM</span>
+        <span class="line">Role: Model lead — dataset pipeline, training, evaluation</span>
+        <span class="line">Output: Fine-tuned YOLOv8 weed detector + web inference interface</span>
+        <span class="conclusion">→ SI provided the infrastructure and mentorship. The model decisions, iterations, and results are mine.</span>
+      </div>
+
+      <figure class="media-figure" style="max-width:600px; margin-top:20px;">
+        <img src="images/SI_Logo.png" class="lightbox-img" alt="STEM Institute logo" />
+        <figcaption class="media-caption">STEM Institute Logo</figcaption>
+      </figure>
+    </section>
+
+    <!-- AGRA OVERVIEW -->
+    <section id="agra-overview" class="section">
+      <h1>Overview <span class="accent">& Motivation</span></h1>
+      <p>The broad challenge for the program: <strong>how can AI and computing be leveraged in the field of agriculture?</strong> The focus was one of the most direct applications — precision pesticide spraying using real-time weed detection.</p>
+
+      <h2>The Problem Statement</h2>
+      <ul>
+        <li>Finding, building, and cleaning a dataset good enough to train on.</li>
+        <li>Picking the right model architecture for real-time field detection.</li>
+        <li>Getting the training to actually converge without overfitting or class imbalance killing it.</li>
+        <li>Defining what "good enough" looks like and measuring it rigorously.</li>
+        <li>Turning model output into something that drives a real spraying system.</li>
+      </ul>
+
+      <h2>Motivation & Challenges</h2>
+      <ul>
+        <li><strong>Chemical waste:</strong> Blanket pesticide spraying wastes chemicals and pollutes runoff. Automated, targeted sprayers can cut pesticide use by an estimated <strong>70%</strong> by only spraying where weeds actually are.</li>
+        <li><strong>Good data is private:</strong> Most useful agricultural imagery is owned by ag-tech companies or farms, not freely available.</li>
+        <li><strong>Cost barriers:</strong> Training and deploying capable AI models has historically required compute and expertise most small operations can't access.</li>
+        <li><strong>Rural infrastructure gaps:</strong> Limited connectivity and compute availability in rural areas constrain what kinds of AI systems can realistically run on a farm.</li>
+        <li><strong>Accessibility of AI:</strong> Models like YOLO make state-of-the-art object detection accessible — fast enough for real-time inference, with a simple bounding-box / label / confidence output that's easy to act on.</li>
+      </ul>
+
+      <h2>Why YOLO</h2>
+      <p>YOLO (You Only Look Once) is a state-of-the-art real-time object detection architecture. It outputs bounding boxes, class labels, and confidence scores in a single pass — fast enough to run inference on live video, which is exactly what an automated sprayer driving through a field needs.</p>
+
+      <div class="calc-box" style="border-left-color: var(--red);">
+        <strong style="color: var(--red);">Can an Off-the-Shelf YOLO Model Do This?</strong>
+        <span class="line">A standard, pretrained YOLO model was tested on field images (10% confidence threshold)</span>
+        <span class="line">Result: weeds and crops were frequently misclassified or missed entirely</span>
+        <span class="conclusion">→ The standard YOLO model is not built for this task and needs proper fine-tuning on a dedicated weed-vs-crop dataset.</span>
+      </div>
+
+      <h2>What I Built</h2>
+      <ul>
+        <li><strong>Fine-tuned YOLOv8 model:</strong> real-time weed detection in corn fields, trained on a custom curated dataset.</li>
+        <li><strong>Web interface:</strong> upload an image or video and get back bounding-box detections with labels and confidence scores — this is what would power an automated spraying system.</li>
+      </ul>
+
+      <h2>The Problem in Action</h2>
+      <div class="media-grid">
+        <figure class="media-figure">
+        </figure>
+        <figure class="media-figure">
+          <img src="images/output.jpg" class="lightbox-img" alt="Pretrained YOLO model output on corn field image — weeds misclassified as crops" />
+          <figcaption class="media-caption">Stock YOLO model output — failing to distinguish weeds from crops</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- AGRA DATA -->
+    <section id="agra-data" class="section">
+      <h1>Data Collection <span class="accent">& Prep</span></h1>
+      <p>Good data was the hardest part of this project — harder than the model itself. Three full dataset iterations before landing on one that actually worked.</p>
+
+      <h2>Collecting Field Data Directly</h2>
+      <p>Rather than relying entirely on existing datasets, I visited a local farm and collected corn field and weed imagery firsthand:</p>
+      <ul>
+        <li><strong>Hardware:</strong> Mounted and calibrated GoPro cameras on an ATV.</li>
+        <li><strong>Capture method:</strong> Cameras recorded as a farmer drove the ATV over the fields, capturing corn rows and weeds from a realistic sprayer's-eye viewpoint.</li>
+      </ul>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <img src="images/gopro.jpg" class="lightbox-img" alt="GoPro camera setup on ATV for field data collection" />
+          <figcaption class="media-caption">GoPro camera setup on ATV for field data collection</figcaption>
+        </figure>
+  
+      </div>
+
+      <h2>Preprocessing</h2>
+      <p>Raw footage isn't usable directly. Raw images contained noise, blur, and inconsistent saturation and brightness — the model struggles to learn meaningful features from inconsistent input. Frames had to be extracted, cropped, and adjusted before annotation or training.</p>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Image — raw frame vs. preprocessed frame comparison]</div>
+          <figcaption class="media-caption">Before and after preprocessing — noise, blur, and exposure correction</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Image — augmented dataset samples]</div>
+          <figcaption class="media-caption">Augmented training samples — varied brightness, saturation, and scale</figcaption>
+        </figure>
+      </div>
+
+      <h2>Data Augmentation</h2>
+      <p>Feeding preprocessed images straight into the model risks overfitting and amplifies class imbalance (far more weed examples than crop examples). Augmentation randomly varies brightness, saturation, scale, and orientation so the model generalizes to real field conditions rather than memorizing specific footage.</p>
+
+      <h2>Three Dataset Iterations</h2>
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('agradata','agradata-v1',this)">V1 — Unannotated</button>
+        <button class="tab-btn" onclick="switchTab('agradata','agradata-v2',this)">V2 — Kaggle Annotated</button>
+        <button class="tab-btn" onclick="switchTab('agradata','agradata-v3',this)">V3 — Flagship</button>
+      </div>
+
+      <div id="agradata-v1" class="tab-panel active">
+        <h2>Version 1 — Unannotated Dataset</h2>
+        <p>Our first attempt used an unannotated dataset of field images — no bounding boxes, no labels.</p>
+        <figure class="media-figure" style="max-width:500px; margin-top:12px;">
+          <img src="images/v1n.jpg" class="lightbox-img" alt="V1 model output — weeds misinterpreted without annotation ground truth" />
+          <figcaption class="media-caption">V1 model output — weeds misinterpreted without annotation ground truth</figcaption>
+        </figure>
+        <div class="calc-box" style="border-left-color: var(--red);">
+          <strong style="color: var(--red);">Result</strong>
+          <span class="line">Bad data → bad results</span>
+          <span class="conclusion">→ Without annotations the model had no ground truth to learn from. Weeds were consistently misinterpreted.</span>
+        </div>
+      </div>
+
+      <div id="agradata-v2" class="tab-panel">
+        <h2>Version 2 — Annotated Kaggle Dataset</h2>
+        <p>Switching to a properly annotated Kaggle dataset of crops and weeds was a real improvement in label quality — but a new problem appeared.</p>
+        <figure class="media-figure" style="max-width:500px; margin-top:12px;">
+          <img src="images/output5.jpg" class="lightbox-img" alt="V2 model output — annotated but insufficient data, weeds confused with non-plant objects" />
+          <figcaption class="media-caption">V2 output — annotated but insufficient data, weeds confused with non-plant objects</figcaption>
+        </figure>
+        <div class="calc-box" style="border-left-color: var(--red);">
+          <strong style="color: var(--red);">Result</strong>
+          <span class="line">Annotated, but not enough data</span>
+          <span class="conclusion">→ The model misinterpreted weeds for other objects in the frame — the dataset wasn't large or varied enough to teach a robust distinction.</span>
+        </div>
+      </div>
+
+      <div id="agradata-v3" class="tab-panel">
+        <h2>Version 3 — The Flagship Dataset (DataNinja)</h2>
+        <p>A significantly better dataset from DataNinja. This is where the core problem underlying both earlier attempts became clear: <strong>class imbalance</strong> — far fewer crop examples than weed examples.</p>
+        <figure class="media-figure" style="max-width:500px; margin-top:12px;">
+          <img src="images/val_batch0_labels.jpg" class="lightbox-img" alt="V3 flagship dataset sample with annotations" />
+          <figcaption class="media-caption">V3 flagship dataset — balanced weed and crop examples with clean bounding-box annotations</figcaption>
+        </figure>
+        <div class="calc-box" style="border-left-color: var(--teal);">
+          <strong style="color: var(--teal);">Result</strong>
+          <span class="line">Better-quality, better-labeled dataset from DataNinja</span>
+          <span class="line">Identified class imbalance: crops &lt; weeds</span>
+          <span class="line">Fix: mixed multiple datasets together to balance crop and weed representation</span>
+          <span class="conclusion">→ This combined, rebalanced dataset became the flagship training set used for the final model.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGRA MODEL -->
+    <section id="agra-model" class="section">
+      <h1>Model <span class="accent">& Iterations</span></h1>
+      <p>Our base model was <strong>YOLOv8</strong>, fine-tuned on the flagship weed-vs-crop dataset. The end-to-end pipeline goes from raw field footage all the way to a working detection model behind a web interface.</p>
+
+      <h2>End-to-End Pipeline</h2>
+      <ul>
+        <li><strong>Data Collection:</strong> GoPro footage from the ATV → frame extraction.</li>
+        <li><strong>Preprocessing:</strong> Cropping, brightness/saturation correction, noise reduction.</li>
+        <li><strong>Augmentation:</strong> Randomized brightness, saturation, and scale to prevent overfitting and address class imbalance.</li>
+        <li><strong>Annotation & Curation:</strong> Combined and rebalanced datasets (V3 flagship) for crop vs. weed labels.</li>
+        <li><strong>Training:</strong> Fine-tuning YOLOv8 on the curated dataset using the Cardinal supercomputer.</li>
+        <li><strong>Evaluation:</strong> Confusion matrix, accuracy, precision, recall, and F1 score across training rounds.</li>
+        <li><strong>Deployment:</strong> Web interface for uploading and classifying field images/video — the interface that would drive an automated sprayer.</li>
+      </ul>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <img src="images/diagram.png" class="lightbox-img" alt="End-to-end pipeline diagram" />
+          <figcaption class="media-caption">End-to-end pipeline: raw footage → trained model → web deployment</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/diagram_YOLO.png" class="lightbox-img" alt="YOLOv8 architecture diagram" />
+          <figcaption class="media-caption">YOLOv8 architecture — backbone, neck, and detection head</figcaption>
+        </figure>
+      </div>
+
+      
+    </section>
+
+    <!-- AGRA TRAINING -->
+    <section id="agra-training" class="section">
+      <h1>Training on the <span class="accent">Cardinal Supercomputer</span></h1>
+      <p>Through the STEM Institute program, we had access to high-performance computing resources that would otherwise be completely out of reach for a project like this — specifically, the <strong>Cardinal supercomputer</strong>.</p>
+
+      <h2>Hardware</h2>
+      <div class="calc-box">
+        <strong>Experimental Setup</strong>
+        <span class="line">Compute: 1× NVIDIA H100 with 96 GB high-bandwidth memory</span>
+        <span class="line">Processor: Intel Xeon CPU Max 9470 (2.0 GHz)</span>
+        <span class="line">2 CPU sockets per node, 1 node used</span>
+        <span class="conclusion">→ Access to this level of compute is one of the biggest barriers to small-scale agricultural AI — having it through SI was a huge advantage for this project.</span>
+      </div>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <img src="images/Cardinal.jpeg" class="lightbox-img" alt="Cardinal supercomputer — NVIDIA H100 node used for training" />
+          <figcaption class="media-caption">Cardinal supercomputer — NVIDIA H100 node used for training</figcaption>
+        </figure>
+      </div>
+
+      <h2>Training Rounds</h2>
+      <p>We ran <strong>3 training rounds</strong> on the flagship dataset, evaluating model performance after each round using a consistent set of metrics: confusion matrix, accuracy, precision, recall, and F1 score. Each round informed dataset or hyperparameter adjustments for the next.</p>
+    </section>
+
+    <!-- AGRA RESULTS -->
+    <section id="agra-results" class="section">
+      <h1>Evaluation <span class="accent">& Results</span></h1>
+      <p>After three training rounds on the flagship dataset, we evaluated the model using a standard set of object detection metrics.</p>
+
+      <h2>Confusion Matrix</h2>
+      <p>The confusion matrix breaks down the model's predictions against ground truth — how often weeds were correctly identified as weeds, crops as crops, and where the model confused the two. We viewed this both as raw prediction counts and as normalized percentages, to understand both overall volume and per-class error rates.</p>
+
+      <h2>Precision, Recall & F1</h2>
+      <ul>
+        <li><strong>Precision:</strong> Of everything the model flagged as a weed, how much actually was a weed. High precision matters for an automated sprayer — false positives mean wasted spray on crops.</li>
+        <li><strong>Recall:</strong> Of all the actual weeds in the field, how many the model successfully detected. High recall matters because missed weeds don't get sprayed at all.</li>
+        <li><strong>F1 Score:</strong> The harmonic mean of precision and recall — a single number that balances both, useful for comparing model versions across training rounds.</li>
+      </ul>
+
+      <h2>Box Loss & Class Loss</h2>
+      <p>During training we tracked box loss (how accurately predicted bounding boxes matched ground-truth boxes) and class loss (how confidently and correctly the model assigned the weed/crop label) across each round. Watching both curves trend downward across the three training rounds was the clearest signal that the rebalanced flagship dataset was actually fixing the problems from V1 and V2.</p>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <img src="images/confusion_matrix.png" class="lightbox-img" alt="Confusion matrix — weed vs. crop classification" />
+          <figcaption class="media-caption">Confusion matrix — weed vs. crop classification</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/val_batch1_labels.png" class="lightbox-img" alt="Model output — bounding boxes around detected weeds" />
+          <figcaption class="media-caption">Precision, recall,F1 score, Box loss, and class loss curves on V3 flagship Model</figcaption>
+      </div>
+    </section>
+
+    <!-- AGRA DEMO -->
+    <section id="agra-demo" class="section">
+      <h1>Web App <span class="accent">& Demo</span></h1>
+      <p>The final deliverable was a working application: a fine-tuned YOLOv8 model running real-time inference on weeds in corn fields, accessible through a simple web interface.</p>
+
+      <h2>What the App Does</h2>
+      <ul>
+        <li><strong>Real-time inferencing:</strong> Detects weeds in corn field footage as it's processed.</li>
+        <li><strong>Web interface:</strong> Upload your own image or video and run it through the model to get classified results.</li>
+        <li><strong>Output:</strong> Bounding boxes drawn around detected weeds, with class labels and confidence scores — the same output format an automated sprayer would use to decide where to spray.</li>
+      </ul>
+
+      <div class="media-grid">
+        <figure class="media-figure">
+          <video controls playsinline preload="metadata" style="width:100%; display:block; border-radius:8px;">
+            <source src="images/demo2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption class="media-caption">Web interface for uploading and classifying field footage</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/val_batch1_labels.png" class="lightbox-img" alt="Model output — bounding boxes around detected weeds" />
+          <figcaption class="media-caption">Model output — bounding boxes around detected weeds</figcaption>
+        </figure>
+      </div>
+
+      <h2>Reflection</h2>
+      <p>This project was done through the <strong>STEM Institute (SI)</strong> program, working alongside a team and with access to HPC resources through the Cardinal supercomputer that wouldn't otherwise be available. I led the model side end-to-end — dataset curation across three iterations, fine-tuning YOLOv8, optimizing training on the H100, and building out the evaluation pipeline. It's the project that pushed me furthest into machine learning and gave me a real sense of how AI gets applied to a physical, real-world system rather than just a benchmark dataset.</p>
+    </section>
+
+    <!-- 3D PRINTER -->
+    <section id="printer-landing" class="section">
+      <h1>Ender 3 V2 Neo <span class="accent">— Full Rebuild</span></h1>
+      <p>Got my first 3D printer in 5th grade. It didn't work out of the box. Two years later, it was a completely different machine — Klipper firmware, dual Z axis, input shaping, CF-capable hotend, AI failure detection, and remote access from anywhere. This is the story of every issue I hit and how I fixed it.</p>
+    </section>
+
+    <section id="printer-overview" class="section">
+      <h1>Printer <span class="accent">Overview</span></h1>
+      <p>The Ender 3 V2 Neo is a budget bed-slinger — one of the most popular entry-level 3D printers. Out of the box, mine had every problem a printer can have: Z banding, bed leveling failures, adhesion issues, incorrect E-step calibration, and consistent overextrusion. I didn't realize I was about to fall into a two-year rabbit hole of hardware and firmware engineering.</p>
+      <p>I did everything myself — no technician, no paid service. Every fix, every calibration, every upgrade was researched, planned, and executed solo.</p>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; margin: 24px 0;">
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">5th</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Grade started</div>
+        </div>
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">2yr</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Build timeline</div>
+        </div>
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">0</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Glue stick needed</div>
+        </div>
+        <div style="background: var(--surface); padding: 20px 18px;">
+          <div style="font-family: var(--font-display); font-size: 36px; font-weight: 800; color: var(--accent); line-height: 1;">Pi 5</div>
+          <div style="font-size: 11px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 6px;">Current brain</div>
+        </div>
+      </div>
+
+      <h2>The Problem Chain</h2>
+      <p>What made this project difficult wasn't any single issue — it was that fixing one thing revealed the next. Z banding pointed to firmware. Firmware pointed to the Z axis. The Z axis pointed to motion system geometry. Motion geometry pointed to resonance. Every fix compounded into a better understanding of what a printer actually is: a precision motion system, not a magic box.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — final printer build]</div>
+          <figcaption class="media-caption">Ender 3 V2 Neo — fully rebuilt, 7th grade completion</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — early state / stock printer with issues]</div>
+          <figcaption class="media-caption">Stock configuration — Z banding and adhesion failures visible</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="printer-firmware" class="section">
+      <h1>Firmware <span class="accent">— Marlin → Klipper</span></h1>
+      <p>The first thing I tried was manual calibration — bed leveling, E-steps, flow rate. It helped, but the printer kept drifting back to bad behavior. After enough research, I realized the root cause wasn't calibration technique — it was the firmware itself.</p>
+
+      <h2>The Marlin Problem</h2>
+      <p>The stock Ender 3 V2 Neo runs Marlin firmware. Marlin is compiled and flashed as a static binary — to change any motion parameter, you have to recompile the entire firmware and reflash it. The E-step values available in the stock Marlin build didn't match my hardware accurately enough, and there was no clean way to fix it without getting into firmware compilation. For a 5th grader who hadn't done that before, it was a dead end.</p>
+
+      <h2>Switching to Klipper</h2>
+      <p>Klipper moves all the printer's configuration into a human-readable text file — <code>printer.cfg</code> — and runs the motion planning on a Raspberry Pi rather than the printer's onboard microcontroller. The microcontroller just executes low-level step signals. This means:</p>
+      <ul>
+        <li><strong>Every parameter is live-editable:</strong> Change a value in the config, restart, done. No recompilation, no reflashing.</li>
+        <li><strong>Much faster computation:</strong> The Pi handles all the kinematics, pressure advance, and input shaping math — far more processing power than the stock 8-bit board.</li>
+        <li><strong>Mainsail/Fluidd interface:</strong> Full web-based control panel accessible from any browser on the network.</li>
+        <li><strong>Pressure advance:</strong> Klipper's pressure advance algorithm dynamically adjusts extrusion rate through speed changes — eliminating the bulging corners and gaps that Marlin's basic extrusion model produces.</li>
+      </ul>
+
+      <h2>The Pi 3B → Pi 5 Upgrade</h2>
+      <p>I started with an old Raspberry Pi 3B with 512MB RAM. It ran Klipper, but at high speeds with input shaping enabled, the Pi couldn't process the motion queue fast enough — the printer would slow down mid-print waiting on computation. The fix was upgrading to a <strong>Raspberry Pi 5 (3GB RAM)</strong>. The difference was immediate — no more computation-induced slowdowns, faster startup, and headroom for the AI failure detection camera stream running simultaneously.</p>
+
+      <div class="calc-box">
+        <strong>Pi 3B vs Pi 5 — Why It Mattered</strong>
+        <span class="line">Pi 3B: 1.2 GHz quad-core, 512MB RAM — bottlenecked Klipper at high speeds</span>
+        <span class="line">Pi 5: 2.4 GHz quad-core, 3GB RAM — 2× clock speed, 6× RAM</span>
+        <span class="conclusion">→ Klipper's motion planning is CPU-bound at high print speeds. The Pi 5 eliminated the bottleneck entirely.</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Klipper screen / Mainsail interface]</div>
+          <figcaption class="media-caption">Klipper touchscreen and Mainsail web interface</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Raspberry Pi 5 mounted to printer]</div>
+          <figcaption class="media-caption">Raspberry Pi 5 (3GB) — current compute brain</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="printer-motion" class="section">
+      <h1>Motion <span class="accent">System</span></h1>
+      <p>Even after switching to Klipper, Z banding persisted. Z banding — horizontal lines repeating at regular intervals in prints — is a symptom of inconsistent Z movement. The stock Ender 3 V2 Neo uses a single Z motor and leadscrew. Any wobble, misalignment, or inconsistency in that single screw shows up directly in the print.</p>
+
+      <h2>Dual Z Axis Upgrade</h2>
+      <p>The fix: add a second Z motor and leadscrew on the opposite side of the gantry, synchronized to the first. With two leadscrews constraining the gantry from both sides, wobble has nowhere to go — the gantry stays level and moves consistently.</p>
+      <ul>
+        <li><strong>Eliminated single-point wobble:</strong> Two screws constrain the gantry rigidly. Any flex in one is corrected by the other.</li>
+        <li><strong>Klipper Z tilt:</strong> Klipper's Z tilt calibration routine automatically levels the gantry by independently adjusting the two motors — no manual tramming required.</li>
+        <li><strong>Eliminated most Z banding:</strong> The remaining banding after the dual Z upgrade was traced to motion wheel geometry, not the leadscrews.</li>
+      </ul>
+
+      <h2>Motion Wheels & Eccentric Nut Calibration</h2>
+      <p>The Ender 3 moves its axes on V-slot aluminum extrusions using plastic wheels. If those wheels are too loose, the axis wobbles. Too tight and they bind, causing uneven motion. The adjustment is done via <strong>eccentric nuts</strong> — offset nuts that move the wheel position when rotated.</p>
+      <ul>
+        <li><strong>Replaced worn wheels:</strong> The stock wheels had flat spots from use — replaced with fresh wheels to restore consistent contact.</li>
+        <li><strong>Eccentric nut tuning:</strong> Adjusted each eccentric nut to the point where the axis moves smoothly with zero lateral play — checked by pushing perpendicular to the axis of motion while moving it by hand.</li>
+        <li><strong>Belt tension:</strong> Tuned X and Y belt tension by feel and frequency — a properly tensioned belt produces a consistent low tone when plucked. Too loose causes backlash; too tight increases motor load and wear.</li>
+        <li><strong>Frame squaring:</strong> Re-squared the entire frame using a precision square — a twisted frame causes the motion axes to not be orthogonal, producing skewed prints regardless of how well the rest is tuned.</li>
+      </ul>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — dual Z axis setup]</div>
+          <figcaption class="media-caption">Dual Z axis — two synchronized leadscrews eliminating gantry wobble</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — eccentric nuts / motion wheels close-up]</div>
+          <figcaption class="media-caption">Eccentric nut adjustment — dialing in wheel preload on V-slot extrusion</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="printer-extruder" class="section">
+      <h1>Extruder <span class="accent">& Hotend</span></h1>
+
+      <h2>Dual Gear Extruder</h2>
+      <p>The stock Ender 3 extruder uses a single drive gear pressing filament against a smooth bearing. At higher print speeds or with flexible/abrasive filaments, that single contact point can't grip consistently — filament slips, causing underextrusion mid-print.</p>
+      <p>I replaced it with a <strong>dual gear extruder</strong> (BMG-style). Two opposing drive gears grip the filament from both sides simultaneously, doubling the contact area and grip force. The result:</p>
+      <ul>
+        <li><strong>No more slipping:</strong> Even at high speeds and with stiff filaments, the filament path is fully controlled.</li>
+        <li><strong>Better retraction:</strong> Two-sided grip means retraction pulls cleanly without the filament walking sideways in the path.</li>
+        <li><strong>Consistent extrusion rate:</strong> Combined with Klipper's pressure advance, this eliminated the overextrusion and underextrusion that plagued the stock setup.</li>
+      </ul>
+
+      <h2>Hotend Upgrade for CF Filaments</h2>
+      <p>Carbon fiber reinforced filaments (CF-PLA, CF-PETG, CF-Nylon) are abrasive. The stock brass nozzle wears out within a few hundred grams of CF filament — the bore widens, extrusion becomes inconsistent, and the nozzle has to be replaced. I upgraded to a hardened steel nozzle and an all-metal hotend:</p>
+      <ul>
+        <li><strong>Hardened steel nozzle:</strong> Rated for abrasive filaments indefinitely. No bore wear even after extended CF printing.</li>
+        <li><strong>All-metal hotend:</strong> Removes the PTFE tube from the high-temperature zone, allowing printing above 240°C — necessary for some CF-Nylon blends that the stock PTFE-lined hotend can't reach safely.</li>
+      </ul>
+
+      <h2>Extrusion Flow Calibration</h2>
+      <p>After every hardware change to the extrusion path, I recalibrated flow rate by printing a single-wall cube and measuring actual wall thickness against the target. Flow percentage is then adjusted in Klipper config until measured and target match.</p>
+
+      <div class="calc-box">
+        <strong>Flow Calibration Method</strong>
+        <span class="line">Target wall thickness = nozzle diameter (e.g. 0.4mm)</span>
+        <span class="line">Measured wall thickness via digital calipers after test print</span>
+        <span class="line">Flow correction = (target / measured) × current flow %</span>
+        <span class="result">Iterate until measured = target ± 0.02mm</span>
+        <span class="conclusion">→ No glue stick needed — proper flow + bed surface adhesion is sufficient for all materials tested.</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — dual gear extruder installed]</div>
+          <figcaption class="media-caption">Dual gear extruder — two-sided filament grip for consistent extrusion</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — hardened steel nozzle / all-metal hotend]</div>
+          <figcaption class="media-caption">All-metal hotend with hardened steel nozzle — CF filament capable</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="printer-power" class="section">
+      <h1>Power <span class="accent">& Reliability</span></h1>
+      <p>A print that runs for 12 hours and fails in hour 11 due to a power blip is worse than one that never started. Reliability engineering on a 3D printer isn't glamorous, but it matters.</p>
+
+      <h2>UPS — Uninterruptible Power Supply</h2>
+      <p>I added a <strong>UPS (uninterruptible power supply)</strong> to the printer's power chain. The specific unit is a surge-protection UPS — not just a surge strip, but a battery-backed unit that provides regulated power output. Here's why it matters:</p>
+      <ul>
+        <li><strong>Surge protection:</strong> Power spikes from the grid don't reach the printer's PSU or the Raspberry Pi. A single voltage spike can corrupt an SD card or kill the Pi's power management IC.</li>
+        <li><strong>Regulated output:</strong> The UPS outputs stable voltage regardless of input variation. Voltage sags on the input side — common during high-load periods on a shared circuit — don't affect the printer.</li>
+        <li><strong>Short outage bridging:</strong> A brief power cut (seconds to a minute) won't kill a running print. The battery keeps the printer alive long enough to either resume or park the head safely.</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>Why "Surge UPS" Specifically</strong>
+        <span class="line">Standard surge protectors clamp voltage spikes but don't regulate sags</span>
+        <span class="line">A UPS with battery backup both clamps spikes AND fills in sags/outages</span>
+        <span class="conclusion">→ The printer's PSU and Pi see stable, clean power regardless of what the wall is doing.</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — UPS unit connected to printer]</div>
+          <figcaption class="media-caption">Battery-backed UPS — clean regulated power for printer and Pi</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="printer-resonance" class="section">
+      <h1>Resonance <span class="accent">& Input Shaping</span></h1>
+      <p>At high print speeds, the printer's frame vibrates. Those vibrations travel into the print head and show up as <strong>ringing</strong> — a ghosting or ripple pattern in the print surface that echoes the shape of sharp corners. The faster you print, the worse it gets. Solving it is what separates a fast printer from a fast-and-accurate printer.</p>
+
+      <h2>What Causes Ringing</h2>
+      <p>When the print head reverses direction sharply — at a corner, for example — it imparts an impulse into the printer's frame. The frame has a natural resonant frequency, and that impulse excites it. The head continues moving while the frame rings at its natural frequency, and those micro-oscillations print directly into the part surface.</p>
+
+      <h2>Input Shaping — The Fix</h2>
+      <p>Klipper's <strong>input shaping</strong> feature cancels resonance before it happens. It works by measuring the printer's resonant frequency with an accelerometer, then mathematically pre-distorting the motion commands so that the residual vibration from each command cancels out the vibration from the next.</p>
+
+      <div class="calc-box">
+        <strong>The Math Behind Input Shaping</strong>
+        <span class="line">The printer frame acts as a second-order damped oscillator:</span>
+        <span class="line">mẍ + cẋ + kx = F(t)</span>
+        <span class="line">where m = effective mass, c = damping, k = stiffness, F(t) = input force</span>
+        <span class="line">Natural frequency: ω_n = √(k/m)</span>
+        <span class="line">The input shaper applies a filter H(s) to the motion commands such that:</span>
+        <span class="line">H(s) · G(s) ≈ 1  — where G(s) is the frame's transfer function</span>
+        <span class="result">→ The shaper pre-distorts commands so the frame's natural response is nulled out</span>
+        <span class="conclusion">Klipper supports ZETA, MZV, EI, 2HUMP_EI, and 3HUMP_EI shapers — each a different trade-off between vibration suppression and smoothing of the motion profile</span>
+      </div>
+
+      <h2>BigTreeTech Accelerometer Measurement</h2>
+      <p>To apply input shaping correctly, you need to know the printer's actual resonant frequency — not an estimate. I used a <strong>BigTreeTech ADXL345 accelerometer</strong> mounted directly to the print head. Klipper runs a frequency sweep, the accelerometer logs the response, and Klipper's resonance test script identifies the peak resonant frequency and recommends the optimal shaper type and frequency setting.</p>
+      <ul>
+        <li><strong>X axis resonance:</strong> Measured separately from Y — each axis has its own resonant frequency because the moving mass and frame stiffness differ.</li>
+        <li><strong>Shaper selection:</strong> The recommended shaper balances vibration suppression against the smoothing penalty — more aggressive shapers suppress more vibration but limit maximum print speed.</li>
+        <li><strong>Result:</strong> Ringing eliminated at speeds where the stock printer would be unusable. Print quality at high speed matches what the stock printer could only achieve at low speed.</li>
+      </ul>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — ADXL345 accelerometer mounted to print head]</div>
+          <figcaption class="media-caption">BigTreeTech ADXL345 — mounted to print head for resonance measurement</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Screenshot — Klipper resonance graph showing frequency peak]</div>
+          <figcaption class="media-caption">Klipper resonance test output — identified natural frequency for input shaping</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — ringing test print before and after input shaping]</div>
+          <figcaption class="media-caption">Before and after input shaping — ringing eliminated at high speed</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="printer-networking" class="section">
+      <h1>Networking <span class="accent">& Remote Access</span></h1>
+      <p>Once Klipper was running on the Pi, the printer had a web interface on the local network. That's useful at home — but I wanted to be able to check on a print, pause it, or cancel it from anywhere. That required solving a real networking problem securely.</p>
+
+      <h2>The Problem With Simple Port Forwarding</h2>
+      <p>The obvious solution — forward a port on the router to the Pi — exposes the Klipper web interface directly to the public internet. That's a security problem: Mainsail has no authentication by default, so anyone who found the IP could control the printer. Not acceptable.</p>
+
+      <h2>SSH Tunnel — The Right Solution</h2>
+      <p>The solution was an <strong>SSH tunnel</strong>: an encrypted connection from a remote device to the Pi that forwards the Klipper web port through the tunnel, without exposing it to the internet at all.</p>
+      <ul>
+        <li><strong>How it works:</strong> The remote device authenticates to the Pi via SSH key (no password — key-only auth). Once the tunnel is open, the Klipper web interface is accessible on localhost of the remote device as if it were on the local network.</li>
+        <li><strong>No open ports:</strong> Only SSH (port 22) needs to be forwarded — and even that can be restricted to key-auth only, making brute force essentially impossible.</li>
+        <li><strong>Encrypted in transit:</strong> Everything flowing through the SSH tunnel is encrypted end-to-end. Camera stream, control commands, file uploads — all encrypted.</li>
+      </ul>
+
+      <div class="calc-box">
+        <strong>SSH Tunnel Command</strong>
+        <span class="line">ssh -L 7125:localhost:7125 -L 4408:localhost:4408 pi@[printer-ip]</span>
+        <span class="line">Port 7125: Klipper API  |  Port 4408: camera stream</span>
+        <span class="conclusion">→ Both ports forward through the encrypted tunnel. Browser points to localhost — same experience as being on the local network, from anywhere in the world.</span>
+      </div>
+
+      <h2>What Remote Access Enables</h2>
+      <ul>
+        <li>Start, pause, cancel prints from anywhere</li>
+        <li>Monitor live camera feed for failures</li>
+        <li>Upload new print files remotely</li>
+        <li>Adjust temperatures, speeds, and flow mid-print</li>
+        <li>Emergency stop if something goes wrong</li>
+      </ul>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Screenshot — Mainsail interface accessed remotely]</div>
+          <figcaption class="media-caption">Mainsail web interface — accessible from anywhere via SSH tunnel</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — webcam mounted to printer for remote monitoring]</div>
+          <figcaption class="media-caption">Webcam mounted for live remote monitoring and AI failure detection</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="printer-ai" class="section">
+      <h1>AI Failure <span class="accent">Detection</span></h1>
+      <p>A webcam pointed at the print bed isn't just for watching — with the right software it becomes an active failure detection system. I integrated <strong>Obico</strong> (formerly The Spaghetti Detective) — an AI-powered print monitoring system that watches the camera feed and automatically pauses the print if it detects a failure.</p>
+
+      <h2>How It Works</h2>
+      <ul>
+        <li><strong>Computer vision model:</strong> Obico runs a trained model that watches the live camera feed frame by frame, looking for signs of print failure — spaghetti (filament stringed all over the bed), layer shifts, detached prints, and other common failure modes.</li>
+        <li><strong>Confidence threshold:</strong> When the model's failure confidence exceeds a set threshold, it sends a pause command directly to Klipper via the API and sends a notification.</li>
+        <li><strong>Klipper integration:</strong> Obico connects to Klipper's API — the same API the Mainsail interface uses. Pause, cancel, and resume commands go directly to the printer.</li>
+        <li><strong>Remote notification:</strong> Push notification to phone when a failure is detected — so even if I'm not watching, I find out immediately instead of coming home to a pile of wasted filament.</li>
+      </ul>
+
+      <h2>Why This Matters</h2>
+      <p>Long prints — 8, 12, 20 hours — fail. A first-layer detachment at hour 2 that goes unnoticed wastes the remaining 10 hours of print time, filament, and electricity. Automated failure detection catches it in minutes and pauses before the damage compounds. On a printer running carbon fiber filament at $50+ per spool, that's a real cost saving.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <div class="placeholder-img">[Screenshot — Obico detecting a print failure]</div>
+          <figcaption class="media-caption">Obico AI failure detection — automatically pausing on spaghetti detection</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — webcam view of print bed]</div>
+          <figcaption class="media-caption">Live camera feed — monitored 24/7 by Obico during prints</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -1908,7 +2835,16 @@ var sectionNav = {
   'fll-landing': 'fll-landing', 'fll-overview': 'fll-landing',
   'fll-superpowered': 'fll-landing', 'fll-sp-innovation': 'fll-landing',
   'fll-sp-robot': 'fll-landing', 'fll-masterpiece': 'fll-landing',
-  'fll-mp-innovation': 'fll-landing', 'fll-mp-robot': 'fll-landing'
+  'fll-mp-innovation': 'fll-landing', 'fll-mp-robot': 'fll-landing',
+  'agra-landing': 'agra-landing', 'agra-context': 'agra-landing', 'agra-overview': 'agra-landing',
+  'agra-data': 'agra-landing', 'agra-model': 'agra-landing',
+  'agra-training': 'agra-landing', 'agra-results': 'agra-landing',
+  'agra-demo': 'agra-landing',
+  'printer-landing': 'printer-landing', 'printer-overview': 'printer-landing',
+  'printer-firmware': 'printer-landing', 'printer-motion': 'printer-landing',
+  'printer-extruder': 'printer-landing', 'printer-power': 'printer-landing',
+  'printer-resonance': 'printer-landing', 'printer-networking': 'printer-landing',
+  'printer-ai': 'printer-landing'
 };
 
 // Map section id prefix → which sidebar to show
@@ -1917,6 +2853,8 @@ function getSidebar(id) {
   if (id.startsWith('scioly-')) return 'scioly';
   if (id.startsWith('combat-')) return 'combat';
   if (id.startsWith('fll-')) return 'fll';
+  if (id.startsWith('agra-')) return 'agra';
+  if (id.startsWith('printer-')) return 'printer';
   return '';
 }
 
@@ -1925,7 +2863,9 @@ var landingMap = {
   'ftc-landing': 'ftc-mech-overview',
   'scioly-landing': 'scioly-overview',
   'combat-landing': 'combat-overview',
-  'fll-landing': 'fll-overview'
+  'fll-landing': 'fll-overview',
+  'agra-landing': 'agra-context',
+  'printer-landing': 'printer-overview'
 };
 
 function clearSections() {
@@ -1942,16 +2882,18 @@ function setNavActive(sectionId) {
 }
 
 function setSidebarVisibility(which) {
-  ['ftcSidebar','sciolySidebar','combatSidebar','fllSidebar'].forEach(function(sid) {
-    document.getElementById(sid).classList.remove('visible');
+  ['ftcSidebar','sciolySidebar','combatSidebar','fllSidebar','agraSidebar','printerSidebar'].forEach(function(sid) {
+    var el = document.getElementById(sid);
+    if (el) el.classList.remove('visible');
   });
   var main = document.getElementById('mainContent');
-  var map = { ftc: 'ftcSidebar', scioly: 'sciolySidebar', combat: 'combatSidebar', fll: 'fllSidebar' };
+  var map = { ftc: 'ftcSidebar', scioly: 'sciolySidebar', combat: 'combatSidebar', fll: 'fllSidebar', agra: 'agraSidebar', printer: 'printerSidebar' };
   if (which && map[which]) {
-    document.getElementById(map[which]).classList.add('visible');
-    main.classList.add('with-sidebar');
+    var sidebar = document.getElementById(map[which]);
+    if (sidebar) sidebar.classList.add('visible');
+    if (main) main.classList.add('with-sidebar');
   } else {
-    main.classList.remove('with-sidebar');
+    if (main) main.classList.remove('with-sidebar');
   }
 }
 
@@ -1964,16 +2906,33 @@ function setActiveSidebarBtn(id) {
 }
 
 function navigate(id) {
-  // Resolve landing pages to their real first section
   var realId = landingMap[id] || id;
   var el = document.getElementById(realId);
-  if (!el) return;
+  if (!el) { console.warn('Section not found:', realId); return; }
   clearSections();
   el.classList.add('active');
   setNavActive(realId);
   setSidebarVisibility(getSidebar(realId));
   setActiveSidebarBtn(realId);
   window.scrollTo(0, 0);
+  // Inject sidebar toggle button on mobile if this section has a sidebar
+  var existing = el.querySelector('.sidebar-toggle-btn');
+  if (existing) existing.remove();
+  if (getSidebar(realId)) {
+    var btn = document.createElement('button');
+    btn.className = 'sidebar-toggle-btn';
+    btn.textContent = '☰ Menu';
+    btn.onclick = function() {
+      var sid = getSidebar(realId);
+      var sidebarEl = document.getElementById({ ftc:'ftcSidebar', scioly:'sciolySidebar', combat:'combatSidebar', fll:'fllSidebar', agra:'agraSidebar', printer:'printerSidebar' }[sid]);
+      if (sidebarEl) {
+        sidebarEl.classList.toggle('visible');
+        var backdrop = document.getElementById('sidebarBackdrop');
+        if (backdrop) backdrop.classList.toggle('active');
+      }
+    };
+    el.insertBefore(btn, el.firstChild);
+  }
 }
 
 // Public functions used in onclick attributes
@@ -2012,8 +2971,52 @@ function toggleCode(blockId, btn) {
   }
 }
 
-// Lightbox
-var lb = document.getElementById('lightbox');
+// Mobile nav drawer
+function toggleMobileNav() {
+  var drawer = document.getElementById('mobileNavDrawer');
+  drawer.classList.toggle('open');
+}
+function closeMobileNav() {
+  var drawer = document.getElementById('mobileNavDrawer');
+  if (drawer) drawer.classList.remove('open');
+}
+
+// Mobile sidebar — show backdrop when sidebar opens on mobile
+function closeSidebarMobile() {
+  document.querySelectorAll('.sidebar').forEach(function(s) { s.classList.remove('visible'); });
+  var main = document.getElementById('mainContent');
+  if (main) main.classList.remove('with-sidebar');
+  var backdrop = document.getElementById('sidebarBackdrop');
+  if (backdrop) backdrop.classList.remove('active');
+}
+
+// Patch setSidebarVisibility to also handle backdrop on mobile
+var _origSetSidebar = setSidebarVisibility;
+setSidebarVisibility = function(which) {
+  _origSetSidebar(which);
+  var backdrop = document.getElementById('sidebarBackdrop');
+  if (!backdrop) return;
+  var isMobile = window.innerWidth <= 700;
+  if (isMobile && which) {
+    backdrop.classList.add('active');
+  } else {
+    backdrop.classList.remove('active');
+  }
+};
+
+// Update mobile drawer active state when navigating
+var _origSetNavActive = setNavActive;
+setNavActive = function(sectionId) {
+  _origSetNavActive(sectionId);
+  var target = sectionNav[sectionId] || '';
+  document.querySelectorAll('.mobile-nav-drawer .nav-btn').forEach(function(b) {
+    b.classList.remove('active');
+    var oc = b.getAttribute('onclick') || '';
+    if (target && oc.indexOf("'" + target + "'") !== -1) b.classList.add('active');
+    if (target && oc.indexOf('"' + target + '"') !== -1) b.classList.add('active');
+  });
+};
+
 var lbImg = document.getElementById('lightboxImg');
 document.addEventListener('click', function(e) {
   if (e.target.classList.contains('lightbox-img')) {

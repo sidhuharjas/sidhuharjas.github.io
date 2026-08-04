@@ -3076,11 +3076,26 @@ window.addEventListener('popstate', function(e) {
 
 // On load, parse URL to restore section
 (function() {
-  var path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+  var redirectedPath = null;
+  try {
+    var params = new URLSearchParams(window.location.search);
+    redirectedPath = params.get('p');
+  } catch (e) {
+    redirectedPath = null;
+  }
+
+  var sourcePath = redirectedPath || window.location.pathname;
+  if (redirectedPath) {
+    // Clean the URL after a GitHub Pages 404 redirect.
+    var cleanedPath = redirectedPath.split('?')[0].split('#')[0] || '/';
+    history.replaceState(history.state, '', cleanedPath);
+  }
+
+  var path = sourcePath.split('?')[0].split('#')[0].replace(/^\/+|\/+$/g, '');
   if (path) {
     var sectionId = path.replace(/\//g, '-');
     if (document.getElementById(landingMap[sectionId] || sectionId)) {
-      navigate(sectionId);
+      navigate(sectionId, true);
     }
   }
 })();

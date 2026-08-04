@@ -701,6 +701,7 @@ a:hover { border-bottom-color: var(--accent); }
 <aside class="sidebar" id="combatSidebar">
   <div class="sidebar-cat">Combat Robotics</div>
   <button class="sidebar-btn" onclick="showSection('combat-overview',this)">Overview</button>
+  <button class="sidebar-btn" onclick="showSection('combat-timeline',this)">Timeline</button>
   <div class="sidebar-cat">Horizontal Spinner</div>
   <button class="sidebar-btn" onclick="showSection('combat-h-spinner',this)">V1 — Horizontal Spinner</button>
   <button class="sidebar-btn" onclick="showSection('combat-failures',this)">Failure Analysis & ESC Lessons</button>
@@ -712,6 +713,8 @@ a:hover { border-bottom-color: var(--accent); }
   <button class="sidebar-btn" onclick="showSection('combat-drivetrain',this)">Drivetrain & Ratio</button>
   <button class="sidebar-btn" onclick="showSection('combat-weapon-math',this)">Weapon Physics</button>
   <button class="sidebar-btn" onclick="showSection('combat-structure',this)">Structure & Materials</button>
+  <div class="sidebar-cat">Next Steps</div>
+  <button class="sidebar-btn" onclick="showSection('combat-next-steps',this)">Manufacturing & Machining</button>
 </aside>
  
 <aside class="sidebar" id="fllSidebar">
@@ -1011,7 +1014,11 @@ a:hover { border-bottom-color: var(--accent); }
               <li><strong>Structure:</strong> 3-stage MiSUMI slide structure for rigidity and smooth travel under high lateral loads.</li>
               <li><strong>Down-string Tensioning:</strong> Counter-spring on the down-string dynamically adapts to slack caused by gravity assisting the descent, preventing derailments.</li>
             </ul>
-          </div>
+          </div><!-- TODO: 
+          <figure class="media-figure">
+            <div class="placeholder-img">[Lift Image]</div>
+            <figcaption class="media-caption">3-stage dual-motor MiSUMI lift system</figcaption>
+          </figure> -->
         </div>
       </div>
 
@@ -1034,7 +1041,11 @@ a:hover { border-bottom-color: var(--accent); }
               <span class="line">F_springs = combined pull of constant-force springs</span>
               <span class="conclusion">→ By zeroing the gravity penalty, 100% of motor torque is dedicated to acceleration (F = m · a)</span>
             </div>
-          </div>
+          </div><!-- TODO: 
+          <figure class="media-figure">
+            <div class="placeholder-img">[Constant-Force Springs]</div>
+            <figcaption class="media-caption">Constant-force spring mounts on lift stages</figcaption>
+          </figure> -->
         </div>
       </div>
     </section>
@@ -1294,6 +1305,8 @@ a:hover { border-bottom-color: var(--accent); }
       <p>Science Olympiad lets students practice hands-on science and engineering in a competitive format. School teams prepare a roster of students who train across many events — laboratory skills, building and design challenges, timed performance tasks, and subject knowledge.</p>
       <p>The emphasis is practical and collaborative: students build prototypes, run repeatable tests, record results, and work together to solve problems. The organization progresses from local invitationals to regional and state tournaments, culminating in the National Tournament at a rotating host university.</p>
       <p>I started participating in Science Olympiad in 9th grade.</p>
+
+      
     </section>
 
     <section id="scioly-circuit" class="section">
@@ -1305,6 +1318,8 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="conclusion">→ Achieved in 9th grade without formal physics courses — relying on hands-on practice and basic circuit intuition.</span>
       </div>
       <p>Circuit Lab teaches small, practical skills used in electronics: reading schematics, using a multimeter, and understanding how series/parallel connections affect voltage and current. Those skills transfer directly to prototyping and debugging robotics electronics.</p>
+
+      
     </section>
 
     <!-- EV C -->
@@ -1368,6 +1383,8 @@ a:hover { border-bottom-color: var(--accent); }
             </video>
             <img src="images/ev2.JPG" class="lightbox-img" alt="EV-C V2 car photo">
           </figure>
+          <figure class="media-figure">
+          </figure>
         </div>
 
         <h2>Code</h2>
@@ -1427,7 +1444,14 @@ a:hover { border-bottom-color: var(--accent); }
         </div>
       </div>
 
-      <p style="margin-top:20px;">The current robot is V3 — still being refined. SolidWorks static studies are being used to validate structural decisions before cutting anything. This is ongoing.</p>
+      <p style="margin-top:20px;">The current robot is V3 — still being refined. SolidWorks static studies are being used to validate structural decisions before printing anything. This is ongoing.</p>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/CombatRobotV3.png" class="lightbox-img" alt="Combat robot V3 current build">
+          <figcaption class="media-caption">Combat robot V3 — current build</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- HORIZONTAL SPINNER -->
@@ -1532,32 +1556,31 @@ a:hover { border-bottom-color: var(--accent); }
     <!-- VERTICAL V1 -->
     <section id="combat-v1" class="section">
       <h1>Vertical Spinner <span class="accent">V1</span></h1>
-      <p>After abandoning the horizontal spinner, I moved to a vertical eggbeater design. The eggbeater profile — a disc with material removed asymmetrically — is a proven combat weapon geometry that maximizes energy storage for a given mass while reducing the risk of the weapon getting stuck after a bite.</p>
+      <p>After abandoning the horizontal spinner, I moved to a vertical eggbeater design — but V1 was a failure from the ground up. Nothing about the architecture worked. The chassis was oversized, the weapon was too big and heavy for the weight class, and the entire robot was built on assumptions that didn't hold up to actual constraints.</p>
 
-      <h2>Why Vertical Over Horizontal</h2>
+      <h2>What Went Wrong</h2>
       <ul>
-        <li><strong>Gyroscopic advantage:</strong> A vertically spinning weapon generates gyroscopic forces that press the robot into the ground during forward movement, improving traction rather than fighting it.</li>
-        <li><strong>Wedge compatibility:</strong> Vertical spinners sit low and pair naturally with a front wedge geometry. The wedge guides opponents up into the weapon's strike zone.</li>
-        <li><strong>Impact geometry:</strong> Vertical hits transfer energy upward — launching opponents into the air — rather than sideways, where arena walls absorb the energy.</li>
+        <li><strong>Oversized chassis:</strong> The frame was designed without a real weight budget. Every plate, every mount, every standoff was heavier than it needed to be — and collectively, the chassis ate into the weight allowance so aggressively that there was almost nothing left for the weapon system and drivetrain.</li>
+        <li><strong>Weapon too big and heavy:</strong> The 80 mm eggbeater was oversized relative to what the chassis and motor could support. A weapon that heavy needs a chassis stiff enough to absorb the reaction forces, a motor powerful enough to spin it up quickly, and a drivetrain that can handle the gyroscopic loads. None of that existed in V1.</li>
+        <li><strong>No integrated design process:</strong> I designed the chassis and weapon separately, then tried to make them fit together. The result was a robot where every subsystem competed for the same有限 weight budget instead of working as a cohesive unit.</li>
+        <li><strong>8 chassis iterations, none solved the core problem:</strong> I kept redesigning the chassis trying to fix symptoms — too heavy, too flexy, wrong geometry — without recognizing that the entire architecture was wrong. Iterating on a bad foundation just produces different flavors of bad.</li>
       </ul>
 
-      <h2>V1 Specs</h2>
-      <ul>
-        <li><strong>Weapon:</strong> 80 mm diameter eggbeater</li>
-        <li><strong>Battery:</strong> 4S LiPo</li>
-      </ul>
-
-      <div class="calc-box">
-        <strong>80mm Eggbeater Tip Speed</strong>
-        <span class="line">Assuming weapon motor KV ≈ 2000 KV on 4S (14.8V nominal)</span>
-        <span class="line">RPM = 2000 × 14.8 = 29,600 RPM</span>
-        <span class="line">ω = 29,600 × (2π / 60) = 3,100 rad/s</span>
-        <span class="line">v_tip = 3,100 × 0.040 m = 124 m/s ≈ 277 mph</span>
-        <span class="result">Eggbeater profile reduces moment of inertia vs solid disc — faster spin-up, same tip speed</span>
+      <div class="calc-box" style="border-left-color: var(--red);">
+        <strong style="color: var(--red);">V1 Assessment</strong>
+        <span class="line">Chassis: oversized, overbuilt, consumed too much of the weight budget</span>
+        <span class="line">Weapon: 80mm eggbeater — too large and heavy for the chassis to support</span>
+        <span class="line">Architecture: no integrated design — subsystems worked against each other</span>
+        <span class="line">Iterations: 8 chassis redesigns, none addressed the root cause</span>
+        <span class="conclusion">→ Nothing about V1 was salvageable. The foundation was wrong, and no amount of iteration could fix that. Scrapped entirely and started V2 from scratch.</span>
       </div>
 
-      <h2>Why V1 Was Retired After 8 Chassis Iterations</h2>
-      <p>The weapon geometry was sound. The chassis wasn't. V1's chassis was too large — overbuilt in ways that ate into the weight budget without adding meaningful structural benefit. I redesigned the chassis 8 times trying to solve it within the existing architecture, but the fundamental footprint was wrong. The lesson: a good weapon mounted on a bad chassis is still a bad robot. I scrapped the chassis entirely and started V2.</p>
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/CombatRobotV1.png" class="lightbox-img" alt="V1 vertical spinner combat robot">
+          <figcaption class="media-caption">V1 — oversized chassis, overweight weapon, fundamentally flawed architecture</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- VERTICAL V2 -->
@@ -1598,6 +1621,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Drive: Brushed — inefficient, high stall current, heat issues</span>
         <span class="line">Weapon motor: 2980 KV inrunner — too small, slow spin-up, poor impact recovery</span>
         <span class="conclusion">→ Architecture not salvageable. Moved to V3 with correct motor selection and redesigned chassis.</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/CombatRobotV2.jpeg" class="lightbox-img" alt="V2 combat robot with 85mm eggbeater">
+          <figcaption class="media-caption">V2 — smaller chassis, 85mm eggbeater, wrong motor selection</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/Fingertechroboticsinrunner2970.png" class="lightbox-img" alt="FingerTech 2980 KV inrunner motor">
+          <figcaption class="media-caption">FingerTech 2980 KV inrunner — too small, insufficient spin-up torque</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -1668,6 +1702,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Drivetrain ratio: optimized (see Drivetrain page)</span>
         <span class="conclusion">→ Not yet competition-ready. Converting SolidWorks designs into physical hardware is the current phase.</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/CombatRobotV3.png" class="lightbox-img" alt="V3 combat robot current build">
+          <figcaption class="media-caption">V3 current build — BA 2320 outrunner, 95mm eggbeater, Blitz Lite drivetrain</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/ba-2320-1860-angle-l_2.jpg" class="lightbox-img" alt="BA 2320 1860 KV outrunner motor">
+          <figcaption class="media-caption">BA 2320 1860 KV outrunner — correct motor selection for V3</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- DRIVETRAIN -->
@@ -1707,6 +1752,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li><strong>Weapon reaction forces:</strong> When the weapon hits something, Newton's third law sends a reaction force into the chassis. The chassis must be designed so this force doesn't tip the robot over or flip it — which means the CoG placement and chassis geometry work together.</li>
         <li><strong>Drive wheel position:</strong> Drive wheels placed at the optimal lateral position maximize the turning moment while keeping the robot's rotational inertia low for quick pivoting.</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/Under_driveterain.jpeg" class="lightbox-img" alt="Drivetrain layout and wheel placement">
+          <figcaption class="media-caption">Drivetrain layout — wheel position and weight distribution</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/BlitzLiteMotor.png" class="lightbox-img" alt="JustCuz Robotics Blitz Lite brushless drive motors">
+          <figcaption class="media-caption">JustCuz Robotics Blitz Lite — brushless drive motors</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- WEAPON PHYSICS -->
@@ -1722,7 +1778,7 @@ a:hover { border-bottom-color: var(--accent); }
         <li>The uneven mass distribution creates a slight imbalance — which, when properly tuned, is acceptable — but requires careful balancing to prevent destructive vibration at high RPM.</li>
       </ul>
 
-      <h2>Progression: 80mm → 85mm → 95mm</h2>
+      <h2>Current Profile</h2>
       <div class="calc-box">
         <strong>Moment of Inertia Scaling (eggbeater approximation, constant mass)</strong>
         <span class="line">I ∝ r²  — doubling radius quadruples I</span>
@@ -1734,6 +1790,25 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Larger diameter = lower free-spin RPM (tip speed is what matters, not RPM)</span>
         <span class="line">Larger diameter = more stress at the weapon hub under impact loads</span>
         <span class="conclusion">→ 95mm is the optimized point for this motor/battery combination</span>
+      </div>
+
+      <h2>Weapon FEA Validation</h2>
+      <p>Designed a high-energy weapon system targeting a calculated 250 mph tip speed; validated structural components under impact loading using SolidWorks FEA. The eggbeater must withstand extreme centrifugal stress at full spin — if the material yields, the weapon disintegrates at 300 mph.</p>
+
+      <div class="calc-box" style="border-left-color: var(--teal);">
+        <strong style="color: var(--teal);">FEA Results — Eggbeater at Full Spin</strong>
+        <span class="line">Material: Heat-treated 4340 Steel (σ_yield = 1,200 MPa)</span>
+        <span class="line">Maximum centrifugal stress (FEA): 998 MPa</span>
+        <span class="line">Safety margin: 1,200 − 998 = 202 MPa remaining</span>
+        <span class="result">998 MPa < 1,200 MPa → weapon is safe to spin up to full speed (250 mph)</span>
+        <span class="conclusion">→ The entire weapon remains in its safe elastic zone at full RPM. No permanent deformation, no risk of catastrophic failure under normal operating conditions.</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/FeaEggBeater.png" class="lightbox-img" alt="SolidWorks FEA stress analysis on eggbeater weapon">
+          <figcaption class="media-caption">SolidWorks FEA — centrifugal stress distribution on 95mm eggbeater at full spin</figcaption>
+        </figure>
       </div>
 
       <h2>Wedge Geometry</h2>
@@ -1752,6 +1827,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Wedge material: hardened steel or titanium — must resist opponent weapon hits without deforming</span>
         <span class="conclusion">→ The wedge and weapon work as a system: wedge captures, weapon delivers energy</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/eggbeaterCurrent_profile.png" class="lightbox-img" alt="Current eggbeater profile">
+          <figcaption class="media-caption">Current eggbeater profile — 95mm optimized diameter</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/wedge.jpeg" class="lightbox-img" alt="Wedge geometry front profile">
+          <figcaption class="media-caption">Wedge geometry — 8–12° angle, ≤2mm floor clearance</figcaption>
+        </figure>
+      </div>
     </section>
 
     <!-- STRUCTURE & MATERIALS -->
@@ -1760,12 +1846,22 @@ a:hover { border-bottom-color: var(--accent); }
       <p>Every structural decision in this robot is a weight vs. strength trade-off. SolidWorks static studies, pocketing strategy, and TPU integration are the three tools I'm using to solve it.</p>
 
       <h2>SolidWorks Static Studies</h2>
-      <p>Before cutting any material, I run static FEA studies on every structural component in SolidWorks. This is the same workflow I use in FTC (the Tipper Park kicker plate, for example) — applied here with much higher stakes because a combat robot's chassis sees impact loads that are harder to estimate from intuition alone.</p>
+      <p>Before printing any material, I run static FEA studies on every structural component in SolidWorks. This is the same workflow I use in FTC (the Tipper Park kicker plate, for example) — applied here with much higher stakes because a combat robot's chassis sees impact loads that are harder to estimate from intuition alone.</p>
       <ul>
         <li><strong>Weapon mount stress:</strong> The weapon shaft and motor mount see the highest loads — weapon impact forces feed directly into these structures. FEA shows where yielding would occur first and guides material thickness decisions.</li>
         <li><strong>Chassis torsion:</strong> When one side of the drive gets hit while the other doesn't, the chassis twists. Static studies verify that the chassis cross-section resists this without permanent deformation.</li>
         <li><strong>Wedge interface:</strong> The joint between the wedge and the chassis is a high-stress point. FEA guides whether a gusset is needed and where exactly to place it.</li>
       </ul>
+
+      <div class="calc-box">
+        <strong>FEA Displacement Check — Chassis Side Plate</strong>
+        <span class="line">Material: 6061-T6 Aluminum (E = 68.9 GPa, σ_yield = 276 MPa)</span>
+        <span class="line">Plate thickness: 1.5 mm (pocketed regions), 3.0 mm (mounting regions)</span>
+        <span class="line">Applied load: ~500 N impact force (estimated from weapon energy transfer)</span>
+        <span class="line">Max displacement (FEA): ≤ 0.3 mm at worst-case load path</span>
+        <span class="line">Safety factor: σ_max / σ_yield ≥ 2.5 across all load cases</span>
+        <span class="conclusion">→ Chassis holds under combat impact loads without permanent deformation</span>
+      </div>
 
       <h2>Pocketing Strategy</h2>
       <p>Pocketing — removing material from low-stress regions of a part — is the primary weight-reduction method for structural components. The principle: keep material where the FEA shows high stress, remove it where stress is low.</p>
@@ -1785,7 +1881,25 @@ a:hover { border-bottom-color: var(--accent); }
         <li><strong>Why not everywhere:</strong> TPU is heavy relative to its rigidity. It's used only where impact absorption outweighs the weight cost — primarily anywhere a glancing hit is more likely than a direct hit.</li>
       </ul>
 
-      <h2>Timeline</h2>
+      <div class="media-grid" style="margin-top:20px;">
+        <figure class="media-figure">
+          <img src="images/fea disp.png" class="lightbox-img" alt="SolidWorks FEA displacement analysis">
+          <figcaption class="media-caption">SolidWorks static study — displacement under impact load</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/pocketedPlate.png" class="lightbox-img" alt="Pocketed chassis plate">
+          <figcaption class="media-caption">Pocketed chassis plate — material removed in low-stress zones</figcaption>
+        </figure>
+        <figure class="media-figure">
+          <img src="images/TpuArmor.jpeg" class="lightbox-img" alt="TPU armor panels">
+          <figcaption class="media-caption">TPU armor panels — impact-absorbing 3D printed side protection</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section id="combat-timeline" class="section">
+      <h1>Project <span class="accent">Timeline</span></h1>
       <p>This project started in <strong>7th grade</strong> and is ongoing. The timeline reflects how long real iterative engineering takes — especially when every design decision requires validation, and every mistake reveals a lesson that changes the next iteration.</p>
       <ul>
         <li><strong>7th grade:</strong> Horizontal spinner experiment. ESC failures. Back-EMF lessons. Schottky diode fix.</li>
@@ -1799,6 +1913,23 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">What remains: manufacturing the final chassis, completing TPU armor integration, tuning the drivetrain ratio in hardware, and competition testing.</span>
         <span class="conclusion">→ The gap between a correct design and a competition-ready robot is manufacturing, tuning, and time.</span>
       </div>
+    </section>
+
+    <!-- NEXT STEPS -->
+    <section id="combat-next-steps" class="section">
+      <h1>Manufacturing <span class="accent">& Machining</span></h1>
+      <p>The design phase is effectively complete. Every subsystem has been modeled, simulated, and validated in SolidWorks. What remains is the transition from CAD to physical hardware — and that means working with real materials, not PLA prototypes.</p>
+
+      <h2>Materials</h2>
+      <ul>
+        <li><strong>4340 steel:</strong> The eggbeater weapon will be machined from heat-treated 4340 steel — the same material validated in the FEA study. This isn't printable; it requires CNC machining or waterjet cutting followed by heat treatment to hit the 1,200 MPa yield strength target.</li>
+        <li><strong>Carbon fiber plates:</strong> Chassis side panels will be cut from carbon fiber sheet — high stiffness-to-weight ratio, rigid enough to resist torsion under weapon impact, and light enough to leave weight budget for the weapon and drivetrain.</li>
+        <li><strong>Aluminum mounting hardware:</strong> Motor mounts, weapon shaft brackets, and standoff assemblies will be machined from 6061-T6 aluminum — the same alloy validated in the chassis FEA studies.</li>
+        <li><strong>TPU armor integration:</strong> 3D-printed TPU panels will be fitted to the final chassis for impact absorption — the one component where additive manufacturing is the right tool.</li>
+      </ul>
+
+      <h2>What Changes When You Leave CAD</h2>
+      <p>The gap between a correct CAD model and a competition-ready robot is manufacturing. Every tolerance changes, every material behaves differently in reality than in simulation, and every bolt needs to survive what FEA can't fully predict — repeated impacts, vibrations, and the chaos of a real fight. That's the next phase.</p>
     </section>
 
     <!-- FLL LANDING -->
@@ -1851,6 +1982,21 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Regionals → States → California Invitational</span>
         <span class="conclusion">→ First year competing in robotics</span>
       </div>
+
+      <div style="margin-top:16px; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:16px 18px;">
+        <p style="font-size:12px; color:var(--text3); margin:0;">[Image placeholder — competition photos]</p>
+      </div>
+
+      <div class="media-grid" style="margin-top:16px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Superpowered robot on field mat]</div>
+          <figcaption class="media-caption">Superpowered robot completing missions on the field mat</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — team at California Invitational]</div>
+          <figcaption class="media-caption">California Invitational — end of season tournament</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="fll-sp-innovation" class="section">
@@ -1892,6 +2038,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li>Ongoing conversations with NASA's Solar Energy team and Amazon Farms for collaboration.</li>
         <li>Partnering with a local Aurora makerspace to build a functional working prototype.</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — solar panel cleaning robot prototype / model]</div>
+          <figcaption class="media-caption">Bi-directional cleaning robot concept — mounts directly to panel surface</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — innovation project presentation / judges]</div>
+          <figcaption class="media-caption">Innovation project presentation at competition</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="fll-sp-robot" class="section">
@@ -1927,6 +2084,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Maximum score: 370 points within 2.5 minutes</span>
         <span class="conclusion">→ Surpassed the 300-point team goal</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Superpowered robot close-up / attachments]</div>
+          <figcaption class="media-caption">Y-Axis robot with pinless attachment system</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — robot running missions on field mat]</div>
+          <figcaption class="media-caption">Robot game run — 370 points in 2.5 minutes</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <!-- MASTERPIECE -->
@@ -1944,6 +2112,17 @@ a:hover { border-bottom-color: var(--accent); }
 
       <h2>What This Season Taught Me</h2>
       <p>Masterpiece was the bridge between competitive Lego robotics and real engineering. Designing in CAD before building, wiring a 60V electrical system, and presenting to industry experts pushed me far beyond the FLL basics — and set me up directly for FTC.</p>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Masterpiece robot / Bricklink CAD render]</div>
+          <figcaption class="media-caption">Masterpiece robot — designed in Bricklink Studio before physical build</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — competition or team photo]</div>
+          <figcaption class="media-caption">Masterpiece season — 7th grade</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="fll-mp-innovation" class="section">
@@ -1995,6 +2174,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li>Cleveland Aquarium, Case Western, and Kent State (next steps).</li>
         <li>McMaster-Carr (prototyping partnership).</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Oxi-Suit control system / Arduino build]</div>
+          <figcaption class="media-caption">Oxi-Suit control system — Arduino R4, relay board, solenoids, O₂ sensor</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — innovation project presentation / judges]</div>
+          <figcaption class="media-caption">Masterpiece innovation project presentation</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="fll-mp-robot" class="section">
@@ -2018,6 +2208,17 @@ a:hover { border-bottom-color: var(--accent); }
         <strong style="color: var(--teal);">Performance</strong>
         <span class="line">Maximum score: 420 points within 2.5 minutes</span>
         <span class="conclusion">→ Crushed the original 300-point goal</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Masterpiece robot on field mat]</div>
+          <figcaption class="media-caption">Masterpiece robot — pinless attachments, dual large motors</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Bricklink CAD render — robot design]</div>
+          <figcaption class="media-caption">Bricklink Studio CAD render — published open-source at positive-protons.com</figcaption>
+        </figure> -->
       </div>
     </section>
 
@@ -2104,6 +2305,8 @@ a:hover { border-bottom-color: var(--accent); }
       <h2>The Problem in Action</h2>
       <div class="media-grid">
         <figure class="media-figure">
+        </figure>
+        <figure class="media-figure">
           <img src="images/output.jpg" class="lightbox-img" alt="Pretrained YOLO model output on corn field image — weeds misclassified as crops" />
           <figcaption class="media-caption">Stock YOLO model output — failing to distinguish weeds from crops</figcaption>
         </figure>
@@ -2127,10 +2330,22 @@ a:hover { border-bottom-color: var(--accent); }
           <img src="images/gopro.jpg" class="lightbox-img" alt="GoPro camera setup on ATV for field data collection" />
           <figcaption class="media-caption">GoPro camera setup on ATV for field data collection</figcaption>
         </figure>
+  
       </div>
 
       <h2>Preprocessing</h2>
       <p>Raw footage isn't usable directly. Raw images contained noise, blur, and inconsistent saturation and brightness — the model struggles to learn meaningful features from inconsistent input. Frames had to be extracted, cropped, and adjusted before annotation or training.</p>
+
+      <div class="media-grid"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Image — raw frame vs. preprocessed frame comparison]</div>
+          <figcaption class="media-caption">Before and after preprocessing — noise, blur, and exposure correction</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Image — augmented dataset samples]</div>
+          <figcaption class="media-caption">Augmented training samples — varied brightness, saturation, and scale</figcaption>
+        </figure> -->
+      </div>
 
       <h2>Data Augmentation</h2>
       <p>Feeding preprocessed images straight into the model risks overfitting and amplifies class imbalance (far more weed examples than crop examples). Augmentation randomly varies brightness, saturation, scale, and orientation so the model generalizes to real field conditions rather than memorizing specific footage.</p>
@@ -2213,6 +2428,8 @@ a:hover { border-bottom-color: var(--accent); }
           <figcaption class="media-caption">YOLOv8 architecture — backbone, neck, and detection head</figcaption>
         </figure>
       </div>
+
+      
     </section>
 
     <!-- AGRA TRAINING -->
@@ -2266,7 +2483,6 @@ a:hover { border-bottom-color: var(--accent); }
         <figure class="media-figure">
           <img src="images/val_batch1_labels.png" class="lightbox-img" alt="Model output — bounding boxes around detected weeds" />
           <figcaption class="media-caption">Precision, recall,F1 score, Box loss, and class loss curves on V3 flagship Model</figcaption>
-        </figure>
       </div>
     </section>
 
@@ -2332,6 +2548,17 @@ a:hover { border-bottom-color: var(--accent); }
 
       <h2>The Problem Chain</h2>
       <p>What made this project difficult wasn't any single issue — it was that fixing one thing revealed the next. Z banding pointed to firmware. Firmware pointed to the Z axis. The Z axis pointed to motion system geometry. Motion geometry pointed to resonance. Every fix compounded into a better understanding of what a printer actually is: a precision motion system, not a magic box.</p>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — final printer build]</div>
+          <figcaption class="media-caption">Ender 3 V2 Neo — fully rebuilt, 7th grade completion</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — early state / stock printer with issues]</div>
+          <figcaption class="media-caption">Stock configuration — Z banding and adhesion failures visible</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="printer-firmware" class="section">
@@ -2359,6 +2586,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Pi 5: 2.4 GHz quad-core, 3GB RAM — 2× clock speed, 6× RAM</span>
         <span class="conclusion">→ Klipper's motion planning is CPU-bound at high print speeds. The Pi 5 eliminated the bottleneck entirely.</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Klipper screen / Mainsail interface]</div>
+          <figcaption class="media-caption">Klipper touchscreen and Mainsail web interface</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — Raspberry Pi 5 mounted to printer]</div>
+          <figcaption class="media-caption">Raspberry Pi 5 (3GB) — current compute brain</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="printer-motion" class="section">
@@ -2381,6 +2619,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li><strong>Belt tension:</strong> Tuned X and Y belt tension by feel and frequency — a properly tensioned belt produces a consistent low tone when plucked. Too loose causes backlash; too tight increases motor load and wear.</li>
         <li><strong>Frame squaring:</strong> Re-squared the entire frame using a precision square — a twisted frame causes the motion axes to not be orthogonal, producing skewed prints regardless of how well the rest is tuned.</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — dual Z axis setup]</div>
+          <figcaption class="media-caption">Dual Z axis — two synchronized leadscrews eliminating gantry wobble</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — eccentric nuts / motion wheels close-up]</div>
+          <figcaption class="media-caption">Eccentric nut adjustment — dialing in wheel preload on V-slot extrusion</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="printer-extruder" class="section">
@@ -2413,6 +2662,17 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="result">Iterate until measured = target ± 0.02mm</span>
         <span class="conclusion">→ No glue stick needed — proper flow + bed surface adhesion is sufficient for all materials tested.</span>
       </div>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — dual gear extruder installed]</div>
+          <figcaption class="media-caption">Dual gear extruder — two-sided filament grip for consistent extrusion</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — hardened steel nozzle / all-metal hotend]</div>
+          <figcaption class="media-caption">All-metal hotend with hardened steel nozzle — CF filament capable</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="printer-power" class="section">
@@ -2432,6 +2692,13 @@ a:hover { border-bottom-color: var(--accent); }
         <span class="line">Standard surge protectors clamp voltage spikes but don't regulate sags</span>
         <span class="line">A UPS with battery backup both clamps spikes AND fills in sags/outages</span>
         <span class="conclusion">→ The printer's PSU and Pi see stable, clean power regardless of what the wall is doing.</span>
+      </div>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — UPS unit connected to printer]</div>
+          <figcaption class="media-caption">Battery-backed UPS — clean regulated power for printer and Pi</figcaption>
+        </figure> -->
       </div>
     </section>
 
@@ -2464,6 +2731,21 @@ a:hover { border-bottom-color: var(--accent); }
         <li><strong>Shaper selection:</strong> The recommended shaper balances vibration suppression against the smoothing penalty — more aggressive shapers suppress more vibration but limit maximum print speed.</li>
         <li><strong>Result:</strong> Ringing eliminated at speeds where the stock printer would be unusable. Print quality at high speed matches what the stock printer could only achieve at low speed.</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — ADXL345 accelerometer mounted to print head]</div>
+          <figcaption class="media-caption">BigTreeTech ADXL345 — mounted to print head for resonance measurement</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Screenshot — Klipper resonance graph showing frequency peak]</div>
+          <figcaption class="media-caption">Klipper resonance test output — identified natural frequency for input shaping</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — ringing test print before and after input shaping]</div>
+          <figcaption class="media-caption">Before and after input shaping — ringing eliminated at high speed</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="printer-networking" class="section">
@@ -2496,6 +2778,17 @@ a:hover { border-bottom-color: var(--accent); }
         <li>Adjust temperatures, speeds, and flow mid-print</li>
         <li>Emergency stop if something goes wrong</li>
       </ul>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Screenshot — Mainsail interface accessed remotely]</div>
+          <figcaption class="media-caption">Mainsail web interface — accessible from anywhere via SSH tunnel</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — webcam mounted to printer for remote monitoring]</div>
+          <figcaption class="media-caption">Webcam mounted for live remote monitoring and AI failure detection</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <section id="printer-ai" class="section">
@@ -2512,6 +2805,17 @@ a:hover { border-bottom-color: var(--accent); }
 
       <h2>Why This Matters</h2>
       <p>Long prints — 8, 12, 20 hours — fail. A first-layer detachment at hour 2 that goes unnoticed wastes the remaining 10 hours of print time, filament, and electricity. Automated failure detection catches it in minutes and pauses before the damage compounds. On a printer running carbon fiber filament at $50+ per spool, that's a real cost saving.</p>
+
+      <div class="media-grid" style="margin-top:20px;"><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Screenshot — Obico detecting a print failure]</div>
+          <figcaption class="media-caption">Obico AI failure detection — automatically pausing on spaghetti detection</figcaption>
+        </figure> --><!-- TODO: 
+        <figure class="media-figure">
+          <div class="placeholder-img">[Photo — webcam view of print bed]</div>
+          <figcaption class="media-caption">Live camera feed — monitored 24/7 by Obico during prints</figcaption>
+        </figure> -->
+      </div>
     </section>
 
     <!-- CONTACT -->
@@ -2559,7 +2863,7 @@ var sectionNav = {
   'combat-h-spinner': 'combat-landing', 'combat-failures': 'combat-landing',
   'combat-v1': 'combat-landing', 'combat-v2': 'combat-landing',
   'combat-v3': 'combat-landing', 'combat-drivetrain': 'combat-landing',
-  'combat-weapon-math': 'combat-landing', 'combat-structure': 'combat-landing',
+  'combat-weapon-math': 'combat-landing', 'combat-structure': 'combat-landing', 'combat-timeline': 'combat-landing', 'combat-next-steps': 'combat-landing',
   'fll-landing': 'fll-landing', 'fll-overview': 'fll-landing',
   'fll-superpowered': 'fll-landing', 'fll-sp-innovation': 'fll-landing',
   'fll-sp-robot': 'fll-landing', 'fll-masterpiece': 'fll-landing',
@@ -2633,7 +2937,7 @@ function setActiveSidebarBtn(id) {
   });
 }
 
-function navigate(id) {
+function navigate(id, noPush) {
   var realId = landingMap[id] || id;
   var el = document.getElementById(realId);
   if (!el) { console.warn('Section not found:', realId); return; }
@@ -2643,6 +2947,10 @@ function navigate(id) {
   setSidebarVisibility(getSidebar(realId));
   setActiveSidebarBtn(realId);
   window.scrollTo(0, 0);
+  if (!noPush) {
+    var slug = realId.replace(/-/g, '/');
+    history.pushState({ section: realId }, '', '/' + slug);
+  }
   // Inject sidebar toggle button on mobile if this section has a sidebar
   var existing = el.querySelector('.sidebar-toggle-btn');
   if (existing) existing.remove();
@@ -2758,6 +3066,24 @@ document.addEventListener('click', function(e) {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') { lb.classList.remove('active'); lbImg.src = ''; }
 });
+
+// URL routing — handle back/forward
+window.addEventListener('popstate', function(e) {
+  if (e.state && e.state.section) {
+    navigate(e.state.section, true);
+  }
+});
+
+// On load, parse URL to restore section
+(function() {
+  var path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+  if (path) {
+    var sectionId = path.replace(/\//g, '-');
+    if (document.getElementById(landingMap[sectionId] || sectionId)) {
+      navigate(sectionId);
+    }
+  }
+})();
 </script>
 </body>
 </html>
